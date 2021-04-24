@@ -14,7 +14,7 @@ namespace EntityLayer.Concrete
         public int HeaderId { get; set; }
         public virtual Heading Heading { get; set; }
 
-        public int WriterId { get; set; }
+        public Writer WriterId { get; set; }
         public virtual Writer Writer { get; set; }
 
     }

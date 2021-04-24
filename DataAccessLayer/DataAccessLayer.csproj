@@ -66,9 +66,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EntitiesLayer\EntitiesLayer.csproj">
+    <ProjectReference Include="..\EntitiesLayer\EntityLayer.csproj">
       <Project>{fac861a4-cc51-414d-93f6-7a3aa130fb38}</Project>
-      <Name>EntitiesLayer</Name>
+      <Name>EntityLayer</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
