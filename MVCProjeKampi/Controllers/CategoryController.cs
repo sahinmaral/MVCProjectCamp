@@ -22,8 +22,8 @@ namespace MVCProjeKampi.Controllers
 
         public ActionResult GetCategoryList()
         {
-            var CategoryValues = categoryManager.GetAllBl();
-            return View(CategoryValues);
+            //var CategoryValues = categoryManager.GetAllBl();
+            return View();
         }
 
         [HttpGet] 
@@ -35,7 +35,7 @@ namespace MVCProjeKampi.Controllers
         [HttpPost]
         public ActionResult AddCategory(Category category)
         {
-            categoryManager.CategoryAddBl(category);
+            //categoryManager.CategoryAddBl(category);
             return RedirectToAction("GetCategoryList");
         }
     }
