@@ -11,10 +11,10 @@ namespace EntityLayer.Concrete
         public string ContentText { get; set; }
         public DateTime ContentDate { get; set; }
 
-        public int HeaderId { get; set; }
+        public int HeadingId { get; set; }
         public virtual Heading Heading { get; set; }
 
-        public Writer WriterId { get; set; }
+        public int? WriterId { get; set; }
         public virtual Writer Writer { get; set; }
 
     }
