@@ -50,5 +50,44 @@ namespace MVCProjeKampi.Controllers
             }
             return View();
         }
+
+        public ActionResult DeleteCategory(int id)
+        {
+            var CategoryValues = categoryManager.GetById(id);
+            categoryManager.CategoryDelete(CategoryValues);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult UpdateCategory(int id)
+        {
+            var CategoryValues = categoryManager.GetById(id);
+            return View(CategoryValues);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateCategory(Category category)
+        {
+            CategoryValidator validationRules = new CategoryValidator();
+            ValidationResult results = validationRules.Validate(category);
+
+            if(results.IsValid)
+            {
+                categoryManager.CategoryUpdate(category);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                foreach (var item in results.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+                 
+            }
+
+            return View();
+        }
+
+
     }
 }
