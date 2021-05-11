@@ -38,7 +38,7 @@ namespace MVCProjeKampi.Controllers
 
             if(results.IsValid)
             {
-                categoryManager.CategoryAdd(p);
+                categoryManager.Add(p);
                 return RedirectToAction("Index");
             }
             else
@@ -54,7 +54,7 @@ namespace MVCProjeKampi.Controllers
         public ActionResult DeleteCategory(int id)
         {
             var CategoryValues = categoryManager.GetById(id);
-            categoryManager.CategoryDelete(CategoryValues);
+            categoryManager.Delete(CategoryValues);
             return RedirectToAction("Index");
         }
 
@@ -73,7 +73,7 @@ namespace MVCProjeKampi.Controllers
 
             if(results.IsValid)
             {
-                categoryManager.CategoryUpdate(category);
+                categoryManager.Update(category);
                 return RedirectToAction("Index");
             }
             else

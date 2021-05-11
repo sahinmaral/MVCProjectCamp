@@ -18972,6 +18972,7 @@ html.maximized-card {
   display: block;
   margin-bottom: 20px;
   position: relative;
+  flex-direction:row;
 }
 
 .small-box > .inner {

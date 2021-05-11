@@ -1,0 +1,78 @@
+﻿
+
+@{
+    ViewBag.Title = "İstatistikler";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="small-box bg-red" style="width:200px; height:150px">
+    <div class="inner">
+        @{int CategorySum;}
+        @if (ViewBag.CategorySum == null)
+        {
+            CategorySum = 0;
+        }
+        else
+        {
+            CategorySum = ViewBag.CategorySum;
+        }
+        <h3>@CategorySum</h3>
+        <p>Toplam kategori sayısı</p>
+    </div>
+</div>
+
+<div class="small-box bg-black" style="margin-top:-170px; margin-left:250px;width:200px; height:150px">
+    <div class="inner">
+        @{int HeadingSum;}
+        @if (ViewBag.HeadingSum == null)
+        {
+            HeadingSum = 0;
+        }
+        else
+        {
+            HeadingSum = ViewBag.HeadingSum;
+        }
+        <h3>@HeadingSum</h3>
+        <p>Başlık tablosunda "yazılım" kategorisine ait başlık sayısı</p>
+    </div>
+</div>
+
+<div class="small-box bg-green" style="margin-top: -170px;margin-left: 500px;width: 200px;height: 150px">
+    <div class="inner">
+        @{int WriterSum;}
+        @if (ViewBag.WriterSum == null)
+        {
+            WriterSum = 0;
+        }
+        else
+        {
+            WriterSum = ViewBag.WriterSum;
+        }
+
+        <h3>@WriterSum</h3>
+        <p>Yazar adında 'a' harfi geçen yazar sayısı</p>
+    </div>
+</div>
+
+<div class="small-box bg-blue" style="margin-top:50px; margin-left:0px;width:200px; height:200px">
+    <div class="inner">
+        <h3>@ViewBag.AmountMostCategoryName</h3>
+        <p>En fazla başlığa sahip kategori adı</p>
+    </div>
+</div>
+
+<div class="small-box bg-cyan" style="margin-top:-220px; margin-left:250px;width:200px; height:200px">
+    <div class="inner">
+        @{int DifferenceCategoryValues;}
+        @if (ViewBag.DifferenceCategoryValues == null)
+        {
+            DifferenceCategoryValues = 0;
+        }
+        else
+        {
+            DifferenceCategoryValues = ViewBag.DifferenceCategoryValues;
+        }
+        <h3>@DifferenceCategoryValues</h3>
+        <p>Kategori tablosunda durumu true olan kategoriler ile false olan kategoriler arasındaki sayısal fark</p>
+    </div>
+</div>
