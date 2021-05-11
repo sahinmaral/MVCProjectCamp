@@ -4,6 +4,10 @@
 This repository was created for understanding and studying ASP NET MVC technology via [Murat Yücedağ MVC Proje Kampı](https://www.youtube.com/watch?v=yFToRUL6h8A&list=PLKnjBHu2xXNNQJehhCg--CzQQMHXTsFAb)
 <details>
 <summary> Playlist Startup Picture</summary>
+  
+<details>
+<summary> [.gitignore Files](https://drive.google.com/drive/u/1/folders/1Vgk_OUHJGnkDxFSojydyikDbyroEXDMV)</summary>
+</details>
 
 ![alt text](https://i.ytimg.com/vi/yFToRUL6h8A/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC7WrrhT0pJfv87O-R6pThtUXUMqw)
 
@@ -50,6 +54,10 @@ Bu repository , [Murat Yücedağ MVC Proje Kampı](https://www.youtube.com/watch
 
 <details>
 <summary> Playlist Başlangıç Resmi</summary>
+  
+<details>
+<summary> [.gitignore Dosyaları](https://drive.google.com/drive/u/1/folders/1Vgk_OUHJGnkDxFSojydyikDbyroEXDMV)</summary>
+</details>
 
 ![alt text](https://i.ytimg.com/vi/yFToRUL6h8A/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC7WrrhT0pJfv87O-R6pThtUXUMqw)
 
