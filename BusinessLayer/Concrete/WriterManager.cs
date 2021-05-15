@@ -23,39 +23,49 @@ namespace BusinessLayer.Concrete
 
         public Writer GetById(int id)
         {
-            throw new NotImplementedException();
+            return _writerDal.Get(x => x.WriterId == id);
         }
 
         public List<Writer> GetList()
         {
-            throw new NotImplementedException();
+            return _writerDal.List();
         }
 
-        public int GetSum()
+        public Writer Get(Expression<Func<Writer, bool>> filter)
+        {
+            return _writerDal.Get(filter);
+        }
+
+        public int GetCount()
         {
             List<Writer> writers =  _writerDal.List();
             return writers.Count();
         }
 
-        public int GetSum(Expression<Func<Writer, bool>> filter)
+        public int GetCount(Expression<Func<Writer, bool>> filter)
         {
             List<Writer> writers = _writerDal.List(filter);
             return writers.Count();
         }
 
-        public void WriterAdd(Writer writer)
+        public List<Writer> GetList(Expression<Func<Writer, bool>> filter)
         {
-            throw new NotImplementedException();
+            return _writerDal.List(filter);
         }
 
-        public void WriterDelete(Writer writer)
+        public void Add(Writer writer)
         {
-            throw new NotImplementedException();
+            _writerDal.Insert(writer);
         }
 
-        public void WriterUpdate(Writer writer)
+        public void Delete(Writer writer)
         {
-            throw new NotImplementedException();
+            _writerDal.Delete(writer);
+        }
+
+        public void Update(Writer writer)
+        {
+            _writerDal.Update(writer);
         }
     }
 }

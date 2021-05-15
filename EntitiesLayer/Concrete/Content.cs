@@ -1,9 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using EntitiesLayer.Abstract;
 
 namespace EntityLayer.Concrete
 {
-    public class Content
+    public class Content : IEntity
     {
         [Key]
         public int ContentId { get; set; }

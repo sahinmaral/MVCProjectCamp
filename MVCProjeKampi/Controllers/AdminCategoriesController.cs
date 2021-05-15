@@ -15,7 +15,7 @@ using System.Web.Mvc;
 
 namespace MVCProjeKampi.Controllers
 {
-    public class AdminCategoryController : Controller
+    public class AdminCategoriesController : Controller
     {
         CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
         public ActionResult Index()

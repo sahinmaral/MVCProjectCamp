@@ -53,26 +53,20 @@ namespace BusinessLayer.Concrete
             return _headingDal.List(filter);
         }
 
-        public void HeadingAdd(Heading heading)
+        public void Add(Heading heading)
         {
             _headingDal.Insert(heading);
         }
 
-        public void HeadingDelete(Heading writer)
+        public void Delete(Heading writer)
         {
             throw new NotImplementedException();
         }
 
-        public void HeadingUpdate(Heading heading)
+        public void Update(Heading heading)
         {
             _headingDal.Update(heading);
         }
 
-        public void GetMostCommonCategory()
-        {
-            
-
-           
-        }
     }
 }

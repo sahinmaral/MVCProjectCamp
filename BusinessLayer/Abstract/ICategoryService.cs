@@ -9,17 +9,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Abstract
 {
-    public interface ICategoryService
+    public interface ICategoryService:IBaseService<Category>
     {
-        List<Category> GetList();
-        Category Get(Expression<Func<Category, bool>> filter);
-        void Add(Category category);
-        Category GetById(int id);
-        void Delete(Category category);
-        void Update(Category category);
-        int GetCount();
-        int GetCount(Expression<Func<Category, bool>> filter);
-        List<Category> GetList(Expression<Func<Category, bool>> filter);
-        
     }
 }

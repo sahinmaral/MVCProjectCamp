@@ -3,3 +3,4 @@ C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\Entitie
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\EntitiesLayer\obj\Debug\EntityLayer.csproj.CoreCompileInputs.cache
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\EntitiesLayer\obj\Debug\EntitiesLayer.dll
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\EntitiesLayer\obj\Debug\EntitiesLayer.pdb
+C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\EntitiesLayer\obj\Debug\EntityLayer.csprojAssemblyReference.cache

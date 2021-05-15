@@ -6,14 +6,7 @@ using System.Linq.Expressions;
 
 namespace BusinessLayer.Abstract
 {
-    public interface IWriterService
+    public interface IWriterService:IBaseService<Writer>
     {
-        List<Writer> GetList();
-        void WriterAdd(Writer writer);
-        Writer GetById(int id);
-        void WriterDelete(Writer writer);
-        void WriterUpdate(Writer writer);
-        int GetSum();
-        int GetSum(Expression<Func<Writer, bool>> filter);
     }
 }

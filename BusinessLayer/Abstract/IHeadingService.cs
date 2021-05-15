@@ -9,16 +9,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Abstract
 {
-    public interface IHeadingService
+    public interface IHeadingService:IBaseService<Heading>
     {
-        List<Heading> GetList();
-        Heading Get(Expression<Func<Heading, bool>> filter);
-        List<Heading> GetList(Expression<Func<Heading, bool>> filter);
-        void HeadingAdd(Heading writer);
-        Heading GetById(int id);
-        void HeadingDelete(Heading writer);
-        void HeadingUpdate(Heading writer);
-        int GetCount();
-        int GetCount(Expression<Func<Heading,bool>> filter);
     }
 }
