@@ -28,19 +28,17 @@ namespace BusinessLayer.Concrete
 
         public Heading GetById(int id)
         {
-            throw new NotImplementedException();
+            return _headingDal.Get(x => x.HeadingId == id);
         }
 
         public int GetCount()
         {
-            List<Heading> headings = _headingDal.List();
-            return headings.Count();
+            return _headingDal.List().Count();
         }
 
         public int GetCount(Expression<Func<Heading, bool>> filter)
         {
-            List<Heading> headings = _headingDal.List(filter);
-            return headings.Count();
+            return _headingDal.List(filter).Count();
         }
 
         public List<Heading> GetList()
@@ -58,9 +56,9 @@ namespace BusinessLayer.Concrete
             _headingDal.Insert(heading);
         }
 
-        public void Delete(Heading writer)
+        public void Delete(Heading heading)
         {
-            throw new NotImplementedException();
+            _headingDal.Delete(heading);
         }
 
         public void Update(Heading heading)

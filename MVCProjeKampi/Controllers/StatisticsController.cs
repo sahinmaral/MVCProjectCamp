@@ -7,16 +7,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BusinessLayer.Abstract;
+using EntityLayer.Concrete;
 
 namespace MVCProjeKampi.Controllers
 {
     public class StatisticsController : Controller
     {
         #region Business Katmanı Instance lar
-        CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
-        WriterManager writerManager = new WriterManager(new EfWriterDal());
-        HeadingManager headingManager = new HeadingManager(new EfHeadingDal());
-
+        private IBaseService<Category> categoryManager = new CategoryManager(new EfCategoryDal());
+        private IBaseService<Writer> writerManager = new WriterManager(new EfWriterDal());
+        private IBaseService<Heading> headingManager = new HeadingManager(new EfHeadingDal());
         #endregion
         
         public ActionResult Index()

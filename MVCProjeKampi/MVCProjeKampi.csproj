@@ -160,6 +160,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminCategoriesController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\HeadingsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\WritersController.cs" />
@@ -2399,6 +2400,8 @@
     <Content Include="Views\AdminCategories\AddCategory.cshtml" />
     <Content Include="Views\AdminCategories\UpdateCategory.cshtml" />
     <Content Include="Views\Statistics\Index.cshtml" />
+    <Content Include="Views\Headings\Index.cshtml" />
+    <Content Include="Views\Headings\AddHeading.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2407,6 +2410,7 @@
     </None>
     <Content Include="Views\Writers\Index.cshtml" />
     <Content Include="Views\Writers\AddWriter.cshtml" />
+    <Content Include="Views\Writers\EditWriter.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
