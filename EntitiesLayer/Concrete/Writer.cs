@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using EntitiesLayer.Abstract;
+using EntityLayer.Concrete;
 
-namespace EntityLayer.Concrete
+namespace EntitiesLayer.Concrete
 {
     public class Writer : IEntity
     {
@@ -12,7 +13,7 @@ namespace EntityLayer.Concrete
         public string WriterName { get; set; }
         [StringLength(50)]
         public string WriterSurname { get; set; }
-        [StringLength(100)]
+        [StringLength(500)]
         public string WriterImage { get; set; }
         [StringLength(200)]
         public string WriterMail { get; set; }
@@ -22,6 +23,7 @@ namespace EntityLayer.Concrete
         public string WriterAbout { get; set; }
         [StringLength(50)]
         public string WriterTitle { get; set; }
+        public bool WriterStatus { get; set; }
         public ICollection<Heading> Headings { get; set; }
         public ICollection<Content> Contents { get; set; }
         

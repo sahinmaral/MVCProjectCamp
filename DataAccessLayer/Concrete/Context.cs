@@ -1,6 +1,7 @@
 ﻿using EntityLayer.Concrete;
 
 using System.Data.Entity;
+using EntitiesLayer.Concrete;
 
 namespace DataAccessLayer.Concrete
 {

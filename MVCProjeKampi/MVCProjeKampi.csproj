@@ -160,6 +160,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminCategoriesController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\ContentController.cs" />
     <Compile Include="Controllers\HeadingsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
@@ -168,6 +169,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ContentByHeadingViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AdminLTE-3.0.4\.gitignore" />
@@ -2402,6 +2404,7 @@
     <Content Include="Views\Statistics\Index.cshtml" />
     <Content Include="Views\Headings\Index.cshtml" />
     <Content Include="Views\Headings\AddHeading.cshtml" />
+    <Content Include="Views\Content\ContentByHeading.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

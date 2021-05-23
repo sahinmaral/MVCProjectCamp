@@ -7,6 +7,7 @@ using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
 using DataAccessLayer.EntityFramework;
+using EntitiesLayer.Concrete;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
 
@@ -66,5 +67,6 @@ namespace MVCProjeKampi.Controllers
             return View();
 
         }
+
     }
 }

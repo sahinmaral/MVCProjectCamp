@@ -3,13 +3,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using EntitiesLayer.Concrete;
 
-namespace DataAccessLayer.Abstract
+namespace BusinessLayer.Abstract
 {
-    public interface IWriterDal:IRepository<Writer>
+    public interface IContentService:IBaseService<Content>
     {
     }
 }
