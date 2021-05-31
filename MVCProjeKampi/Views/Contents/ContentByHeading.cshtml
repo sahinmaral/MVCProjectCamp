@@ -1,6 +1,6 @@
 ﻿@model MVCProjeKampi.ViewModels.ContentByHeadingViewModel
 @{
-    ViewBag.Title = "Başlığın yorumları";
+    ViewBag.Title = Model.HeadingName;
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -17,18 +17,18 @@
                 <div class="col-md-12">
                     <!-- The time line -->
                     <div class="timeline">
-                        <!-- timeline time label -->
-                        <div class="time-label">
-                            <span class="bg-success">@Model.HeadingName</span>
-                        </div>
-                        <!-- /.timeline-label -->
-                        <!-- timeline item -->
                         @foreach (var item in Model.ContentList)
                         {
+                            <div class="time-label">
+                                <span class="bg-success">
+                                    @item.ContentDate.ToShortDateString() <br/>
+                                    @item.ContentDate.ToShortTimeString()
+                                </span>
+                            </div>
                             <div>
                                 <i class="fas fa-comment bg-yellow"></i>
                                 <div class="timeline-item">
-                                    <h3 class="timeline-header"><a href="#">Yorum</a> @item.Writer.WriterName @item.Writer.WriterSurname</h3>
+                                    <h3 class="timeline-header"><a href="#">Yorum : </a> @item.Writer.WriterName @item.Writer.WriterSurname</h3>
                                     <div class="timeline-body">
                                         @item.ContentText
                                     </div>

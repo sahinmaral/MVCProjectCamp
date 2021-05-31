@@ -38,5 +38,7 @@ namespace MVCProjeKampi.Controllers
 
             return View(model1);
         }
+
+
     }
 }

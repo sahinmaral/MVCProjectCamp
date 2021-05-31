@@ -68,5 +68,43 @@ namespace MVCProjeKampi.Controllers
 
         }
 
+        [HttpGet]
+        public ActionResult EditHeading(int id)
+        {
+            List<SelectListItem> categoryValues = (from x in categoryManager.GetList()
+                select new SelectListItem()
+                {
+                    Text = x.CategoryName,
+                    Value = x.CategoryId.ToString()
+                }).ToList();
+
+
+            List<SelectListItem> writerValues = (from x in writerManager.GetList()
+                select new SelectListItem()
+                {
+                    Text = $"{x.WriterName} {x.WriterSurname}",
+                    Value = x.WriterId.ToString()
+                }).ToList();
+
+            ViewBag.CategoryValues = categoryValues;
+            ViewBag.WriterValues = writerValues;
+
+            var headingValue = headingManager.GetById(id);
+            return View(headingValue);
+        }
+
+        [HttpPost]
+        public ActionResult EditHeading(Heading heading)
+        {
+            headingManager.Update(heading);
+            return RedirectToAction("Index");
+        }
+        public ActionResult DeleteHeading(int id)
+        {
+            var headingValue = headingManager.GetById(id);
+            headingManager.Delete(headingValue);
+
+            return RedirectToAction("Index");
+        }
     }
 }

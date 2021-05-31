@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using EntitiesLayer.Abstract;
 using EntitiesLayer.Concrete;
@@ -21,5 +22,8 @@ namespace EntityLayer.Concrete
 
         public int WriterId { get; set; }
         public virtual Writer Writer { get; set; }
+
+        [DefaultValue(true)]
+        public bool HeadingStatus { get; set; }
     }
 }

@@ -2404,7 +2404,8 @@
     <Content Include="Views\Statistics\Index.cshtml" />
     <Content Include="Views\Headings\Index.cshtml" />
     <Content Include="Views\Headings\AddHeading.cshtml" />
-    <Content Include="Views\Content\ContentByHeading.cshtml" />
+    <Content Include="Views\Contents\ContentByHeading.cshtml" />
+    <Content Include="Views\Headings\EditHeading.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,0 +1,26 @@
+﻿@model EntityLayer.Concrete.Heading
+
+@{
+    ViewBag.Title = "Başlık güncelleme sayfası";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("EditHeading", "Headings", FormMethod.Post))
+{
+<div class="form-group">
+
+    @Html.HiddenFor(x => x.HeadingId)
+    @Html.HiddenFor(x => x.HeadingDate)
+    @Html.HiddenFor(x => x.WriterId)
+    @Html.Label("Başlık Adı")
+    @Html.TextBoxFor(x => x.HeadingName, new { @class = "form-control" })
+    <br />
+    @Html.Label("Tarih")
+    @Html.TextBoxFor(x => x.HeadingName, new { @class = "form-control" })
+    <br />
+    @Html.Label("Kategori")
+    @Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.CategoryValues, new { @class = "form-control" })
+    <br />
+    <btn class="btn btn-success">Güncelle</btn>
+</div>
+}

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Configuration;
 using EntitiesLayer.Abstract;
 using EntitiesLayer.Concrete;
 
@@ -18,6 +20,9 @@ namespace EntityLayer.Concrete
 
         public int? WriterId { get; set; }
         public virtual Writer Writer { get; set; }
+
+        [DefaultValue(true)]
+        public bool ContentStatus { get; set; }
 
     }
 }
