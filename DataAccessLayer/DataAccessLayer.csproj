@@ -57,6 +57,7 @@
     <Compile Include="Abstract\IContentDal.cs" />
     <Compile Include="Abstract\IHeadingDal.cs" />
     <Compile Include="Abstract\IRepository.cs" />
+    <Compile Include="Abstract\IMessageDal.cs" />
     <Compile Include="Abstract\IWriterDal.cs" />
     <Compile Include="Concrete\Context.cs" />
     <Compile Include="Concrete\Repositories\GenericRepository.cs" />
@@ -65,31 +66,8 @@
     <Compile Include="EntityFramework\EfContactDal.cs" />
     <Compile Include="EntityFramework\EfContentDal.cs" />
     <Compile Include="EntityFramework\EfHeadingDal.cs" />
+    <Compile Include="EntityFramework\EfMessageDal.cs" />
     <Compile Include="EntityFramework\EfWriterDal.cs" />
-    <Compile Include="Migrations\202105151030561_m1.cs" />
-    <Compile Include="Migrations\202105151030561_m1.designer.cs">
-      <DependentUpon>202105151030561_m1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105231352041_m11.cs" />
-    <Compile Include="Migrations\202105231352041_m11.designer.cs">
-      <DependentUpon>202105231352041_m11.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105231643384_m12.cs" />
-    <Compile Include="Migrations\202105231643384_m12.designer.cs">
-      <DependentUpon>202105231643384_m12.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105231746276_m13.cs" />
-    <Compile Include="Migrations\202105231746276_m13.designer.cs">
-      <DependentUpon>202105231746276_m13.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105311844396_m14.cs" />
-    <Compile Include="Migrations\202105311844396_m14.designer.cs">
-      <DependentUpon>202105311844396_m14.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105311927122_m15.cs" />
-    <Compile Include="Migrations\202105311927122_m15.designer.cs">
-      <DependentUpon>202105311927122_m15.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -102,26 +80,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202105151030561_m1.resx">
-      <DependentUpon>202105151030561_m1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105231352041_m11.resx">
-      <DependentUpon>202105231352041_m11.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105231643384_m12.resx">
-      <DependentUpon>202105231643384_m12.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105231746276_m13.resx">
-      <DependentUpon>202105231746276_m13.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105311844396_m14.resx">
-      <DependentUpon>202105311844396_m14.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105311927122_m15.resx">
-      <DependentUpon>202105311927122_m15.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

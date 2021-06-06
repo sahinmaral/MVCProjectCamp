@@ -158,11 +158,14 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AboutsController.cs" />
     <Compile Include="Controllers\AdminCategoriesController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
-    <Compile Include="Controllers\ContentController.cs" />
+    <Compile Include="Controllers\ContactsController.cs" />
+    <Compile Include="Controllers\ContentsController.cs" />
     <Compile Include="Controllers\HeadingsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\WritersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -333,9 +336,6 @@
     <Content Include="AdminLTE-3.0.4\index2.html" />
     <Content Include="AdminLTE-3.0.4\index3.html" />
     <Content Include="AdminLTE-3.0.4\pages\calendar.html" />
-    <Content Include="AdminLTE-3.0.4\pages\charts\chartjs.html" />
-    <Content Include="AdminLTE-3.0.4\pages\charts\flot.html" />
-    <Content Include="AdminLTE-3.0.4\pages\charts\inline.html" />
     <Content Include="AdminLTE-3.0.4\pages\examples\404.html" />
     <Content Include="AdminLTE-3.0.4\pages\examples\500.html" />
     <Content Include="AdminLTE-3.0.4\pages\examples\blank.html" />
@@ -2406,6 +2406,12 @@
     <Content Include="Views\Headings\AddHeading.cshtml" />
     <Content Include="Views\Contents\ContentByHeading.cshtml" />
     <Content Include="Views\Headings\EditHeading.cshtml" />
+    <Content Include="Views\Abouts\Index.cshtml" />
+    <Content Include="Views\Abouts\AboutPartial.cshtml" />
+    <Content Include="Views\Contacts\Index.cshtml" />
+    <Content Include="Views\Contacts\GetContactDetails.cshtml" />
+    <Content Include="Views\Contacts\GetContactSideMenu.cshtml" />
+    <Content Include="Views\Messages\Inbox.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2427,8 +2433,6 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

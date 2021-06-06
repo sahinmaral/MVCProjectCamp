@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections;
+using System.ComponentModel.DataAnnotations;
 using EntitiesLayer.Abstract;
 
 namespace EntityLayer.Concrete
 {
-    public class Contact : IEntity
+    public class Contact : IEntity, IEnumerable
     {
         [Key]
         public int ContactId { get; set; }
@@ -16,5 +17,9 @@ namespace EntityLayer.Concrete
 
         public string Message { get; set; }
 
+        public IEnumerator GetEnumerator()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -8,6 +8,7 @@
 @{
     string statusClass = "";
     string statusMessage = "";
+    string deleteButtonClass = "";
 
     void checkHeadingStatus(bool headingStatus)
     {
@@ -16,10 +17,12 @@
             case true:
                 statusClass = "badge bg-success";
                 statusMessage = "Aktif";
+                deleteButtonClass = "btn btn-danger btn-sm";
                 break;
             case false:
                 statusClass = "badge bg-danger";
                 statusMessage = "Pasif";
+                deleteButtonClass = "btn btn-danger btn-sm disabled";
                 break;
         }
     }
@@ -101,18 +104,18 @@
                                 }
                             </td>
                             <td class="project-actions text-right">
-                                <a class="btn btn-primary btn-sm" href="/Content/ContentByHeading/@item.HeadingId">
+                                <a class="btn btn-primary btn-sm" href="/Contents/ContentByHeading/@item.HeadingId">
                                     <i class="fas fa-folder">
                                     </i>
                                     Yazılar
                                 </a>
 
-                                <a class="btn btn-info btn-sm" href="#">
+                                <a class="btn btn-info btn-sm" href="/Headings/EditHeading/@item.HeadingId">
                                     <i class="fas fa-pencil-alt">
                                     </i>
                                     Düzenle
                                 </a>
-                                <a class="btn btn-danger btn-sm" href="#">
+                                <a class="@deleteButtonClass" href="/Headings/DeleteHeading/@item.HeadingId">
                                     <i class="fas fa-trash">
                                     </i>
                                     Sil

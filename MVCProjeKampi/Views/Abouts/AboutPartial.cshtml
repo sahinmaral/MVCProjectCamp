@@ -1,0 +1,33 @@
+﻿<button class="btn btn-primary" data-toggle="modal" data-target="#Modal1">
+    Yeni Hakkımızda Yazı Girişi
+</button>
+
+<div class="modal fade" id="Modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLongTitle">Hakkımızda Metin Girişi</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" action="/Abouts/AddAbout/">
+                <div class="modal-body">
+
+                    <label>Hakkımda Metin 1</label>
+                    <input type="text" name="AboutDetails1" class="form-control" />
+                    <label>Hakkımda Metin 2</label>
+                    <input type="text" name="AboutDetails2" class="form-control" />
+                    <label>Hakkımda Görsel 1</label>
+                    <input type="text" name="AboutImage1" class="form-control" />
+                    <label>Hakkımda Görsel 2</label>
+                    <input type="text" name="AboutImage2" class="form-control" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

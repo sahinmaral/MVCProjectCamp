@@ -13,7 +13,7 @@ using System.Web.Mvc;
 
 namespace MVCProjeKampi.Controllers
 {
-    public class ContentController : Controller
+    public class ContentsController : Controller
     {
         private IBaseService<Content> contentManager = new ContentManager(new EfContentDal());
         public ActionResult Index()
