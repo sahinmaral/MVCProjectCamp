@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
 using DataAccessLayer.EntityFramework;
-using EntitiesLayer.Concrete;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
 
@@ -14,6 +13,7 @@ namespace MVCProjeKampi.Controllers
 {
     public class WritersController : Controller
     {
+        WriterValidator writerValidator = new WriterValidator();
         private WriterManager writerManager = new WriterManager(new EfWriterDal());
         public ActionResult Index()
         {
@@ -29,7 +29,7 @@ namespace MVCProjeKampi.Controllers
         [HttpPost]
         public ActionResult AddWriter(Writer writer)
         {
-            WriterValidator writerValidator = new WriterValidator();
+            
             ValidationResult results = writerValidator.Validate(writer);
             if (results.IsValid)
             {

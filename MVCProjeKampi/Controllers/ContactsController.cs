@@ -6,12 +6,14 @@ using System.Web.Mvc;
 using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
 using DataAccessLayer.EntityFramework;
+using MVCProjeKampi.ViewModels;
 
 namespace MVCProjeKampi.Controllers
 {
     public class ContactsController : Controller
     {
         private ContactManager contactManager = new ContactManager(new EfContactDal());
+        private MessageManager messageManager = new MessageManager(new EfMessageDal());
 
         private ContactValidator contactValidator = new ContactValidator();
         public ActionResult Index()
@@ -28,7 +30,15 @@ namespace MVCProjeKampi.Controllers
 
         public PartialViewResult GetContactSideMenu()
         {
-            return PartialView();
+            CountOfMessagesViewModel viewModel = new CountOfMessagesViewModel();
+            viewModel.ReceivedMessageCount = messageManager.GetListInbox().Count;
+            viewModel.SentMessageCount = messageManager.GetListSendbox().Count;
+            viewModel.ContactCount = contactManager.GetList().Count;
+
+
+
+            return PartialView(viewModel);
         }
+
     }
 }

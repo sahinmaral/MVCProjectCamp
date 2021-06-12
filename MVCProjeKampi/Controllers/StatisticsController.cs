@@ -8,7 +8,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BusinessLayer.Abstract;
-using EntitiesLayer.Concrete;
 using EntityLayer.Concrete;
 
 namespace MVCProjeKampi.Controllers

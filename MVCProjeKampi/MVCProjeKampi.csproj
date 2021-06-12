@@ -173,6 +173,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ContentByHeadingViewModel.cs" />
+    <Compile Include="ViewModels\CountOfMessagesViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AdminLTE-3.0.4\.gitignore" />
@@ -2412,6 +2413,9 @@
     <Content Include="Views\Contacts\GetContactDetails.cshtml" />
     <Content Include="Views\Contacts\GetContactSideMenu.cshtml" />
     <Content Include="Views\Messages\Inbox.cshtml" />
+    <Content Include="Views\Messages\Sendbox.cshtml" />
+    <Content Include="Views\Messages\NewMessage.cshtml" />
+    <Content Include="Views\Messages\GetMessageDetails.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

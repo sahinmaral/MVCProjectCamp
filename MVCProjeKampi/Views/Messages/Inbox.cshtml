@@ -1,5 +1,5 @@
 ﻿@using EntityLayer.Concrete
-@model List<EntitiesLayer.Concrete.Message>
+@model List<EntityLayer.Concrete.Message>
 @{
     ViewBag.Title = "Mesaj Sayfası";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -92,12 +92,12 @@
                                                 </div>
                                             </td>
                                             <td class="mailbox-star"><a href="#"><i class="fas fa-star text-warning"></i></a></td>
-                                            <td class="mailbox-name"><a href="/Contacts/GetContactDetails/@item.MessageId">@item.SenderMail</a></td>
+                                            <td class="mailbox-name"><a href="/Messages/GetMessageDetails/@item.MessageId">@item.SenderMail</a></td>
                                             <td class="mailbox-subject">
                                                 <b>@item.Subject</b> - @item.MessageContent.Substring(0, 10)...
                                             </td>
                                             <td class="mailbox-attachment"></td>
-                                            <td class="mailbox-date">5 mins ago</td>
+                                            <td class="mailbox-date">@item.MessageDate.ToShortDateString()</td>
                                         </tr>
                                     }
                                 </tbody>

@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using EntitiesLayer.Concrete;
 
 namespace BusinessLayer.Abstract
 {

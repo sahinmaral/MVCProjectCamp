@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using BusinessLayer.Abstract;
+﻿using BusinessLayer.Abstract;
+
 using DataAccessLayer.Abstract;
-using EntitiesLayer.Concrete;
+
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using EntityLayer.Concrete;
 
 namespace BusinessLayer.Concrete
 {
-    public class MessageManager:IMessageService
+    public class MessageManager : IMessageService
     {
         private IMessageDal _messageDal;
 
@@ -21,7 +20,12 @@ namespace BusinessLayer.Concrete
 
         public List<Message> GetList()
         {
-            return _messageDal.List(x=>x.ReceiverMail == "admin@gmail.com");
+            return _messageDal.List();
+        }
+
+        public List<Message> GetListInbox()
+        {
+            return _messageDal.List(x => x.ReceiverMail == "admin@gmail.com");
         }
 
         public Message Get(Expression<Func<Message, bool>> filter)
@@ -30,13 +34,17 @@ namespace BusinessLayer.Concrete
         }
 
         public void Add(Message entity)
-        { 
+        {
+            entity.MessageContent = entity.MessageContent.Replace("<p>", "");
+            entity.MessageContent = entity.MessageContent.Replace("</p>", "");
+            entity.SenderMail = "admin@gmail.com";
+            entity.MessageDate = DateTime.Now;
             _messageDal.Insert(entity);
         }
 
         public Message GetById(int id)
         {
-            return _messageDal.Get(x=>x.MessageId==id);
+            return _messageDal.Get(x => x.MessageId == id);
         }
 
         public void Delete(Message entity)
@@ -62,6 +70,11 @@ namespace BusinessLayer.Concrete
         public List<Message> GetList(Expression<Func<Message, bool>> filter)
         {
             return _messageDal.List(filter);
+        }
+
+        public List<Message> GetListSendbox()
+        {
+            return _messageDal.List(x => x.SenderMail == "admin@gmail.com");
         }
     }
 }

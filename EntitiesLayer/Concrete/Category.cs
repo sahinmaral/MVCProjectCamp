@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using EntitiesLayer.Abstract;
+using EntityLayer.Abstract;
 
 namespace EntityLayer.Concrete
 {

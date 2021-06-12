@@ -1,9 +1,8 @@
-﻿using System;
+﻿using EntityLayer.Abstract;
+
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Configuration;
-using EntitiesLayer.Abstract;
-using EntitiesLayer.Concrete;
 
 namespace EntityLayer.Concrete
 {

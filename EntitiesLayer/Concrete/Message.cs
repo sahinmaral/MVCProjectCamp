@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EntitiesLayer.Abstract;
+using System.Web.Mvc;
+using EntityLayer.Abstract;
 
-namespace EntitiesLayer.Concrete
+namespace EntityLayer.Concrete
 {
     public class Message : IEntity
     {
@@ -18,6 +15,7 @@ namespace EntitiesLayer.Concrete
         public string ReceiverMail { get; set; }
         [StringLength(100)]
         public string Subject { get; set; }
+        [AllowHtml]
         public string MessageContent { get; set; }
         public DateTime MessageDate { get; set; }
     }

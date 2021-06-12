@@ -33,9 +33,9 @@ C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\MVCProj
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\MVCProjeKampi\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\MVCProjeKampi\bin\BusinessLayer.dll
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\MVCProjeKampi\bin\DataAccessLayer.dll
-C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\MVCProjeKampi\bin\EntitiesLayer.dll
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\MVCProjeKampi\bin\EntityFramework.dll
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\MVCProjeKampi\bin\EntityFramework.SqlServer.dll
+C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\MVCProjeKampi\bin\EntityLayer.dll
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\MVCProjeKampi\bin\FluentValidation.dll
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\MVCProjeKampi\bin\Microsoft.AspNetCore.Razor.Language.dll
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\MVCProjeKampi\bin\Microsoft.CodeAnalysis.CSharp.dll
@@ -63,7 +63,7 @@ C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\MVCProj
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\MVCProjeKampi\bin\BusinessLayer.dll.config
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\MVCProjeKampi\bin\DataAccessLayer.pdb
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\MVCProjeKampi\bin\DataAccessLayer.dll.config
-C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\MVCProjeKampi\bin\EntitiesLayer.pdb
+C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\MVCProjeKampi\bin\EntityLayer.pdb
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\MVCProjeKampi\bin\EntityFramework.xml
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\MVCProjeKampi\bin\EntityFramework.SqlServer.xml
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\MVCProjeKampi\bin\FluentValidation.xml
