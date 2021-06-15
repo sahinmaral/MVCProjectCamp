@@ -60,11 +60,13 @@
     <Compile Include="Abstract\IMessageDal.cs" />
     <Compile Include="Abstract\IImageFileDal.cs" />
     <Compile Include="Abstract\IAdminDal.cs" />
+    <Compile Include="Abstract\IUserDal.cs" />
     <Compile Include="Abstract\IWriterDal.cs" />
     <Compile Include="Concrete\Context.cs" />
     <Compile Include="Concrete\Repositories\GenericRepository.cs" />
     <Compile Include="EntityFramework\EfAboutDal.cs" />
     <Compile Include="EntityFramework\EfCategoryDal.cs" />
+    <Compile Include="EntityFramework\EfUserDal.cs" />
     <Compile Include="EntityFramework\EfContactDal.cs" />
     <Compile Include="EntityFramework\EfContentDal.cs" />
     <Compile Include="EntityFramework\EfHeadingDal.cs" />

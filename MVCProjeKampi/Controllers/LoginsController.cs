@@ -10,7 +10,7 @@ namespace MVCProjeKampi.Controllers
 {
     public class LoginsController : Controller
     {
-        LoginManager loginManager = new LoginManager(new EfAdminDal());
+        LoginManager loginManager = new LoginManager(new EfAdminDal(),new EfUserDal());
 
         [HttpGet]
         public ActionResult AdminLogin()

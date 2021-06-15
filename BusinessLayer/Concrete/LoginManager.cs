@@ -1,28 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccessLayer.Abstract;
+﻿using DataAccessLayer.Abstract;
+
 using EntityLayer.Concrete;
+
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+
 
 namespace BusinessLayer.Concrete
 {
     public class LoginManager:ILoginService
     {
-        IAdminDal _adminDal;
+        IAdminDal _adminDal; 
+        IUserDal _userDal;
 
-        public LoginManager(IAdminDal adminDal)
+        public LoginManager(IAdminDal adminDal,IUserDal userDal)
         {
             _adminDal = adminDal;
+            _userDal = userDal;
         }
 
         public bool LoginByAdmin(Admin admin)
         {
-            var value = _adminDal.List().FirstOrDefault(x => x.AdminPassword == admin.AdminPassword &&
-                                                 x.AdminUsername == admin.AdminUsername);
+            var user = _userDal.List().FirstOrDefault(x => x.UserUsername == 
+                                                           admin.User.UserUsername &&
+                                                           x.UserPassword == admin.User.UserPassword);
 
-            if (value != null) return true;
+            if (user != null)
+            {
+                FormsAuthentication.SetAuthCookie(admin.User.UserUsername, false);
+                HttpContext.Current.Session["UserUserName"] = admin.User.UserUsername;
+                return true;
+            }
             return false;
 
 

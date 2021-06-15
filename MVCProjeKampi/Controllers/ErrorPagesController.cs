@@ -8,14 +8,6 @@ namespace MVCProjeKampi.Controllers
 {
     public class ErrorPagesController : Controller
     {
-        public ActionResult Page401()
-        {
-            Response.StatusCode = 401;
-            Response.TrySkipIisCustomErrors = true;
-
-            return View();
-        }
-
         public ActionResult Page404()
         {
             Response.StatusCode = 404;

@@ -1,14 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using EntityLayer.Abstract;
 
 namespace EntityLayer.Concrete
 {
     public class Writer : IEntity
     {
-        [Key]
+        [Key, ForeignKey("User")]
         public int WriterId { get; set; }
+        public User User { get; set; }
 
         [StringLength(50)]
         public string WriterName { get; set; }
@@ -22,9 +24,6 @@ namespace EntityLayer.Concrete
         [StringLength(200)]
         public string WriterMail { get; set; }
 
-        [StringLength(200)]
-        public string WriterPassword { get; set; }
-
         [StringLength(100)]
         public string WriterAbout { get; set; }
 
@@ -35,9 +34,10 @@ namespace EntityLayer.Concrete
         public bool WriterStatus { get; set; }
 
         public ICollection<Heading> Headings { get; set; }
-
         public ICollection<Content> Contents { get; set; }
+
         
+
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using BusinessLayer.Concrete;
+﻿using BusinessLayer.Abstract;
+using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
 
 using DataAccessLayer.EntityFramework;
@@ -7,24 +8,20 @@ using EntityLayer.Concrete;
 
 using FluentValidation.Results;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using BusinessLayer.Abstract;
 
 namespace MVCProjeKampi.Controllers
 {
     public class CategoriesController : Controller
     {
         private IBaseService<Category> categoryManager = new CategoryManager(new EfCategoryDal());
+        
         public ActionResult Index()
         {
             var CategoryValues = categoryManager.GetList();
             return View(CategoryValues);
         }
-        [Authorize]
+        [Authorize(Roles = "A")]
         public ActionResult EditCategories()
         {
             var CategoryValues = categoryManager.GetList();
