@@ -13,6 +13,7 @@ namespace DataAccessLayer.Concrete
         public DbSet<Heading> Headings { get; set; }
         public DbSet<Writer> Writers { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<ImageFile> ImageFiles { get; set; }
 
     }
 }

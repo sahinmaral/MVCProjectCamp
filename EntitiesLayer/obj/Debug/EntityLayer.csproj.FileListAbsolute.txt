@@ -17,3 +17,4 @@ C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\Entitie
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\EntitiesLayer\obj\Debug\EntityLayer.csproj.CopyComplete
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\EntitiesLayer\obj\Debug\EntityLayer.dll
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\EntitiesLayer\obj\Debug\EntityLayer.pdb
+C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\EntitiesLayer\obj\Debug\EntityLayer.csprojAssemblyReference.cache

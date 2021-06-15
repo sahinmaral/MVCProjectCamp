@@ -164,6 +164,7 @@
     <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\ContentsController.cs" />
     <Compile Include="Controllers\ErrorPagesController.cs" />
+    <Compile Include="Controllers\GalleriesController.cs" />
     <Compile Include="Controllers\HeadingsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
@@ -2297,6 +2298,10 @@
     <Content Include="AdminLTE-3.0.4\plugins\sweetalert2-theme-bootstrap-4\bootstrap-4.scss" />
     <Content Include="AdminLTE-3.0.4\plugins\toastr\toastr.js.map" />
     <Content Include="AdminLTE-3.0.4\README.md" />
+    <Content Include="wwwroot\images\eiffeltower.jpg" />
+    <Content Include="wwwroot\images\lion.jpg" />
+    <Content Include="wwwroot\images\programming.png" />
+    <Content Include="wwwroot\images\sunsetpoland.jpg" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
@@ -2420,6 +2425,7 @@
     <Content Include="Views\Messages\NewMessage.cshtml" />
     <Content Include="Views\Messages\GetMessageDetails.cshtml" />
     <Content Include="Views\ErrorPages\Page404.cshtml" />
+    <Content Include="Views\Galleries\Index.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
