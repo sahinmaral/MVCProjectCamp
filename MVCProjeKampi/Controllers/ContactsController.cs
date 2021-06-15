@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using BusinessLayer.Concrete;
+﻿using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
+
 using DataAccessLayer.EntityFramework;
-using MVCProjeKampi.ViewModels;
+
+using System.Web.Mvc;
+using MVCProjeKampi.Models.ViewModels;
 
 namespace MVCProjeKampi.Controllers
 {

@@ -5,11 +5,10 @@ using DataAccessLayer.EntityFramework;
 
 using EntityLayer.Concrete;
 
-using MVCProjeKampi.ViewModels;
-
 using System;
 using System.Linq;
 using System.Web.Mvc;
+using MVCProjeKampi.Models.ViewModels;
 
 namespace MVCProjeKampi.Controllers
 {

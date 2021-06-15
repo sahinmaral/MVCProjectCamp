@@ -1,9 +1,9 @@
 ﻿@{
     ViewBag.Title = "Yeni Mesaj Sayfası";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
 }
 
-@using System.Web.UI.WebControls
 @model EntityLayer.Concrete.Message
 
 <!DOCTYPE html>
@@ -11,21 +11,19 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Font Awesome -->
-    <!-- Theme style -->
-    <!-- summernote -->
-    <link rel="stylesheet" href="~/AdminLTE-3.0.4/plugins/summernote/summernote-bs4.css">
-
-    <script src="~/AdminLTE-3.0.4/plugins/summernote/summernote.min.js"></script>
-    <!-- Google Font: Source Sans Pro -->
+    <script src="~/Content/AdminLTE-3.0.4/plugins/jquery/jquery.min.js"></script>
+    <link rel="stylesheet" href="~/Content/AdminLTE-3.0.4/plugins/summernote/summernote-bs4.css">
+    <script src="~/Content/AdminLTE-3.0.4/plugins/summernote/summernote-bs4.min.js"></script>
+    <script src="~/Content/AdminLTE-3.0.4/plugins/summernote/summernote.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-
 </head>
+
+
+
 <body class="hold-transition sidebar-mini">
 
-    
+
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
@@ -35,7 +33,7 @@
                     @Html.Action("GetContactSideMenu", "Contacts")
                 </div>
                 <!-- /.col -->
-               
+
                 <div class="col-md-9">
                     <div class="card card-primary card-outline">
                         @using (Html.BeginForm("NewMessage", "Messages", FormMethod.Post))
@@ -84,29 +82,18 @@
             <!-- /.row -->
         </div><!-- /.container-fluid -->
     </section>
-    <!-- /.content -->
-    <!-- /.content-wrapper -->
-    <!-- Control Sidebar -->
-    <!-- /.control-sidebar -->
-    <!-- ./wrapper -->
-    <!-- jQuery -->
-    <script src="~/AdminLTE-3.0.4/plugins/jquery/jquery.min.js"></script>
-    <!-- Bootstrap 4 -->
-    <script src="~/AdminLTE-3.0.4/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="~/AdminLTE-3.0.4/dist/js/adminlte.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="~/AdminLTE-3.0.4/dist/js/demo.js"></script>
-    <!-- Summernote -->
-    <script src="~/AdminLTE-3.0.4/plugins/summernote/summernote-bs4.min.js"></script>
-    <!-- Page Script -->
-<script>
-    $(function () {
-        //Add text editor
-        $('#compose-textarea').summernote();
-    })
 
-</script>
+
+    <script>
+        $(function () {
+            //Add text editor
+            $('#compose-textarea').summernote().noConflict;
+        })
+
+
+    </script>
+
+
 
 </body>
 </html>

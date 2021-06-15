@@ -18,14 +18,14 @@ namespace MVCProjeKampi.Controllers
 {
     public class CategoriesController : Controller
     {
-
         private IBaseService<Category> categoryManager = new CategoryManager(new EfCategoryDal());
         public ActionResult Index()
         {
-            return View();
+            var CategoryValues = categoryManager.GetList();
+            return View(CategoryValues);
         }
-
-        public ActionResult GetCategoryList()
+        [Authorize]
+        public ActionResult EditCategories()
         {
             var CategoryValues = categoryManager.GetList();
             return View(CategoryValues);
@@ -38,23 +38,63 @@ namespace MVCProjeKampi.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddCategory(Category category)
+        public ActionResult AddCategory(Category p)
         {
             CategoryValidator categoryValidator = new CategoryValidator();
-            ValidationResult results = categoryValidator.Validate(category);
-            if (results.IsValid)
+            ValidationResult results = categoryValidator.Validate(p);
+
+            if(results.IsValid)
             {
-                categoryManager.Add(category);
-                return RedirectToAction("GetCategoryList");
+                categoryManager.Add(p);
+                return RedirectToAction("Index");
             }
             else
             {
-                foreach (var result in results.Errors)
+                foreach (var item in results.Errors)
                 {
-                    ModelState.AddModelError(result.PropertyName, result.ErrorMessage);
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
                 }
             }
             return View();
         }
+
+        public ActionResult DeleteCategory(int id)
+        {
+            var CategoryValues = categoryManager.GetById(id);
+            categoryManager.Delete(CategoryValues);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult UpdateCategory(int id)
+        {
+            var CategoryValues = categoryManager.GetById(id);
+            return View(CategoryValues);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateCategory(Category category)
+        {
+            CategoryValidator validationRules = new CategoryValidator();
+            ValidationResult results = validationRules.Validate(category);
+
+            if(results.IsValid)
+            {
+                categoryManager.Update(category);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                foreach (var item in results.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+                 
+            }
+
+            return View();
+        }
+
+
     }
 }
