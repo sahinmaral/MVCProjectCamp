@@ -35,7 +35,7 @@ namespace MVCProjeKampi.Controllers
 
             #region Yazar adında 'a' harfi geçen yazar sayısı getirme
 
-            ViewBag.WriterSum = writerManager.GetCount(x => x.WriterName.Contains("a"));
+            ViewBag.WriterSum = writerManager.GetCount(x => x.User.UserFirstName.Contains("a"));
 
             #endregion
 

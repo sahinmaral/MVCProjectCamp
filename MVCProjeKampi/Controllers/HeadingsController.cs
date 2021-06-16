@@ -37,7 +37,7 @@ namespace MVCProjeKampi.Controllers
             List<SelectListItem> writerValues = (from x in writerManager.GetList()
                 select new SelectListItem()
                 {
-                    Text = $"{x.WriterName} {x.WriterSurname}",
+                    Text = $"{x.User.UserFirstName} {x.User.UserLastName}",
                     Value = x.WriterId.ToString()
                 }).ToList();
 
@@ -81,7 +81,7 @@ namespace MVCProjeKampi.Controllers
             List<SelectListItem> writerValues = (from x in writerManager.GetList()
                 select new SelectListItem()
                 {
-                    Text = $"{x.WriterName} {x.WriterSurname}",
+                    Text = $"{x.User.UserFirstName} {x.User.UserLastName}",
                     Value = x.WriterId.ToString()
                 }).ToList();
 
