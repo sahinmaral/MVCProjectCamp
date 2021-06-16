@@ -15,25 +15,27 @@ namespace MVCProjeKampi.Controllers
     public class CategoriesController : Controller
     {
         private IBaseService<Category> categoryManager = new CategoryManager(new EfCategoryDal());
-        
+        [Authorize(Roles = "Admin,Administrator,Moderator,QuestionAndAnswerTeam")]
         public ActionResult Index()
         {
             var CategoryValues = categoryManager.GetList();
             return View(CategoryValues);
         }
-        [Authorize(Roles = "A")]
+        [Authorize(Roles = "Admin,Administrator,Moderator")]
         public ActionResult EditCategories()
         {
             var CategoryValues = categoryManager.GetList();
             return View(CategoryValues);
         }
 
+        [Authorize(Roles = "Admin,Administrator,Moderator")]
         [HttpGet]
         public ActionResult AddCategory()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin,Administrator,Moderator")]
         [HttpPost]
         public ActionResult AddCategory(Category p)
         {
@@ -55,6 +57,7 @@ namespace MVCProjeKampi.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin,Administrator,Moderator")]
         public ActionResult DeleteCategory(int id)
         {
             var CategoryValues = categoryManager.GetById(id);
@@ -63,6 +66,7 @@ namespace MVCProjeKampi.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,Administrator,Moderator")]
         public ActionResult UpdateCategory(int id)
         {
             var CategoryValues = categoryManager.GetById(id);
@@ -70,6 +74,7 @@ namespace MVCProjeKampi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Administrator,Moderator")]
         public ActionResult UpdateCategory(Category category)
         {
             CategoryValidator validationRules = new CategoryValidator();

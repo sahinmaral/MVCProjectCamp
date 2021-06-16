@@ -1,10 +1,16 @@
-﻿using System;
+﻿using BusinessLayer.Abstract;
+using BusinessLayer.Concrete;
+
+using DataAccessLayer.EntityFramework;
+
+using System;
 using System.Web.Security;
 
 namespace MVCProjeKampi.Roles
 {
     public class AdminRoleProvider:RoleProvider
     {
+        private IRoleService roleService = new RoleManager(new EfRoleDal(),new EfUserDal(),new EfUserRoleDal());
         public override bool IsUserInRole(string username, string roleName)
         {
             throw new NotImplementedException();
@@ -12,7 +18,7 @@ namespace MVCProjeKampi.Roles
 
         public override string[] GetRolesForUser(string username)
         {
-            throw new NotImplementedException();
+            return roleService.GetRolesForUser(username);
         }
 
         public override void CreateRole(string roleName)
