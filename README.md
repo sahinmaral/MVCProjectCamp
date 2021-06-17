@@ -46,6 +46,50 @@ This repository was created for understanding and studying ASP NET MVC technolog
 
 </details>
 
+<details>
+<summary>Skill card with dynamic datas about users</summary>
+
+![alt text](https://raw.githubusercontent.com/sahinmaral/MVCProjectCamp/master/FilesAboutProject/PreviewPictures/Skillcard.png)
+
+</details>
+
+<details>
+<summary>Abouts</summary>
+
+![alt text](https://raw.githubusercontent.com/sahinmaral/MVCProjectCamp/master/FilesAboutProject/PreviewPictures/Abouts.png)
+
+</details>
+
+<details>
+<summary>Messages</summary>
+
+![alt text](https://raw.githubusercontent.com/sahinmaral/MVCProjectCamp/master/FilesAboutProject/PreviewPictures/Messages.png)
+
+</details>
+
+<details>
+<summary>Password Hashing (SHA512)</summary>
+
+![alt text](https://raw.githubusercontent.com/sahinmaral/MVCProjectCamp/master/FilesAboutProject/PreviewPictures/Sha512%20Hashing.png)
+
+</details>
+
+<details>
+<summary>Managing Roles in Business Layer</summary>
+
+![alt text](https://raw.githubusercontent.com/sahinmaral/MVCProjectCamp/master/FilesAboutProject/PreviewPictures/Managing%20Roles%20in%20Business%20Layer.png)
+
+</details>
+
+<details>
+<summary>Managing Login Processes in Business Layer</summary>
+
+![alt text](https://raw.githubusercontent.com/sahinmaral/MVCProjectCamp/master/FilesAboutProject/PreviewPictures/Managing%20Login%20Processes%20in%20Business%20Layer.png)
+
+</details>
+
+
+
 </br>
 </br>
 </br>
@@ -98,5 +142,46 @@ Bu repository , [Murat Yücedağ MVC Proje Kampı](https://www.youtube.com/watch
 
 </details>
 
+<details>
+<summary>Dinamik veriler ile oluşan yetenek kartı</summary>
+
+![alt text](https://raw.githubusercontent.com/sahinmaral/MVCProjectCamp/master/FilesAboutProject/PreviewPictures/Skillcard.png)
+
+</details>
+
+<details>
+<summary>Hakkımızda</summary>
+
+![alt text](https://raw.githubusercontent.com/sahinmaral/MVCProjectCamp/master/FilesAboutProject/PreviewPictures/Abouts.png)
+
+</details>
+
+<details>
+<summary>Mesajlar</summary>
+
+![alt text](https://raw.githubusercontent.com/sahinmaral/MVCProjectCamp/master/FilesAboutProject/PreviewPictures/Messages.png)
+
+</details>
+
+<details>
+<summary>SHA512 Şifre Hashleme</summary>
+
+![alt text](https://raw.githubusercontent.com/sahinmaral/MVCProjectCamp/master/FilesAboutProject/PreviewPictures/Sha512%20Hashing.png)
+
+</details>
+
+<details>
+<summary>İş katmanında rol yönetimleri işlemleri</summary>
+
+![alt text](https://raw.githubusercontent.com/sahinmaral/MVCProjectCamp/master/FilesAboutProject/PreviewPictures/Managing%20Roles%20in%20Business%20Layer.png)
+
+</details>
+
+<details>
+<summary>İş katmanında hesaba giriş yapma işlemleri</summary>
+
+![alt text](https://raw.githubusercontent.com/sahinmaral/MVCProjectCamp/master/FilesAboutProject/PreviewPictures/Managing%20Login%20Processes%20in%20Business%20Layer.png)
+
+</details>
 
 
