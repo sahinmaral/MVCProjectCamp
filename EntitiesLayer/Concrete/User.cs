@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using EntityLayer.Abstract;
 
 namespace EntityLayer.Concrete
 {
-    public class User
+    public class User : IEntity
     {
         [Key]
         public int UserId { get; set; }
@@ -22,8 +23,11 @@ namespace EntityLayer.Concrete
         public string UserLastName { get; set; }
 
 
-        [StringLength(50)]
-        public string UserPassword { get; set; }
+        [StringLength(500)]
+        public byte[] UserPasswordHash { get; set; }
+
+        [StringLength(500)]
+        public byte[] UserPasswordSalt { get; set; }
 
 
         [StringLength(300)]

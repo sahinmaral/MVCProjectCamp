@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
 using DataAccessLayer.EntityFramework;
@@ -14,13 +15,21 @@ namespace MVCProjeKampi.Controllers
     public class WritersController : Controller
     {
         WriterValidator writerValidator = new WriterValidator();
-        private WriterManager writerManager = new WriterManager(new EfWriterDal());
+        IWriterService writerManager = new WriterManager(new EfWriterDal(),new EfUserDal());
+
+        [Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Administrator,User")]
+        [Authorize(Roles = "Moderator,User")]
         public ActionResult Index()
         {
-            var WriterValues = writerManager.GetList();
+            var WriterValues = writerManager.GetWriterDetails();
+            
             return View(WriterValues);
         }
 
+        [Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Administrator,User")]
+        [Authorize(Roles = "Moderator,User")]
         [HttpGet]
         public ActionResult AddWriter()
         {

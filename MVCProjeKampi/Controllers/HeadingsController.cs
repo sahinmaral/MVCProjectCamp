@@ -14,14 +14,33 @@ namespace MVCProjeKampi.Controllers
 {
     public class HeadingsController : Controller
     {
-        private IBaseService<Heading> headingManager = new HeadingManager(new EfHeadingDal());
-        private IBaseService<Category> categoryManager = new CategoryManager(new EfCategoryDal());
-        private IBaseService<Writer> writerManager = new WriterManager(new EfWriterDal());
+        private IHeadingService headingManager = new HeadingManager(new EfHeadingDal());
+        private ICategoryService categoryManager = new CategoryManager(new EfCategoryDal());
+        private IWriterService writerManager = new WriterManager(new EfWriterDal(),new EfUserDal());
+        
+        [Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Administrator,User")]
+        [Authorize(Roles = "Moderator,User")]
         public ActionResult Index()
         {
             var headingValues = headingManager.GetList();
+
+            foreach (var items in writerManager.GetWriterDetails())
+            {
+                foreach (var headingValue in headingValues)
+                {
+                    if (headingValue.WriterId == items.WriterId)
+                    {
+                        headingValue.Writer.User = items.User;
+                    }
+                }
+            }
+
             return View(headingValues);
         }
+        [Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Administrator,User")]
+        [Authorize(Roles = "Moderator,User")]
         [HttpGet]
         public ActionResult AddHeading()
         {
@@ -45,6 +64,9 @@ namespace MVCProjeKampi.Controllers
             ViewBag.WriterValues = writerValues;
             return View();
         }
+        [Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Administrator,User")]
+        [Authorize(Roles = "Moderator,User")]
         [HttpPost]
         public ActionResult AddHeading(Heading heading)
         {
@@ -67,6 +89,9 @@ namespace MVCProjeKampi.Controllers
 
         }
 
+        [Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Administrator,User")]
+        [Authorize(Roles = "Moderator,User")]
         [HttpGet]
         public ActionResult EditHeading(int id)
         {
@@ -78,26 +103,38 @@ namespace MVCProjeKampi.Controllers
                 }).ToList();
 
 
-            List<SelectListItem> writerValues = (from x in writerManager.GetList()
+            List<SelectListItem> writerValues = (from x in writerManager.GetWriterDetails()
                 select new SelectListItem()
                 {
                     Text = $"{x.User.UserFirstName} {x.User.UserLastName}",
                     Value = x.WriterId.ToString()
                 }).ToList();
 
-            ViewBag.CategoryValues = categoryValues;
-            ViewBag.WriterValues = writerValues;
+            
 
             var headingValue = headingManager.GetById(id);
+
+            if (headingValue==null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.CategoryValues = categoryValues;
+            ViewBag.WriterValues = writerValues;
             return View(headingValue);
         }
-
+        [Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Administrator,User")]
+        [Authorize(Roles = "Moderator,User")]
         [HttpPost]
         public ActionResult EditHeading(Heading heading)
         {
             headingManager.Update(heading);
             return RedirectToAction("Index");
         }
+        [Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Administrator,User")]
+        [Authorize(Roles = "Moderator,User")]
         public ActionResult DeleteHeading(int id)
         {
             var headingValue = headingManager.GetById(id);

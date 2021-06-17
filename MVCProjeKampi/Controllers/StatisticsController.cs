@@ -16,10 +16,14 @@ namespace MVCProjeKampi.Controllers
     {
         #region Business Katmanı Instance lar
         private IBaseService<Category> categoryManager = new CategoryManager(new EfCategoryDal());
-        private IBaseService<Writer> writerManager = new WriterManager(new EfWriterDal());
+        private IBaseService<Writer> writerManager = new WriterManager(new EfWriterDal(),new EfUserDal());
         private IBaseService<Heading> headingManager = new HeadingManager(new EfHeadingDal());
         #endregion
-        
+
+        [Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Administrator,User")]
+        [Authorize(Roles = "Moderator,User")]
+        [Authorize(Roles = "QuestionAndAnswerTeam,User")]
         public ActionResult Index()
         {
             #region Toplam kategori sayısı getirme

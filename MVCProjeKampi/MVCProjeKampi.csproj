@@ -168,12 +168,14 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginsController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
-    <Compile Include="Controllers\SkillProfilesController.cs" />
+    <Compile Include="Controllers\ProfilesController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\WritersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\AboutHomepageViewModel.cs" />
+    <Compile Include="Models\ViewModels\ProfileSkillViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\ViewModels\ContentByHeadingViewModel.cs" />
     <Compile Include="Models\ViewModels\CountOfMessagesViewModel.cs" />
@@ -1882,6 +1884,16 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\skillcard\css\style.css" />
+    <Content Include="Content\skillcard\images\5.jpg" />
+    <Content Include="Content\skillcard\images\img1.jpg" />
+    <Content Include="Content\skillcard\images\sprite.png" />
+    <Content Include="Content\skillcard\index.html" />
+    <Content Include="Content\skillcard\js\bars.js" />
+    <Content Include="Content\skillcard\js\easyResponsiveTabs.js" />
+    <Content Include="Content\skillcard\js\jquery-1.11.1.min.js" />
+    <Content Include="Content\skillcard\js\jquery.circlechart.js" />
+    <Content Include="Content\skillcard\w3layouts-License.txt" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -2314,6 +2326,7 @@
     <Content Include="Views\Logins\AdminLogin.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
     <Content Include="Views\ErrorPages\Page401.cshtml" />
+    <Content Include="Views\Profiles\AdminAndOtherProfiles.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2332,7 +2345,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\SkillProfiles\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,9 +1,13 @@
-﻿@using EntityLayer.Concrete
-@model List<About>
+﻿@using MVCProjeKampi.Models.ViewModels
+@model AboutHomepageViewModel
 @{
     ViewBag.Title = "Hakkımızda";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+    bool status = Model.AboutAlertStatus;
 }
+
+
 
 <table class="table table-bordered">
     <tr>
@@ -12,16 +16,42 @@
         <th>Aktif Yap</th>
         <th>Pasif Yap</th>
     </tr>
-    @foreach (var item in Model)
+    @foreach (var item in Model.Abouts)
     {
         <tr>
             <td>@item.AboutId</td>
             <td>Başlık</td>
-            <td><a href="#" class="btn btn-success">Aktif Yap</a></td>
-            <td><a href="#" class="btn btn-danger">Pasif Yap</a></td>
+            @if (item.AboutStatus)
+            {
+                @*<div class="alert alert-danger" role="alert">
+                    Sadece <b>bir tane</b> hakkımızda yer alabilir
+                    </div>*@
+
+                <td><a href="/Abouts/EnableAbout/@item.AboutId" class="btn btn-success disabled">Aktif Yap</a></td>
+                <td><a href="/Abouts/DisableAbout/@item.AboutId" class="btn btn-danger">Pasif Yap</a></td>
+
+            }
+            @if (!item.AboutStatus)
+            {
+                <td><a href="/Abouts/EnableAbout/@item.AboutId" class="btn btn-success" id="enableAboutButton">Aktif Yap</a></td>
+                <td><a href="/Abouts/DisableAbout/@item.AboutId" class="btn btn-danger disabled">Pasif Yap</a></td>
+            }
+
+
         </tr>
     }
 </table>
 
-@Html.Action("AboutPartial","Abouts")
+
+
+@*<script>
+        $('#enableAboutButton').click(function () {
+
+            swal("Sadece bir kategori aktif olur");
+
+        });
+</script>*@
+
+
+    @Html.Action("AboutPartial", "Abouts")
 

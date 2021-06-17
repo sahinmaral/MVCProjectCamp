@@ -77,10 +77,12 @@
     <Compile Include="Concrete\User.cs" />
     <Compile Include="Concrete\UserRole.cs" />
     <Compile Include="Concrete\Writer.cs" />
+    <Compile Include="DTOs\UserForLoginDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

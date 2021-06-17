@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using EntityLayer.Abstract;
 
 namespace EntityLayer.Concrete
@@ -14,6 +16,8 @@ namespace EntityLayer.Concrete
         [StringLength(100)]
         public string AboutImage { get; set; }
         public string AboutImage2 { get; set; }
+        [DefaultValue("false")]
+        public bool AboutStatus { get; set; }
 
     }
 }

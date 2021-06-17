@@ -9,14 +9,26 @@ namespace EntityLayer.Concrete
     {
         [Key]
         public int MessageId { get; set; }
+
+
         [StringLength(50)]
         public string SenderMail { get; set; }
+
+
         [StringLength(50)]
         public string ReceiverMail { get; set; }
+
+
         [StringLength(100)]
         public string Subject { get; set; }
+
+
         [AllowHtml]
         public string MessageContent { get; set; }
+
+
         public DateTime MessageDate { get; set; }
+
+        public bool IsOpened { get; set; }
     }
 }

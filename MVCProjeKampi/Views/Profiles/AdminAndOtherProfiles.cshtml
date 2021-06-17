@@ -1,0 +1,53 @@
+﻿@using MVCProjeKampi.Models.ViewModels
+@model ProfileSkillViewModel
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <link href="~/Content/skillcard/css/style.css" rel="stylesheet" type="text/css" media="all" />
+
+</head>
+<body>
+    <!-- main -->
+    <div class="main">
+        <div class="main-info">
+            <div class="main-row">
+                <!-- main-row-one -->
+                <div class="profile-grid logo wthree">
+                    <img src="~/Content/skillcard/images/img1.jpg" alt="">
+                    <h2>@Model.UserFirstName @Model.UserLastName</h2>
+                    <p>@Model.UserAbout</p>
+
+                </div>
+                <h3 class="title">Beceriler</h3>
+                <div class="col-md-6 bar_group">
+                    @foreach (var item in Model.UserSkills)
+                    {
+                        <div class='bar_group__bar thin' label='@item.SkillName &nbsp;&nbsp; @item.SkillPercent%' value='@item.SkillPercent'></div>
+                    }
+
+                </div>
+                <!--bar-js-->
+                
+                
+            </div>
+        </div>
+
+    </div>
+<!-- main -->
+
+<script src="~/Content/skillcard/js/bars.js"></script>
+
+</body>
+</html>

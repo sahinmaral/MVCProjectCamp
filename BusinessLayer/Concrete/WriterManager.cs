@@ -8,27 +8,50 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLayer.Concrete
 {
     public class WriterManager : IWriterService
     {
         private IWriterDal _writerDal;
-        public WriterManager(IWriterDal writerDal)
+        private IUserDal _userDal;
+        public WriterManager(IWriterDal writerDal,IUserDal userdal)
         {
             _writerDal = writerDal;
+            _userDal = userdal;
         }
 
         public Writer GetById(int id)
         {
-            return _writerDal.Get(x => x.WriterId == id);
+            var userValue = GetWriterDetails().Find(x => x.WriterId == id);
+            var writer = _writerDal.Get(x => x.WriterId == id);
+            writer.User = userValue.User;
+            return writer;
         }
 
         public List<Writer> GetList()
         {
             return _writerDal.List();
+        }
+
+        public List<Writer> GetWriterDetails()
+        {
+            
+            var users = _userDal.List();
+            var writers = GetList();
+
+            foreach (var writer in writers)
+            {
+                foreach (var user in users)
+                {
+                    if (user.UserId == writer.UserId)
+                    {
+                        writer.User = user;
+                    }
+                }
+            }
+
+            return writers;
         }
 
         public Writer Get(Expression<Func<Writer, bool>> filter)

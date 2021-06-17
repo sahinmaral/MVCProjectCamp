@@ -46,7 +46,7 @@ namespace BusinessLayer.Concrete
 
         public void Update(Contact entity)
         {
-            throw new NotImplementedException();
+            _contactDal.Update(entity);
         }
 
         public int GetCount()
@@ -61,7 +61,7 @@ namespace BusinessLayer.Concrete
 
         public List<Contact> GetList(Expression<Func<Contact, bool>> filter)
         {
-            throw new NotImplementedException();
+            return _contactDal.List(filter);
         }
     }
 }

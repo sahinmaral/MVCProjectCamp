@@ -15,27 +15,37 @@ namespace MVCProjeKampi.Controllers
     public class CategoriesController : Controller
     {
         private IBaseService<Category> categoryManager = new CategoryManager(new EfCategoryDal());
-        [Authorize(Roles = "Admin,Administrator,Moderator,QuestionAndAnswerTeam")]
+
+        [Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Administrator,User")]
+        [Authorize(Roles = "Moderator,User")]
+        [Authorize(Roles = "QuestionAndAnswerTeam,User")]
         public ActionResult Index()
         {
             var CategoryValues = categoryManager.GetList();
             return View(CategoryValues);
         }
-        [Authorize(Roles = "Admin,Administrator,Moderator")]
+        [Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Administrator,User")]
+        [Authorize(Roles = "Moderator,User")]
         public ActionResult EditCategories()
         {
             var CategoryValues = categoryManager.GetList();
             return View(CategoryValues);
         }
 
-        [Authorize(Roles = "Admin,Administrator,Moderator")]
+        [Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Administrator,User")]
+        [Authorize(Roles = "Moderator,User")]
         [HttpGet]
         public ActionResult AddCategory()
         {
             return View();
         }
 
-        [Authorize(Roles = "Admin,Administrator,Moderator")]
+        [Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Administrator,User")]
+        [Authorize(Roles = "Moderator,User")]
         [HttpPost]
         public ActionResult AddCategory(Category p)
         {
@@ -57,7 +67,9 @@ namespace MVCProjeKampi.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Admin,Administrator,Moderator")]
+        [Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Administrator,User")]
+        [Authorize(Roles = "Moderator,User")]
         public ActionResult DeleteCategory(int id)
         {
             var CategoryValues = categoryManager.GetById(id);
@@ -66,7 +78,9 @@ namespace MVCProjeKampi.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin,Administrator,Moderator")]
+        [Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Administrator,User")]
+        [Authorize(Roles = "Moderator,User")]
         public ActionResult UpdateCategory(int id)
         {
             var CategoryValues = categoryManager.GetById(id);
@@ -74,7 +88,9 @@ namespace MVCProjeKampi.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin,Administrator,Moderator")]
+        [Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Administrator,User")]
+        [Authorize(Roles = "Moderator,User")]
         public ActionResult UpdateCategory(Category category)
         {
             CategoryValidator validationRules = new CategoryValidator();
