@@ -9,6 +9,7 @@ namespace MVCProjeKampi.Models.ViewModels
     public class AboutHomepageViewModel
     {
         public List<About> Abouts { get; set; }
-        public bool AboutAlertStatus { get; set; }
+        public int EnabledAbouts { get; set; }
+        public int DisabledAbouts { get; set; }
     }
 }

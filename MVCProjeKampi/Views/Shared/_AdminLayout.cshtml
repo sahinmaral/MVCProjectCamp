@@ -64,7 +64,8 @@ to get the desired effect
                     <img src="@Session["UserImage"]" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="/Profiles/AdminAndOtherProfiles" class="d-block">@Session["Fullname"]</a>
+                    <a href="/AdminProfiles/Index" class="d-block">@Session["Fullname"]</a>
+                    <a class="d-block">@Session["Username"]</a>
                 </div>
             </div>
 
@@ -74,7 +75,7 @@ to get the desired effect
                     <!-- Add icons to the links using the .nav-icon class
                     with font-awesome or any other icon font library -->
                     <li class="nav-item">
-                        <a href="/Categories/Index" class="nav-link ">
+                        <a href="/AdminCategories/Index" class="nav-link ">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 Kategoriler
@@ -82,7 +83,7 @@ to get the desired effect
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/Headings/Index" class="nav-link">
+                        <a href="/AdminHeadings/Index" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Başlıklar
@@ -90,7 +91,7 @@ to get the desired effect
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/Writers/Index" class="nav-link">
+                        <a href="/AdminWriters/Index" class="nav-link">
                             <i class="nav-icon fas fa-copy"></i>
                             <p>
                                 Yazarlar
@@ -120,7 +121,7 @@ to get the desired effect
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Statistics" class="nav-link">
+                                <a href="/AdminStatistics" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>İstatistikler</p>
                                 </a>
@@ -128,7 +129,7 @@ to get the desired effect
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="/Abouts/Index" class="nav-link">
+                        <a href="/AdminAbouts/Index" class="nav-link">
                             <i class="nav-icon fas fa-tree"></i>
                             <p>
                                 Hakkımızda
@@ -136,7 +137,7 @@ to get the desired effect
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/Contacts/Index" class="nav-link">
+                        <a href="/AdminContacts/Index" class="nav-link">
                             <i class="nav-icon fas fa-edit"></i>
                             <p>
                                 İletişim & Mesajlar
@@ -152,7 +153,7 @@ to get the desired effect
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/Galleries/Index" class="nav-link">
+                        <a href="/AdminGalleries/Index" class="nav-link">
                             <i class="nav-icon far fa-image"></i>
                             <p>
                                 Galeri
@@ -176,7 +177,7 @@ to get the desired effect
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/Logins/AdminLogout" class="nav-link">
+                        <a href="/Logins/Logout" class="nav-link">
                             <i class="nav-icon fas fa-book"></i>
                             <p>
                                 Çıkış Yap
@@ -198,7 +199,7 @@ to get the desired effect
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">@ViewBag.Title</h1>
+                        
                     </div><!-- /.col -->
 
                 </div><!-- /.row -->

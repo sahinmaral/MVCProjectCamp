@@ -1,0 +1,40 @@
+﻿@using EntityLayer.Concrete
+@model List<Heading>
+
+@{
+    Layout = null;
+}
+
+<nav class="mt-2">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-item" style="padding-left: 1em">
+            <a>
+                <p>
+                    Gündem
+                </p>
+            </a>
+        </li>
+        @{
+            foreach (var item in Model)
+            {
+                <li class="nav-item">
+                    <a href="/Headings/@item.HeadingId" class="nav-link">
+                        <p>
+                            @item.HeadingName
+                        </p>
+                    </a>
+
+                    @*İleride başlıktaki yorum sayısı yazılabilir
+                        <a class="nav-link" style="width: 3em; margin-top: -2.7em; margin-left: 11em; padding-right: 1em;">
+                        <p>
+                           12345
+                        </p>
+                    </a>*@
+
+                </li>
+            }
+        }
+        
+    </ul>
+</nav>
+

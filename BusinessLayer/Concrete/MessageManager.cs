@@ -2,20 +2,24 @@
 
 using DataAccessLayer.Abstract;
 
+using EntityLayer.Concrete;
+
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using EntityLayer.Concrete;
+using System.Web;
 
 namespace BusinessLayer.Concrete
 {
     public class MessageManager : IMessageService
     {
         private IMessageDal _messageDal;
+        private IUserService _userService;
 
-        public MessageManager(IMessageDal messageDal)
+        public MessageManager(IMessageDal messageDal,IUserService userService)
         {
             _messageDal = messageDal;
+            _userService = userService;
         }
 
         public List<Message> GetList()
@@ -23,7 +27,7 @@ namespace BusinessLayer.Concrete
             return _messageDal.List();
         }
 
-        public List<Message> GetListInbox()
+        public List<Message> GetListInboxToAdmin()
         {
             return _messageDal.List(x => x.ReceiverMail == "admin@gmail.com" && x.IsOpened == false);
         }
@@ -35,9 +39,29 @@ namespace BusinessLayer.Concrete
 
         public void Add(Message entity)
         {
+            throw new NotImplementedException();
+        }
+
+        public void SendMessageAdmin(Message entity)
+        {
             entity.MessageContent = entity.MessageContent.Replace("<p>", "");
             entity.MessageContent = entity.MessageContent.Replace("</p>", "");
             entity.SenderMail = "admin@gmail.com";
+            entity.MessageDate = DateTime.Now;
+            _messageDal.Insert(entity);
+        }
+
+        public void SendMessageUser(Message entity)
+        {
+            var username = HttpContext.Current.Session["Username"];
+
+            var user = _userService.Get(x => x.UserUsername == username.ToString());
+
+            entity.MessageContent = entity.MessageContent.Replace("<p>", "");
+            entity.MessageContent = entity.MessageContent.Replace("</p>", "");
+
+            entity.SenderMail = user.UserEmail;
+
             entity.MessageDate = DateTime.Now;
             _messageDal.Insert(entity);
         }
@@ -72,7 +96,7 @@ namespace BusinessLayer.Concrete
             return _messageDal.List(filter);
         }
 
-        public List<Message> GetListSendbox()
+        public List<Message> GetListSendboxToAdmin()
         {
             return _messageDal.List(x => x.SenderMail == "admin@gmail.com" );
         }

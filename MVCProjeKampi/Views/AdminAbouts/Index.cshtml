@@ -1,0 +1,73 @@
+﻿@using MVCProjeKampi.Models.ViewModels
+@model AboutHomepageViewModel
+@{
+    ViewBag.Title = "Hakkımızda";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+
+}
+
+
+
+<table class="table table-bordered">
+    <tr>
+        <th>Id</th>
+        <th>Hakkımızda Başlığı</th>
+        <th>Aktif Yap</th>
+        <th>Pasif Yap</th>
+    </tr>
+    @foreach (var item in Model.Abouts)
+    {
+        <tr>
+            <td>@item.AboutId</td>
+            <td>Başlık</td>
+            @if (item.AboutStatus)
+            {
+
+                <td><a class="btn btn-success disabled">Aktif Yap</a></td>
+                <td><button onclick="disableAbout()" id="disableAboutButton" class="btn btn-danger">Pasif Yap</button></td>
+
+
+
+            }
+            @if (!item.AboutStatus)
+            {
+                <td><a href="/AdminAbouts/EnableAbout/@item.AboutId" class="btn btn-success" id="enableAboutButton">Aktif Yap</a></td>
+                <td><a class="btn btn-danger disabled">Pasif Yap</a></td>
+            }
+
+
+        </tr>
+    }
+</table>
+
+
+<script>
+
+    var disableAbout = function() {
+        if (@Model.EnabledAbouts == 1) {
+
+            swal({
+                text: "Herhangi bir hakkımızda yazısı kalmayacağı için birinci olan hakkımızda yazısı aktif olacaktır. Onaylıyor musunuz ? ",
+                icon: "warning",
+                buttons : {
+                    accepted : {text : "Evet" , value : true },
+                    notAccepted : {text : "Hayır" , value : false}
+                }
+            }).then((value) => {
+                if (value == true) {
+                    window.location = "/AdminAbouts/EnableAbout/"+@Model.Abouts.First().AboutId;
+                }
+            });
+
+        }
+
+    };
+
+</script>
+
+
+
+
+@Html.Action("AboutPartial", "AdminAbouts")
+

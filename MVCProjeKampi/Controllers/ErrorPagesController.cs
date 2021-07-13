@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
-namespace MVCProjeKampi.Controllers
+namespace MVCProjeKampi.Controllers.AdminController
 {
     public class ErrorPagesController : Controller
     {
+        [AllowAnonymous]
         public ActionResult Page404()
         {
             Response.StatusCode = 404;

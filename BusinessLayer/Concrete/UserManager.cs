@@ -1,4 +1,6 @@
-﻿using DataAccessLayer.Abstract;
+﻿using BusinessLayer.Abstract;
+
+using DataAccessLayer.Abstract;
 
 using EntityLayer.Concrete;
 using EntityLayer.DTOs;
@@ -17,17 +19,21 @@ namespace BusinessLayer.Concrete
         
         private IUserDal _userDal;
         private ISkillDal _skillDal;
+        private IRoleService _roleService;
 
-        public UserManager(IUserDal userDal,ISkillDal skillDal)
+        public UserManager(IUserDal userDal,ISkillDal skillDal,IRoleService roleService)
         {
             _userDal = userDal;
             _skillDal = skillDal;
+            _roleService = roleService;
         }
 
-        public bool LoginByAdmin(UserForLoginDto admin)
+        public bool LoginAdmin(UserForLoginDto admin)
         {
 
             var userToCheck = _userDal.Get(x => x.UserUsername==admin.Username);
+
+            var roles = _roleService.GetRolesForUser(admin.Username);
 
             if (userToCheck == null)
             {
@@ -40,14 +46,51 @@ namespace BusinessLayer.Concrete
                 return false;
             }
 
-            FormsAuthentication.SetAuthCookie(admin.Username, false);
-            HttpContext.Current.Session["Username"] = admin.Username;
+            for (int i = 0; i < roles.Length; i++)
+            {
+                if (roles[i].Contains("Administrator"))
+                {
+                    FormsAuthentication.SetAuthCookie(admin.Username, false);
+                    HttpContext.Current.Session["Username"] = admin.Username;
+                    HttpContext.Current.Session["UserImage"] = userToCheck.UserImage;
+                    HttpContext.Current.Session["Fullname"] = userToCheck.UserFirstName + " " + userToCheck.UserLastName;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool LoginWriter(UserForLoginDto writer)
+        {
+            var userToCheck = _userDal.Get(x => x.UserUsername == writer.Username);
+
+            if (userToCheck == null)
+            {
+                return false;
+            }
+
+            if (!HashingHelper.VerifyPasswordHash(writer.Password, userToCheck.UserPasswordHash,
+                userToCheck.UserPasswordSalt))
+            {
+                return false;
+            }
+
+            FormsAuthentication.SetAuthCookie(writer.Username, false);
+            HttpContext.Current.Session["Username"] = writer.Username;
             HttpContext.Current.Session["UserImage"] = userToCheck.UserImage;
             HttpContext.Current.Session["Fullname"] = userToCheck.UserFirstName + " " + userToCheck.UserLastName;
             return true;
-
-
         }
+
+        public void Logout()
+        {
+            FormsAuthentication.SignOut();
+            HttpContext.Current.Session.Clear();
+            HttpContext.Current.Session.Abandon();
+            FormsAuthentication.RedirectToLoginPage();
+        }
+        
 
         public List<Skill> GetUserSkills(int userId)
         {
@@ -81,7 +124,7 @@ namespace BusinessLayer.Concrete
 
         public void Update(User entity)
         {
-            throw new NotImplementedException();
+            _userDal.Update(entity);
         }
 
         public int GetCount()

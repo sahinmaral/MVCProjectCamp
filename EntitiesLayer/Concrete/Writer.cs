@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using EntityLayer.Abstract;
+
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using EntityLayer.Abstract;
 
 namespace EntityLayer.Concrete
 {

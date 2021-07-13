@@ -158,28 +158,34 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AboutsController.cs" />
-    <Compile Include="Controllers\CategoriesController.cs" />
-    <Compile Include="Controllers\ContactsController.cs" />
-    <Compile Include="Controllers\ContentsController.cs" />
+    <Compile Include="Controllers\AdminController\AdminAboutsController.cs" />
+    <Compile Include="Controllers\AdminController\AdminCategoriesController.cs" />
+    <Compile Include="Controllers\AdminController\AdminContactsController.cs" />
+    <Compile Include="Controllers\AdminController\AdminContentsController.cs" />
     <Compile Include="Controllers\ErrorPagesController.cs" />
-    <Compile Include="Controllers\GalleriesController.cs" />
-    <Compile Include="Controllers\HeadingsController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\AdminController\AdminGalleriesController.cs" />
+    <Compile Include="Controllers\AdminController\AdminHeadingsController.cs" />
     <Compile Include="Controllers\LoginsController.cs" />
-    <Compile Include="Controllers\MessagesController.cs" />
-    <Compile Include="Controllers\ProfilesController.cs" />
-    <Compile Include="Controllers\StatisticsController.cs" />
-    <Compile Include="Controllers\WritersController.cs" />
+    <Compile Include="Controllers\AdminController\AdminMessagesController.cs" />
+    <Compile Include="Controllers\AdminController\AdminProfilesController.cs" />
+    <Compile Include="Controllers\AdminController\AdminStatisticsController.cs" />
+    <Compile Include="Controllers\AdminController\AdminWritersController.cs" />
+    <Compile Include="Controllers\SiteController\HomepageController.cs" />
+    <Compile Include="Controllers\WriterController\WriterContentsController.cs" />
+    <Compile Include="Controllers\WriterController\WriterHeadingsController.cs" />
+    <Compile Include="Controllers\WriterController\WriterHomepageController.cs" />
+    <Compile Include="Controllers\WriterController\WriterMessagesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels\AboutHomepageViewModel.cs" />
+    <Compile Include="Models\ViewModels\HomepageViewModel.cs" />
     <Compile Include="Models\ViewModels\ProfileSkillViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\ViewModels\ContentByHeadingViewModel.cs" />
     <Compile Include="Models\ViewModels\CountOfMessagesViewModel.cs" />
     <Compile Include="Roles\AdminRoleProvider.cs" />
+    <Compile Include="Views\AdminHomepageController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\AdminLTE-3.0.4\build\config\postcss.config.js" />
@@ -2284,11 +2290,6 @@
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Scripts\jquery-3.6.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.6.0.min.map" />
@@ -2304,38 +2305,54 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
-    <Content Include="Views\Categories\EditCategories.cshtml" />
-    <Content Include="Views\Categories\AddCategory.cshtml" />
-    <Content Include="Views\Categories\UpdateCategory.cshtml" />
-    <Content Include="Views\Statistics\Index.cshtml" />
-    <Content Include="Views\Headings\Index.cshtml" />
-    <Content Include="Views\Headings\AddHeading.cshtml" />
-    <Content Include="Views\Contents\ContentByHeading.cshtml" />
-    <Content Include="Views\Headings\EditHeading.cshtml" />
-    <Content Include="Views\Abouts\Index.cshtml" />
-    <Content Include="Views\Abouts\AboutPartial.cshtml" />
-    <Content Include="Views\Contacts\Index.cshtml" />
-    <Content Include="Views\Contacts\GetContactDetails.cshtml" />
-    <Content Include="Views\Contacts\GetContactSideMenu.cshtml" />
-    <Content Include="Views\Messages\Inbox.cshtml" />
-    <Content Include="Views\Messages\Sendbox.cshtml" />
-    <Content Include="Views\Messages\NewMessage.cshtml" />
-    <Content Include="Views\Messages\GetMessageDetails.cshtml" />
+    <Content Include="Views\AdminCategories\EditCategories.cshtml" />
+    <Content Include="Views\AdminCategories\AddCategory.cshtml" />
+    <Content Include="Views\AdminCategories\UpdateCategory.cshtml" />
+    <Content Include="Views\AdminStatistics\Index.cshtml" />
+    <Content Include="Views\AdminHeadings\Index.cshtml" />
+    <Content Include="Views\AdminHeadings\AddHeading.cshtml" />
+    <Content Include="Views\AdminContents\ContentByHeading.cshtml" />
+    <Content Include="Views\AdminHeadings\EditHeading.cshtml" />
+    <Content Include="Views\AdminAbouts\Index.cshtml" />
+    <Content Include="Views\AdminAbouts\AboutPartial.cshtml" />
+    <Content Include="Views\AdminContacts\Index.cshtml" />
+    <Content Include="Views\AdminContacts\GetContactDetails.cshtml" />
+    <Content Include="Views\AdminContacts\GetContactSideMenu.cshtml" />
+    <Content Include="Views\AdminMessages\Inbox.cshtml" />
+    <Content Include="Views\AdminMessages\Sendbox.cshtml" />
+    <Content Include="Views\AdminMessages\NewMessage.cshtml" />
+    <Content Include="Views\AdminMessages\GetMessageDetails.cshtml" />
     <Content Include="Views\ErrorPages\Page404.cshtml" />
-    <Content Include="Views\Galleries\Index.cshtml" />
-    <Content Include="Views\Logins\AdminLogin.cshtml" />
-    <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\AdminGalleries\Index.cshtml" />
+    <Content Include="Views\Logins\Login.cshtml" />
+    <Content Include="Views\AdminCategories\Index.cshtml" />
     <Content Include="Views\ErrorPages\Page401.cshtml" />
-    <Content Include="Views\Profiles\AdminAndOtherProfiles.cshtml" />
+    <Content Include="Views\AdminProfiles\Index.cshtml" />
+    <Content Include="Views\Shared\_WriterLayout.cshtml" />
+    <Content Include="Views\WriterHomepage\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\AdminHomepage\Index.cshtml" />
+    <Content Include="Views\Shared\_SiteLayout.cshtml" />
+    <Content Include="Views\Homepage\Sidebar.cshtml" />
+    <Content Include="Views\Homepage\Index.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Views\Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <Content Include="Views\Writers\Index.cshtml" />
-    <Content Include="Views\Writers\AddWriter.cshtml" />
-    <Content Include="Views\Writers\EditWriter.cshtml" />
+    <Content Include="Views\AdminWriters\Index.cshtml" />
+    <Content Include="Views\AdminWriters\AddWriter.cshtml" />
+    <Content Include="Views\AdminWriters\EditWriter.cshtml" />
+    <Content Include="Views\WriterHeadings\Index.cshtml" />
+    <Content Include="Views\WriterHeadings\AddHeading.cshtml" />
+    <Content Include="Views\WriterHeadings\EditHeading.cshtml" />
+    <Content Include="Views\WriterMessages\Inbox.cshtml" />
+    <Content Include="Views\WriterMessages\Sendbox.cshtml" />
+    <Content Include="Views\WriterMessages\GetMessageDetails.cshtml" />
+    <Content Include="Views\WriterMessages\NewMessage.cshtml" />
+    <Content Include="Views\WriterMessages\GetContactSideMenu.cshtml" />
+    <Content Include="Views\WriterContents\ContentByHeading.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
-using BusinessLayer.Abstract;
-using EntityLayer.Concrete;
+﻿using EntityLayer.Concrete;
 using EntityLayer.DTOs;
 
-namespace BusinessLayer.Concrete
+using System.Collections.Generic;
+
+namespace BusinessLayer.Abstract
 {
     public interface IUserService: IBaseService<User>
     {
-        bool LoginByAdmin(UserForLoginDto admin);
+        bool LoginAdmin(UserForLoginDto admin);
+        bool LoginWriter(UserForLoginDto writer);
         List<Skill> GetUserSkills(int userId);
+        void Logout();
     }
 }

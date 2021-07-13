@@ -1,0 +1,29 @@
+﻿@model EntityLayer.Concrete.Heading
+@{
+    ViewBag.Title = "Başlık güncelleme sayfası";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+
+    var headingDate = Model.HeadingDate.ToShortDateString();
+}
+
+@using (Html.BeginForm("EditHeading", "WriterHeadings", FormMethod.Post))
+{
+    <div class="form-group">
+
+        @Html.HiddenFor(x => x.HeadingId)
+        @Html.HiddenFor(x => x.HeadingDate)
+        @Html.HiddenFor(x => x.WriterId)
+        @Html.Label("Başlık Adı")
+        @Html.TextBoxFor(x => x.HeadingName, new { @class = "form-control" })
+        <br />
+
+        @Html.Label("Oluşturulma Tarihi")
+        @Html.TextBoxFor(x=>headingDate, new { @readonly = "readonly", @class = "form-control" })
+        <br />
+        @Html.Label("Kategori")
+        @Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.CategoryValues, new { @readonly = "readonly", @class = "form-control" })
+        <br />
+        <input type="submit" value="Güncelle" class="btn btn-success"/>
+    </div>
+}
+
