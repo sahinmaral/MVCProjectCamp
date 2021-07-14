@@ -1,5 +1,7 @@
 ﻿@using EntityLayer.Concrete
-@model List<Heading>
+@using PagedList
+@using PagedList.Mvc
+@model IPagedList<Heading>
 @{
     ViewBag.Title = "Yazarların başlıklar";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -75,59 +77,59 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                        <tr>
-                            <td>
-                                @item.HeadingId
-                            </td>
-                            <td>
-                                <a>
-                                    @item.HeadingName
-                                </a>
-                                <br />
-                                <small>
-                                    @item.HeadingDate.ToShortDateString()
-                                </small>
-                            </td>
-                            <td>
-                                <ul class="list-inline">
-                                    <li class="list-inline-item">
-                                        <img alt="Avatar" class="table-avatar" src="@item.Writer.User.UserImage">
-                                        @item.Writer.User.UserFirstName @item.Writer.User.UserLastName
-                                    </li>
-                                </ul>
-                            </td>
-                            <td class="project-state">
-                                <h3><span class="badge bg-info">@item.Category.CategoryName</span></h3>
-                            </td>
-                            <td class="project-state">
-                                @{  CheckHeadingStatus(item.HeadingStatus);
-                                    <h3><span class="@statusClass">@statusMessage</span></h3>
-                                }
-                            </td>
-                            <td class="project-actions text-right">
-                                <a class="btn btn-primary btn-sm" href="/Headings/HeadingByHeadingId/@item.HeadingId">
-                                    <i class="fas fa-folder">
-                                    </i>
-                                    Yazılar
-                                </a>
+                            <tr>
+                                <td>
+                                    @item.HeadingId
+                                </td>
+                                <td>
+                                    <a>
+                                        @item.HeadingName
+                                    </a>
+                                    <br />
+                                    <small>
+                                        @item.HeadingDate.ToShortDateString()
+                                    </small>
+                                </td>
+                                <td>
+                                    <ul class="list-inline">
+                                        <li class="list-inline-item">
+                                            <img alt="Avatar" class="table-avatar" src="@item.Writer.User.UserImage">
+                                            @item.Writer.User.UserFirstName @item.Writer.User.UserLastName
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td class="project-state">
+                                    <h3><span class="badge bg-info">@item.Category.CategoryName</span></h3>
+                                </td>
+                                <td class="project-state">
+                                    @{ CheckHeadingStatus(item.HeadingStatus);
+                                        <h3><span class="@statusClass">@statusMessage</span></h3>
+                                    }
+                                </td>
+                                <td class="project-actions text-right">
+                                    <a class="btn btn-primary btn-sm" href="/Headings/HeadingByHeadingId/@item.HeadingId">
+                                        <i class="fas fa-folder">
+                                        </i>
+                                        Yazılar
+                                    </a>
 
-                                <a class="btn btn-info btn-sm" href="/AdminHeadings/EditHeading/@item.HeadingId">
-                                    <i class="fas fa-pencil-alt">
-                                    </i>
-                                    Düzenle
-                                </a>
-                                <a class="btn btn-success btn-sm" href="/AdminHeadings/EnableHeading/@item.HeadingId">
-                                    <i class="fas fa-check-circle">
-                                    </i>
-                                    Onayla
-                                </a>
-                                <a class="@deleteButtonClass" href="/AdminHeadings/DeleteHeading/@item.HeadingId">
-                                    <i class="fas fa-trash">
-                                    </i>
-                                    Sil
-                                </a>
-                            </td>
-                        </tr>
+                                    <a class="btn btn-info btn-sm" href="/AdminHeadings/EditHeading/@item.HeadingId">
+                                        <i class="fas fa-pencil-alt">
+                                        </i>
+                                        Düzenle
+                                    </a>
+                                    <a class="btn btn-success btn-sm" href="/AdminHeadings/EnableHeading/@item.HeadingId">
+                                        <i class="fas fa-check-circle">
+                                        </i>
+                                        Onayla
+                                    </a>
+                                    <a class="@deleteButtonClass" href="/AdminHeadings/DeleteHeading/@item.HeadingId">
+                                        <i class="fas fa-trash">
+                                        </i>
+                                        Sil
+                                    </a>
+                                </td>
+                            </tr>
                         }
 
 
@@ -141,5 +143,26 @@
 </body>
 </html>
 <a href="/Headings/AddHeading/" class="btn btn-primary">Yeni Başlık Girişi</a>
+
+<br/> <br/>
+
+
+    @Html.PagedListPager((IPagedList)Model,
+        p => Url.Action("Index",
+            new { p })
+        ,
+        new PagedListRenderOptions
+        {
+            LiElementClasses = new List<string>
+            {
+                {"page-link"}
+            },
+            UlElementClasses = new List<string>
+            {
+                {"pagination justify-content"}
+            }
+        }
+        )
+
 
 

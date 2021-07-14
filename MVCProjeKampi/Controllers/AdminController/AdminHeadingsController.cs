@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using PagedList;
 
 namespace MVCProjeKampi.Controllers.AdminController
 {
@@ -25,9 +26,9 @@ namespace MVCProjeKampi.Controllers.AdminController
         [Authorize(Roles = "QuestionAndAnswerTeam,User")]
         [Authorize(Roles = "Administrator,User")]
         [Authorize(Roles = "Moderator,User")]
-        public ActionResult Index()
+        public ActionResult Index(int p=1)
         {
-            var headingValues = _headingManager.GetList();
+            var headingValues = _headingManager.GetList().OrderByDescending(x=>x.HeadingDate).ToPagedList(p,8);
 
             foreach (var items in _writerManager.GetWriterDetails())
             {

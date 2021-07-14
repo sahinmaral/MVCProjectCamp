@@ -1,4 +1,8 @@
-﻿@model List<EntityLayer.Concrete.Content>
+﻿@using EntityLayer.Concrete
+@using PagedList
+@using PagedList.Mvc
+
+@model PagedList.IPagedList<Content>
 
 @{
     ViewBag.Title = "ContentByHeading";
@@ -49,15 +53,22 @@
     <!--</div>-->
     <!-- ./wrapper -->
 
-    <select class="form-select form-select-sm" style="width: 3em; text-align: left;" aria-label=".form-select-sm example">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-    </select> &nbsp; &nbsp; /
-
-    <button class="btn btn-secondary btn-sm" style="height: 1.6em; margin-top: -0.3em; margin-left: 1em; padding-top:0em">5</button>
-    <button class="btn btn-secondary btn-sm" style="height: 1.6em; margin-top: -0.3em; margin-left: 0em; padding-top:0em">>></button>
-    <br /><br />
+@Html.PagedListPager((IPagedList)Model,
+    p => Url.Action("ContentByHeading",
+        new { p })
+    ,
+    new PagedListRenderOptions
+    {
+        LiElementClasses = new List<string>
+        {
+            {"page-link"}
+        },
+        UlElementClasses = new List<string>
+        {
+            {"pagination justify-content"}
+        }
+    }
+    )
 
     <div class="row">
         @foreach (var item in Model)
@@ -81,7 +92,10 @@
                         }
                         <p class="card-text">@content</p>
                     </div>
-                    <a href="/Headings/HeadingById/@item.HeadingId" class="btn btn-primary">Başlığa git</a>
+
+                    @*Başlıkta yorumun direkt üstüne gelmesi ayarlanabilir*@
+
+                    <a href="/Headings/HeadingByHeadingId/@item.HeadingId" class="btn btn-primary">Başlığa git</a>
                 </div>
             </div>
         }

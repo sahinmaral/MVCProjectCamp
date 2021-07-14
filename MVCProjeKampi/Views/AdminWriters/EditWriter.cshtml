@@ -1,37 +1,41 @@
-﻿@model EntityLayer.Concrete.Writer
+﻿@model EntityLayer.Concrete.User
 @{
     ViewBag.Title = "Yazar Düzenleme Sayfası";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
+<h3 class="h3">@Model.UserUsername Kullanıcı Adlı Kullacının Profilini Düzenleyin</h3>
+
 <br />
 @using (Html.BeginForm("EditWriter", "AdminWriters", FormMethod.Post))
 {
 <div class="form-group">
-    @Html.HiddenFor(x => x.WriterId)
+    @Html.HiddenFor(x => x.UserId)
+    @Html.HiddenFor(x=>x.UserUsername)    
 
     @Html.Label("Yazar Adı")
-    @Html.TextBoxFor(x => x.User.UserFirstName, new { @class = "form-control" })
-    @Html.ValidationMessageFor(x => x.User.UserFirstName, "", new { @class = "text-danger" })
+    @Html.TextBoxFor(x => x.UserFirstName, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.UserFirstName, "", new { @class = "text-danger" })
     <br />
     @Html.Label("Yazar Soyadı")
-    @Html.TextBoxFor(x => x.User.UserLastName, new { @class = "form-control" })
-    @Html.ValidationMessageFor(x => x.User.UserLastName, "", new { @class = "text-danger" })
+    @Html.TextBoxFor(x => x.UserLastName, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.UserLastName, "", new { @class = "text-danger" })
     <br />
     @Html.Label("Yazar Mail")
-    @Html.TextBoxFor(x => x.User.UserEmail, new { @class = "form-control" })
-    @Html.ValidationMessageFor(x => x.User.UserEmail, "", new { @class = "text-danger" })
+    @Html.TextBoxFor(x => x.UserEmail, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.UserEmail, "", new { @class = "text-danger" })
     <br />
     @Html.Label("Yazar Görsel Linki")
-    @Html.TextBoxFor(x => x.User.UserImage, new { @class = "form-control" })
-    @Html.ValidationMessageFor(x => x.User.UserImage, "", new { @class = "text-danger" })
+    @Html.TextBoxFor(x => x.UserImage, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.UserImage, "", new { @class = "text-danger" })
     <br />
     @Html.Label("Yazar Ünvanı")
-    @Html.TextBoxFor(x => x.User.UserTitle, new { @class = "form-control" })
-    @Html.ValidationMessageFor(x => x.User.UserTitle, "", new { @class = "text-danger" })
+    @Html.TextBoxFor(x => x.UserTitle, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.UserTitle, "", new { @class = "text-danger" })
     <br />
     @Html.Label("Yazar Hakkında")
-    @Html.TextBoxFor(x => x.User.UserAbout, new { @class = "form-control" })
-    @Html.ValidationMessageFor(x => x.User.UserAbout, "", new { @class = "text-danger" })
+    @Html.TextBoxFor(x => x.UserAbout, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.UserAbout, "", new { @class = "text-danger" })
     <br />
     <button class="btn btn-success">Değişiklikleri uygula</button>
     <br />

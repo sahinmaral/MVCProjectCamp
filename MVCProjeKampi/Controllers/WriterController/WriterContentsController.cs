@@ -7,6 +7,7 @@ using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using MVCProjeKampi.Models.ViewModels;
+using PagedList;
 
 namespace MVCProjeKampi.Controllers.WriterController
 {
@@ -17,12 +18,12 @@ namespace MVCProjeKampi.Controllers.WriterController
         private IWriterService writerService = new WriterManager(new EfWriterDal(), new EfUserDal());
 
         [Authorize(Roles = "Writer,User")]
-        public ActionResult ContentByHeading()
+        public ActionResult ContentByHeading(int p=1)
         {
             var username = Session["Username"];
             var user = userService.Get(x => x.UserUsername == username.ToString());
 
-            var contentValues = contentManager.GetList(x=>x.Writer.UserId==user.UserId);
+            var contentValues = contentManager.GetList(x=>x.Writer.UserId==user.UserId).ToPagedList(p,9);
 
             return View(contentValues);
         }

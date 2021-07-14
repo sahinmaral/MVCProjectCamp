@@ -9,6 +9,7 @@ using BusinessLayer.ValidationRules;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
+using PagedList;
 
 namespace MVCProjeKampi.Controllers.WriterController
 {
@@ -19,13 +20,13 @@ namespace MVCProjeKampi.Controllers.WriterController
         private ICategoryService _categoryService = new CategoryManager(new EfCategoryDal());
 
         [Authorize(Roles = "Writer,User")]
-        public ActionResult Index()
+        public ActionResult Index(int p=1)
         {
             var username = Session["Username"];
 
             var writer = _writerService.Get(x => x.User.UserUsername == username.ToString());
 
-            var list = _headingService.GetList(x => x.WriterId == writer.WriterId && x.HeadingStatus==true);
+            var list = _headingService.GetList(x => x.WriterId == writer.WriterId && x.HeadingStatus==true).ToPagedList(p,8);
             
             return View(list);
         }

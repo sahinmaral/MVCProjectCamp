@@ -1,14 +1,15 @@
 ﻿@using EntityLayer.Concrete
-
-@model List<Category>
+@using PagedList
+@using PagedList.Mvc
+@model IPagedList<Category>
 
 @{
     ViewBag.Title = "Kategoriler";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-@*Sebebini anlamadığım şekilde kategori hariç 
-diğer sayfalarda çoklu yenilemelerde sidebar küçülüyor.*@
+@*Sebebini anlamadığım şekilde kategori hariç
+    diğer sayfalarda çoklu yenilemelerde sidebar küçülüyor.*@
 
 <table class="table table-bordered">
     <tr>
@@ -27,3 +28,21 @@ diğer sayfalarda çoklu yenilemelerde sidebar küçülüyor.*@
 
 </table>
 <br />
+
+
+    @Html.PagedListPager((IPagedList)Model,
+        p => Url.Action("Index",
+            new { p })
+        ,
+        new PagedListRenderOptions
+        {
+            LiElementClasses = new List<string>
+            {
+                {"page-link"}
+            },
+            UlElementClasses = new List<string>
+            {
+                {"pagination justify-content-center"}
+            }
+        }
+        )

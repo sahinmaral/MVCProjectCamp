@@ -1,5 +1,7 @@
 ﻿@using EntityLayer.Concrete
-@model List<EntityLayer.Concrete.Writer>
+@using PagedList
+@using PagedList.Mvc
+@model IPagedList<Writer>
 
 @{
     ViewBag.Title = "Yazar Anasayfa";
@@ -34,49 +36,84 @@
                 <div class="row d-flex align-items-stretch">
                     @foreach (var item in Model)
                     {
-                        <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
-                            <div class="card bg-light">
-                                <div class="card-header text-muted border-bottom-0">
-                                    @item.User.UserTitle
-                                </div>
-                                <div class="card-body pt-0">
-                                    <div class="row">
-                                        <div class="col-7">
-                                            <h2 class="lead"><b>@item.User.UserFirstName @item.User.UserLastName</b></h2>
-                                            <p class="text-muted text-sm"><b>Hakkında: </b> @item.User.UserAbout </p>
-                                            <ul class="ml-4 mb-0 fa-ul text-muted">
-                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-mail-bulk"></i></span> Email: @item.User.UserEmail</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-3 text-center">
-                                            <img src="@item.User.UserImage" alt="" class="img-circle img-fluid">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="text-right">
-                                        <a href="/Headings/HeadingByWriterId/@item.WriterId" class="btn btn-sm bg-teal">
-                                            <i class="fas fa-comments"></i>Yazarın Başlıkları
-                                        </a>
-                                        <a href="/AdminWriters/EditWriter/@item.UserId" class="btn btn-sm btn-primary">
-                                            <i class="fas fa-user"></i> Profili Düzenle
-                                        </a>
-                                    </div>
-                                </div>
+
+                        <div class="card" style="width: 18rem; margin-left:1em">
+                            <img src="@item.User.UserImage" class="card-img-top" alt="..." style="height: 15em; width: 13em; margin-left: 2.7em; margin-top:1em">
+                            <div class="card-body">
+                                <h5 class="card-title">@item.User.UserUsername</h5>
+                                @*<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>*@
+                            </div>
+                            <ul class="list-group list-group-flush border-top">
+                                <li class="list-group-item">Hakkında : @item.User.UserAbout</li>
+                                <li class="list-group-item">Email : @item.User.UserEmail</li>
+                                <li class="list-group-item">A third item</li>
+                            </ul>
+                            <div class="card-body">
+                                <a href="/Headings/HeadingByWriterId/@item.WriterId" class="btn btn-sm bg-teal" style="margin-left: -0.5em">
+                                    <i class="fas fa-comments"></i>Yazarın Başlıkları
+                                </a>
+                                <a href="/AdminWriters/EditWriter/@item.UserId" class="btn btn-sm btn-primary" style="margin-top: -4.2em; margin-left:9.3em">
+                                    <i class="fas fa-user"></i> Profili Düzenle
+                                </a>
                             </div>
                         </div>
+                        @*<div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+                                <div class="card bg-light">
+                                    <div class="card-header text-muted border-bottom-0">
+                                        @item.User.UserTitle
+                                    </div>
+                                    <div class="card-body pt-0">
+                                        <div class="row">
+                                            <div class="col-7">
+                                                <h2 class="lead"><b>@item.User.UserFirstName @item.User.UserLastName</b></h2>
+                                                <p class="text-muted text-sm"><b>Hakkında: </b> @item.User.UserAbout </p>
+                                                <p class="text-muted text-sm"><b>Email:</b> @item.User.UserEmail</p>
+
+                                            </div>
+                                            <div class="col-3 text-center">
+                                                <img src="@item.User.UserImage" alt="" class="img-circle img-fluid">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="text-right">
+                                            <a href="/Headings/HeadingByWriterId/@item.WriterId" class="btn btn-sm bg-teal">
+                                                <i class="fas fa-comments"></i>Yazarın Başlıkları
+                                            </a>
+                                            <a href="/AdminWriters/EditWriter/@item.UserId" class="btn btn-sm btn-primary">
+                                                <i class="fas fa-user"></i> Profili Düzenle
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
                     }
                 </div>
-                    
+
             </div>
-            
+
         </div>
 
-        
+
 
     </section>
 
-
+    @Html.PagedListPager((IPagedList)Model,
+        p => Url.Action("Index",
+            new { p })
+        ,
+        new PagedListRenderOptions
+        {
+            LiElementClasses = new List<string>
+            {
+                {"page-link"}
+            },
+            UlElementClasses = new List<string>
+            {
+                {"pagination justify-content-center"}
+            }
+        }
+        )
 
 
 </body>

@@ -1,21 +1,37 @@
 ﻿@using MVCProjeKampi.Models.ViewModels
+@using PagedList
+@using PagedList.Mvc
 @model ContentsByHeadingViewModel
 
 @{
-    ViewBag.Title = @Model.HeadingName;
+    ViewBag.Title = @Model.Heading.HeadingName;
     Layout = "~/Views/Shared/_SiteLayout.cshtml";
+
 }
 
-<h2 style="margin-top:-1em"><b>@Model.HeadingName</b></h2>
+<h2 style="margin-top:-1em"><b>@Model.Heading.HeadingName</b></h2>
 
-<select class="form-select form-select-sm" style="width: 3em; text-align: left;" aria-label=".form-select-sm example">
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-</select> &nbsp; &nbsp; /
+@if (Model.ContentList.Count >= 8)
+{
+    @Html.PagedListPager((IPagedList)Model.ContentList,
+        p => Url.Action("HeadingByHeadingId",
+            new { id = @Model.Heading.HeadingId, p })
+        ,
+        new PagedListRenderOptions
+        {
+            LiElementClasses = new List<string>
+            {
+                {"page-link"}
+            },
+            UlElementClasses = new List<string>
+            {
+                {"pagination justify-content"}
+            }
+        }
+        )
+}
 
-<button class="btn btn-secondary btn-sm" style="height: 1.6em; margin-top: -0.3em; margin-left: 1em; padding-top:0em">5</button>
-<button class="btn btn-secondary btn-sm" style="height: 1.6em; margin-top: -0.3em; margin-left: 0em; padding-top:0em">>></button>
+
 
 <div style="margin-top:2em">
 
@@ -45,13 +61,13 @@
         using (Html.BeginForm("WriteContentOnHeading", "Contents", FormMethod.Post))
         {
             <div class="mb-3">
-                @Html.HiddenFor(x=>x.HeadingName)
+                @Html.HiddenFor(x => x.Heading.HeadingName)
                 @Html.TextAreaFor(x => x.GoingToAddContent.ContentText,
-                    new {@class = "form-control", @style = "width: 50em; height: 7em", @placeholder = @Model.HeadingName + "hakkında yazı yazın."})
+                    new { @class = "form-control", @style = "width: 50em; height: 7em", @placeholder = @Model.Heading.HeadingName + " hakkında yazı yazın." })
 
 
 
-                <br/>
+                <br />
                 <button type="submit" class="btn btn-success">Yolla</button>
             </div>
         }
@@ -60,4 +76,27 @@
 
 
 </div>
+
+
+
+    @Html.PagedListPager((IPagedList)Model.ContentList,
+        p => Url.Action("HeadingByHeadingId",
+            new { id = @Model.Heading.HeadingId, p })
+        ,
+        new PagedListRenderOptions
+        {
+            LiElementClasses = new List<string>
+            {
+                {"page-link"}
+            },
+            UlElementClasses = new List<string>
+            {
+                {"pagination justify-content"}
+            }
+        }
+        )
+
+
+
+
 

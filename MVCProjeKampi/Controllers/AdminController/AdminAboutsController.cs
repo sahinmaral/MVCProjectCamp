@@ -6,6 +6,7 @@ using EntityLayer.Concrete;
 
 using System.Web.Mvc;
 using MVCProjeKampi.Models.ViewModels;
+using PagedList;
 
 namespace MVCProjeKampi.Controllers.AdminController
 {
@@ -18,9 +19,9 @@ namespace MVCProjeKampi.Controllers.AdminController
         [Authorize(Roles = "QuestionAndAnswerTeam,User")]
         [Authorize(Roles = "Administrator,User")]
         [Authorize(Roles = "Moderator,User")]
-        public ActionResult Index()
+        public ActionResult Index(int p=1)
         {
-            viewModel.Abouts = aboutManager.GetList();
+            viewModel.Abouts = aboutManager.GetList().ToPagedList(p,8);
             viewModel.EnabledAbouts = aboutManager.GetList(x => x.AboutStatus == true).Count;
             viewModel.DisabledAbouts = aboutManager.GetList(x => x.AboutStatus == false).Count;
             

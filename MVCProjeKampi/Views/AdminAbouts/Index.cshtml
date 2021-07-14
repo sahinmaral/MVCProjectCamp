@@ -1,4 +1,6 @@
 ﻿@using MVCProjeKampi.Models.ViewModels
+@using PagedList
+@using PagedList.Mvc
 @model AboutHomepageViewModel
 @{
     ViewBag.Title = "Hakkımızda";
@@ -41,7 +43,6 @@
     }
 </table>
 
-
 <script>
 
     var disableAbout = function() {
@@ -67,7 +68,23 @@
 </script>
 
 
-
-
 @Html.Action("AboutPartial", "AdminAbouts")
 
+<br /><br/>
+
+@Html.PagedListPager((IPagedList)Model.Abouts,
+    p => Url.Action("Index",
+        new { p })
+    ,
+    new PagedListRenderOptions
+    {
+        LiElementClasses = new List<string>
+        {
+            {"page-link"}
+        },
+        UlElementClasses = new List<string>
+        {
+            {"pagination justify-content"}
+        }
+    }
+    )

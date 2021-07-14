@@ -80,26 +80,6 @@
     <Compile Include="EntityFramework\EfImageFileDal.cs" />
     <Compile Include="EntityFramework\EfAdminDal.cs" />
     <Compile Include="EntityFramework\EfWriterDal.cs" />
-    <Compile Include="Migrations\202106170617008_m3.cs" />
-    <Compile Include="Migrations\202106170617008_m3.designer.cs">
-      <DependentUpon>202106170617008_m3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202106171250088_m1.cs" />
-    <Compile Include="Migrations\202106171250088_m1.designer.cs">
-      <DependentUpon>202106171250088_m1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202106171253391_m2.cs" />
-    <Compile Include="Migrations\202106171253391_m2.designer.cs">
-      <DependentUpon>202106171253391_m2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202106171301357_m21.cs" />
-    <Compile Include="Migrations\202106171301357_m21.designer.cs">
-      <DependentUpon>202106171301357_m21.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202107141730290_m11.cs" />
-    <Compile Include="Migrations\202107141730290_m11.designer.cs">
-      <DependentUpon>202107141730290_m11.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -112,23 +92,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202106170617008_m3.resx">
-      <DependentUpon>202106170617008_m3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202106171250088_m1.resx">
-      <DependentUpon>202106171250088_m1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202106171253391_m2.resx">
-      <DependentUpon>202106171253391_m2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202106171301357_m21.resx">
-      <DependentUpon>202106171301357_m21.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202107141730290_m11.resx">
-      <DependentUpon>202107141730290_m11.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

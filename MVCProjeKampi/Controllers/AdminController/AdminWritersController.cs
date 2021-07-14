@@ -9,6 +9,7 @@ using FluentValidation.Results;
 using System.Web.Mvc;
 using System.Web.UI;
 using EntityLayer.Concrete;
+using PagedList;
 
 namespace MVCProjeKampi.Controllers.AdminController
 {
@@ -22,9 +23,9 @@ namespace MVCProjeKampi.Controllers.AdminController
         [Authorize(Roles = "QuestionAndAnswerTeam,User")]
         [Authorize(Roles = "Administrator,User")]
         [Authorize(Roles = "Moderator,User")]
-        public ActionResult Index()
+        public ActionResult Index(int p=1)
         {
-            var WriterValues = writerManager.GetWriterDetails();
+            var WriterValues = writerManager.GetWriterDetails().ToPagedList(p,8);
             
             return View(WriterValues);
         }
@@ -66,32 +67,30 @@ namespace MVCProjeKampi.Controllers.AdminController
         [Authorize(Roles = "Moderator,User")]
         public ActionResult EditWriter(int id)
         {
-            var WriterValue = writerManager.GetById(id);
-            return View(WriterValue);
+            var user = userService.GetById(id);
+            return View(user);
         }
 
         [HttpPost]
         [Authorize(Roles = "QuestionAndAnswerTeam,User")]
         [Authorize(Roles = "Administrator,User")]
         [Authorize(Roles = "Moderator,User")]
-        public ActionResult EditWriter(Writer writer)
+        public ActionResult EditWriter(User user)
         {
-            WriterValidator writerValidator = new WriterValidator();
-            ValidationResult results = writerValidator.Validate(writer);
-            if (results.IsValid)
-            {
-                var WriterValue = writerManager.Get(x=>x.WriterId==writer.WriterId);
-                writerManager.Update(WriterValue);
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                foreach (var item in results.Errors)
-                {
-                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-                }
-            }
-            return View();
+            var foundUser = userService.GetById(user.UserId);
+            foundUser.UserUsername = user.UserUsername;
+            foundUser.UserLastName = user.UserLastName;
+            foundUser.UserFirstName = user.UserFirstName;
+            foundUser.UserEmail = user.UserEmail;
+            foundUser.UserAbout = user.UserAbout;
+            foundUser.UserTitle = user.UserTitle;
+            foundUser.UserImage = user.UserImage;
+
+            userService.Update(foundUser);
+
+            return RedirectToAction("Index");
+
+           
         }
     }
 }

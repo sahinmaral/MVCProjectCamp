@@ -1,5 +1,7 @@
 ﻿@using EntityLayer.Concrete
-@model List<Heading>
+@using PagedList.Mvc
+@using PagedList
+@model IPagedList<Heading>
 
 @{
     ViewBag.Title = "Başlıklarınız";
@@ -127,6 +129,26 @@
 </body>
 </html>
 <a href="/WriterHeadings/AddHeading/" class="btn btn-primary">Yeni Başlık Girişi</a>
+
+<br/> <br/>
+
+@Html.PagedListPager((IPagedList)Model,
+    p => Url.Action("Index",
+        new { p })
+    ,
+    new PagedListRenderOptions
+    {
+        LiElementClasses = new List<string>
+        {
+            {"page-link"}
+        },
+        UlElementClasses = new List<string>
+        {
+            {"pagination justify-content"}
+        }
+    }
+    )
+
 
 
 

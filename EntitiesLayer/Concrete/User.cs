@@ -23,10 +23,10 @@ namespace EntityLayer.Concrete
         public string UserLastName { get; set; }
 
 
-        [StringLength(500)]
+        [MaxLength(500)]
         public byte[] UserPasswordHash { get; set; }
 
-        [StringLength(500)]
+        [MaxLength(500)]
         public byte[] UserPasswordSalt { get; set; }
 
 

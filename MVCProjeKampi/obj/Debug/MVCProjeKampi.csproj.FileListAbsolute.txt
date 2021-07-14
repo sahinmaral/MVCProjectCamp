@@ -118,3 +118,7 @@ C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\MVCProj
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\MVCProjeKampi\obj\Debug\MVCProjeKampi.csproj.CopyComplete
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\MVCProjeKampi\obj\Debug\MVCProjeKampi.dll
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\MVCProjeKampi\obj\Debug\MVCProjeKampi.pdb
+C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\MVCProjeKampi\bin\PagedList.dll
+C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\MVCProjeKampi\bin\PagedList.Mvc.dll
+C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\MVCProjeKampi\bin\PagedList.xml
+C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\MVCProjeKampi\bin\PagedList.Mvc.xml

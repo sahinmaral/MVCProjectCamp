@@ -9,6 +9,7 @@ using EntityLayer.Concrete;
 using FluentValidation.Results;
 
 using System.Web.Mvc;
+using PagedList;
 
 namespace MVCProjeKampi.Controllers.AdminController
 {
@@ -19,9 +20,9 @@ namespace MVCProjeKampi.Controllers.AdminController
         [Authorize(Roles = "Administrator,User")]
         [Authorize(Roles = "Moderator,User")]
         [Authorize(Roles = "QuestionAndAnswerTeam,User")]
-        public ActionResult Index()
+        public ActionResult Index(int p=1)
         {
-            var CategoryValues = categoryManager.GetList();
+            var CategoryValues = categoryManager.GetList().ToPagedList(p,8);
             return View(CategoryValues);
         }
         [Authorize(Roles = "Administrator,User")]

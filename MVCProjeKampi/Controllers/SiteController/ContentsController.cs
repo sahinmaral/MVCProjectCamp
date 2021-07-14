@@ -38,7 +38,7 @@ namespace MVCProjeKampi.Controllers.SiteController
 
             var writer = writerService.Get(x => x.UserId == user.UserId);
 
-            var heading = headingService.Get(x => x.HeadingName == viewmodel.HeadingName);
+            var heading = headingService.Get(x => x.HeadingName == viewmodel.Heading.HeadingName);
             viewmodel.GoingToAddContent.Heading = heading;
             viewmodel.GoingToAddContent.WriterId = writer.WriterId;
             viewmodel.GoingToAddContent.HeadingId = heading.HeadingId;

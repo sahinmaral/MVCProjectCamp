@@ -8,42 +8,42 @@ using MVCProjeKampi.Models.ViewModels;
 using System;
 using System.Linq;
 using System.Web.Mvc;
+using EntityLayer.Concrete;
+using PagedList;
 
 namespace MVCProjeKampi.Controllers.AdminController
 {
     public class AdminContentsController : Controller
     {
-        private IContentService contentManager = new ContentManager(new EfContentDal());
-        private IUserService userService = new UserManager(new EfUserDal(),new EfSkillDal(),new RoleManager(new EfRoleDal(),new EfUserDal(),new EfUserRoleDal()));
-        private IWriterService writerService = new WriterManager(new EfWriterDal(),new EfUserDal());
+        private IContentService contentService = new ContentManager(new EfContentDal());
+        private IUserService userService = new UserManager(new EfUserDal(), new EfSkillDal(), new RoleManager(new EfRoleDal(), new EfUserDal(), new EfUserRoleDal()));
+        private IWriterService writerService = new WriterManager(new EfWriterDal(), new EfUserDal());
+        private IHeadingService headingService = new HeadingManager(new EfHeadingDal());
 
         [Authorize(Roles = "Administrator,User")]
         [Authorize(Roles = "Moderator,User")]
         [Authorize(Roles = "QuestionAndAnswerTeam,User")]
         public ActionResult ContentByHeading(int id)
         {
-            string headingName = String.Empty;
-            var contentValues = contentManager.GetList(x => x.HeadingId == id);
-            
-            foreach (var content in contentValues)
+
+            var contents = contentService.GetList(x => x.HeadingId == id);
+
+            foreach (var content in contents)
             {
                 var writer = writerService.GetById(content.WriterId);
                 content.Writer.User = userService.GetById(writer.UserId);
             }
 
-            var headingContent = contentValues.FirstOrDefault();
-            if (headingContent != null)
-            {
-                headingName = headingContent.Heading.HeadingName;
-            }
+            var heading = headingService.Get(x => x.HeadingId == id);
 
-            ContentsByHeadingViewModel model1 = new ContentsByHeadingViewModel()
+
+            ContentsByHeadingViewModel viewModel = new ContentsByHeadingViewModel()
             {
-                ContentList = contentValues,
-                HeadingName = headingName
+                ContentList = contents.ToPagedList(1,10),
+                Heading = heading
             };
 
-            return View(model1);
+            return View(viewModel);
         }
 
 

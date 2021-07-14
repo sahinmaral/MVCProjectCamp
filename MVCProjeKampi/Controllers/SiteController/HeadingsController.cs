@@ -10,6 +10,7 @@ using BusinessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 
 using MVCProjeKampi.Models.ViewModels;
+using PagedList;
 
 namespace MVCProjeKampi.Controllers.SiteController
 {
@@ -20,15 +21,15 @@ namespace MVCProjeKampi.Controllers.SiteController
         private IWriterService writerService = new WriterManager(new EfWriterDal(), new EfUserDal());
 
         [AllowAnonymous]
-        public ActionResult HeadingByHeadingId(int id)
+        public ActionResult HeadingByHeadingId(int id,int p=1)
         {
-            var headingName = headingService.GetById(id).HeadingName;
-            var contents = contentService.GetList(x => x.HeadingId == id);
+            var heading = headingService.GetById(id);
+            var contents = contentService.GetList(x => x.HeadingId == id).ToPagedList(p,8);
             var writers = writerService.GetWriterDetails();
 
             ContentsByHeadingViewModel viewModel = new ContentsByHeadingViewModel();
             viewModel.ContentList = contents;
-            viewModel.HeadingName = headingName;
+            viewModel.Heading = heading;
 
             foreach (var content in contents)
             {
@@ -40,6 +41,7 @@ namespace MVCProjeKampi.Controllers.SiteController
                     }
                 }
             }
+
 
             return View(viewModel);
         }
