@@ -28,3 +28,4 @@ C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAcc
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAccessLayer\obj\Debug\DataAccessLayer.Migrations.m1.resources
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAccessLayer\obj\Debug\DataAccessLayer.Migrations.m2.resources
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAccessLayer\obj\Debug\DataAccessLayer.Migrations.m21.resources
+C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAccessLayer\obj\Debug\DataAccessLayer.Migrations.m11.resources

@@ -4,36 +4,61 @@
 @model HomepageViewModel
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "MVC Proje Kampı";
     Layout = "~/Views/Shared/_SiteLayout.cshtml";
+    int counter = 0;
 }
+
 
 @{
     foreach (var item in Model.Headings)
     {
 
+        if (counter == 8)
+        {
+            break;
+        }
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">
-                    <a href="/">@item.HeadingName</a>
+                    <a href="/Headings/HeadingByHeadingId/@item.HeadingId">@item.HeadingName</a>
                 </h5>
-                <br/>
-                <p class="card-text">
-                    @{
-                        foreach (var content in Model.Contents)
+                <br />
+            
+                <p class="card-text border-top">
+                    
+                    @foreach (var content in Model.Contents)
+                    {
+                        if (item.HeadingId == content.HeadingId)
                         {
-                            if (item.HeadingId == content.HeadingId)
-                            {
-                                @content.ContentText
-                                break;
-                            }
+                            @content.ContentText
+                            break;
                         }
+
                     }
                     
-                    
                 </p>
+                <p class="card-text" style="text-align: right">
+
+                    @item.HeadingDate &nbsp; &nbsp; 
+
+                    @foreach (var writer in Model.Writers)
+                    {
+                        if (item.WriterId == writer.WriterId)
+                        {
+                            <a href="#">@writer.User.UserUsername</a>
+                            break;
+                        }
+                    }
+
+
+
+                </p>
+            
             </div>
         </div>
+
+        counter++;
     }
 
 }

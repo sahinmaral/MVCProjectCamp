@@ -6,10 +6,9 @@ using EntityLayer.Concrete;
 
 namespace MVCProjeKampi.Models.ViewModels
 {
-    public class HomepageViewModel
+    public class ContentByWriterViewModel
     {
-        public List<Heading> Headings { get; set; }
         public List<Content> Contents { get; set; }
-        public List<Writer> Writers { get; set; }
+        public Writer Writer { get; set; }
     }
 }

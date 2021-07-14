@@ -24,25 +24,21 @@ namespace MVCProjeKampi.Controllers
         public ActionResult Logout()
         {
             userService.Logout();
-            return RedirectToAction("Login", "Logins");
+            return RedirectToAction("Index", "Homepage");
         }
 
         [HttpPost]
         [AllowAnonymous]
         public ActionResult Login(UserForLoginDto user)
         {
-            if (userService.LoginAdmin(user))
+            if (userService.LoginAdmin(user) || userService.LoginWriter(user))
             {
                 //İleriki zamanlarda bekleme süresi ekleyip yapılabilir
                 //ViewBag.Message = "Başarılı bir şekilde giriş yaptınız";
 
-                return RedirectToAction("Index", "AdminHomepage");
+                return RedirectToAction("Index", "Homepage");
             }
 
-            if (userService.LoginWriter(user))
-            {
-                return RedirectToAction("Index", "WriterHomepage");
-            }
 
             ViewBag.Message = "Kullanıcı adı veya şifreniz yanlış";
             return View();

@@ -170,6 +170,8 @@
     <Compile Include="Controllers\AdminController\AdminProfilesController.cs" />
     <Compile Include="Controllers\AdminController\AdminStatisticsController.cs" />
     <Compile Include="Controllers\AdminController\AdminWritersController.cs" />
+    <Compile Include="Controllers\SiteController\ContentsController.cs" />
+    <Compile Include="Controllers\SiteController\HeadingsController.cs" />
     <Compile Include="Controllers\SiteController\HomepageController.cs" />
     <Compile Include="Controllers\WriterController\WriterContentsController.cs" />
     <Compile Include="Controllers\WriterController\WriterHeadingsController.cs" />
@@ -179,10 +181,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels\AboutHomepageViewModel.cs" />
+    <Compile Include="Models\ViewModels\ContentByWriterViewModel.cs" />
     <Compile Include="Models\ViewModels\HomepageViewModel.cs" />
     <Compile Include="Models\ViewModels\ProfileSkillViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\ViewModels\ContentByHeadingViewModel.cs" />
+    <Compile Include="Models\ViewModels\ContentsByHeadingViewModel.cs" />
     <Compile Include="Models\ViewModels\CountOfMessagesViewModel.cs" />
     <Compile Include="Roles\AdminRoleProvider.cs" />
     <Compile Include="Views\AdminHomepageController.cs" />
@@ -2335,6 +2338,10 @@
     <Content Include="Views\Shared\_SiteLayout.cshtml" />
     <Content Include="Views\Homepage\Sidebar.cshtml" />
     <Content Include="Views\Homepage\Index.cshtml" />
+    <Content Include="Views\Homepage\Logoff.cshtml" />
+    <Content Include="Views\Homepage\Logon.cshtml" />
+    <Content Include="Views\Headings\HeadingByHeadingId.cshtml" />
+    <Content Include="Views\Headings\HeadingByWriterId.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

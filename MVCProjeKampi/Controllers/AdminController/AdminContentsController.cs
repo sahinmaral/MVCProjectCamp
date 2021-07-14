@@ -37,7 +37,7 @@ namespace MVCProjeKampi.Controllers.AdminController
                 headingName = headingContent.Heading.HeadingName;
             }
 
-            ContentByHeadingViewModel model1 = new ContentByHeadingViewModel()
+            ContentsByHeadingViewModel model1 = new ContentsByHeadingViewModel()
             {
                 ContentList = contentValues,
                 HeadingName = headingName

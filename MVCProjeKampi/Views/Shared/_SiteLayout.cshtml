@@ -1,7 +1,8 @@
 ﻿
 @{
+    
+
     Layout = null;
-    string userInfoClass = "";
     string username = "";
 
     if (Session["Username"] == null)
@@ -22,9 +23,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-
-    <title>MVC Proje Kampı</title>
-
+    <title>@ViewBag.Title</title>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="~/Content/AdminLTE-3.0.4/plugins/fontawesome-free/css/all.min.css" />
     <!-- IonIcons -->
@@ -73,27 +72,19 @@ to get the desired effect
             <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->
 
+                
                 @{
                     if (username.Equals(""))
                     {
-                        userInfoClass = "hidden";
+                        @Html.Action("Logoff", "Homepage")
                     }
                     else
                     {
-                        userInfoClass = "display";
+                        @Html.Action("Logon","Homepage")
                     }
                 }
 
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex" style="visibility: @userInfoClass">
-                    <div class="image">
-                        <img src="@Session["UserImage"]" class="img-circle elevation-2" alt="User Image">
-                    </div>
-                    <div class="info">
-                        <a href="/Profiles/AdminAndOtherProfiles" class="d-block">@Session["Fullname"]</a>
-                        <a class="d-block">@Session["Username"]</a>
-                    </div>
-                </div>
-
+               
                 <!-- Sidebar Menu -->
                 @Html.Action("Sidebar", "Homepage")
                 <!-- /.sidebar-menu -->
@@ -107,16 +98,27 @@ to get the desired effect
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
-                        <div class="col-sm-6">
-                            @*<h1 class="m-0 text-dark">@ViewBag.Title</h1>*@
-                        </div><!-- /.col -->
+                    
+                        
+                        <div class="mb-3" style="margin-left: 2em">
+                            <div class="container d-flex flex-wrap justify-content-center">
+                                <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto">
+                                    <input type="search" class="form-control" placeholder="başlık" aria-label="Search" style="width:15em">
+                                    <button type="submit" class="btn btn-success" style="margin-left: 15.5em; margin-top:-4.2em"><i class="fas fa-search"></i></button>
+                                </form>
+                            </div>
+                        </div>
+
+                       
+                        
+
 
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
             </div>
             <!-- /.content-header -->
             <!-- Main content -->
-            <div class="content">
+            <div class="content" style="margin-left:3em">
                 @RenderBody()
                 <!-- /.container-fluid -->
             </div>

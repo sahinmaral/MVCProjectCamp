@@ -99,7 +99,7 @@ namespace BusinessLayer.Concrete
 
         public List<User> GetList()
         {
-            throw new NotImplementedException();
+            return _userDal.List();
         }
 
         public User Get(Expression<Func<User, bool>> filter)

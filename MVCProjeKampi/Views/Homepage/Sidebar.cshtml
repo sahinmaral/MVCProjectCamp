@@ -2,23 +2,27 @@
 @model List<Heading>
 
 @{
-    Layout = null;
+    int counter = 0;
 }
 
 <nav class="mt-2">
-    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false" style="margin-top: 2em">
         <li class="nav-item" style="padding-left: 1em">
             <a>
                 <p>
-                    Gündem
+                    <i>Gündem</i>
                 </p>
             </a>
         </li>
         @{
             foreach (var item in Model)
             {
+                if (counter==10)
+                {
+                    break;
+                }
                 <li class="nav-item">
-                    <a href="/Headings/@item.HeadingId" class="nav-link">
+                    <a href="/Headings/HeadingByHeadingId/@item.HeadingId" class="nav-link">
                         <p>
                             @item.HeadingName
                         </p>
@@ -32,6 +36,8 @@
                     </a>*@
 
                 </li>
+
+                counter++;
             }
         }
         

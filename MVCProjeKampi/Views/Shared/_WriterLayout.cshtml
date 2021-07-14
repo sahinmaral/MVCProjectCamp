@@ -64,8 +64,8 @@ to get the desired effect
                         <img src="@Session["UserImage"]" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="/Profiles/AdminAndOtherProfiles" class="d-block">@Session["Fullname"]</a>
-                        <a class="d-block">@Session["Username"]</a>
+                        <a href="/WriterHomepage" class="d-block">@Session["Fullname"] <br />@Session["Username"]</a>
+                        @*<a class="d-block">@Session["Username"]</a>*@
                     </div>
                 </div>
 
@@ -75,7 +75,7 @@ to get the desired effect
                         <!-- Add icons to the links using the .nav-icon class
                         with font-awesome or any other icon font library -->
                         <li class="nav-item">
-                            <a href="/Categories/Index" class="nav-link ">
+                            <a href="#" class="nav-link ">
                                 <i class="nav-icon fas fa-user-alt"></i>
                                 <p>
                                     Profilim
@@ -110,7 +110,7 @@ to get the desired effect
                         </li>
 
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="/" class="nav-link">
                                 <i class="nav-icon fas fa-window-restore"></i>
                                 <p>
                                     Siteye Git

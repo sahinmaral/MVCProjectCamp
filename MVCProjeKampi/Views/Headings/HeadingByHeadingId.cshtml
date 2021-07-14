@@ -1,0 +1,63 @@
+﻿@using MVCProjeKampi.Models.ViewModels
+@model ContentsByHeadingViewModel
+
+@{
+    ViewBag.Title = @Model.HeadingName;
+    Layout = "~/Views/Shared/_SiteLayout.cshtml";
+}
+
+<h2 style="margin-top:-1em"><b>@Model.HeadingName</b></h2>
+
+<select class="form-select form-select-sm" style="width: 3em; text-align: left;" aria-label=".form-select-sm example">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+</select> &nbsp; &nbsp; /
+
+<button class="btn btn-secondary btn-sm" style="height: 1.6em; margin-top: -0.3em; margin-left: 1em; padding-top:0em">5</button>
+<button class="btn btn-secondary btn-sm" style="height: 1.6em; margin-top: -0.3em; margin-left: 0em; padding-top:0em">>></button>
+
+<div style="margin-top:2em">
+
+    @foreach (var item in Model.ContentList)
+    {
+        <div class="card">
+            <div class="card-body">
+
+                <p class="card-text">
+                    @item.ContentText
+                </p>
+                <p class="card-text" style="text-align: right">
+                    @item.ContentDate.ToShortDateString() &nbsp; @item.ContentDate.ToShortTimeString() &nbsp; &nbsp; <a href="#">@item.Writer.User.UserUsername</a>
+                </p>
+
+            </div>
+        </div>
+    }
+
+    @if (Session["Username"] == null)
+    {
+
+    }
+    else
+    {
+
+        using (Html.BeginForm("WriteContentOnHeading", "Contents", FormMethod.Post))
+        {
+            <div class="mb-3">
+                @Html.HiddenFor(x=>x.HeadingName)
+                @Html.TextAreaFor(x => x.GoingToAddContent.ContentText,
+                    new {@class = "form-control", @style = "width: 50em; height: 7em", @placeholder = @Model.HeadingName + "hakkında yazı yazın."})
+
+
+
+                <br/>
+                <button type="submit" class="btn btn-success">Yolla</button>
+            </div>
+        }
+    }
+
+
+
+</div>
+
