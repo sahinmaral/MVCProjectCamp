@@ -29,7 +29,11 @@ namespace BusinessLayer.Concrete
 
         public List<Message> GetListInboxToAdmin()
         {
-            return _messageDal.List(x => x.ReceiverMail == "admin@gmail.com" && x.IsOpened == false);
+            var username = HttpContext.Current.Session["Username"].ToString();
+
+            var user = _userService.Get(x => x.UserUsername == username);
+
+            return _messageDal.List(x => x.ReceiverMail == user.UserEmail);
         }
 
         public Message Get(Expression<Func<Message, bool>> filter)
@@ -98,7 +102,11 @@ namespace BusinessLayer.Concrete
 
         public List<Message> GetListSendboxToAdmin()
         {
-            return _messageDal.List(x => x.SenderMail == "admin@gmail.com" );
+            var username = HttpContext.Current.Session["Username"].ToString();
+
+            var user = _userService.Get(x => x.UserUsername == username);
+
+            return _messageDal.List(x => x.SenderMail == user.UserEmail );
         }
     }
 }

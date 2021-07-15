@@ -9,6 +9,8 @@ using System.Web;
 using System.Web.Mvc;
 using BusinessLayer.Abstract;
 using EntityLayer.Concrete;
+using Microsoft.Ajax.Utilities;
+using MVCProjeKampi.Models.ViewModels;
 
 namespace MVCProjeKampi.Controllers.AdminController
 {
@@ -64,6 +66,49 @@ namespace MVCProjeKampi.Controllers.AdminController
 
             #endregion
 
+            return View();
+        }
+
+        [Authorize(Roles = "Administrator,User")]
+        [Authorize(Roles = "Moderator,User")]
+        [Authorize(Roles = "QuestionAndAnswerTeam,User")]
+        public ActionResult GetCategoryDonutGraph()
+        {
+            List<CategoryAndHeadingCountViewModel> viewmodel = new List<CategoryAndHeadingCountViewModel>();
+
+            var categories = categoryManager.GetList();
+
+            var headings = headingManager.GetList();
+
+            foreach (var category in categories)
+            {
+                viewmodel.Add(new CategoryAndHeadingCountViewModel()
+                {
+                    Category = category,
+                    HeadingCount = 0
+                });
+            }
+
+            foreach (var item in viewmodel)
+            {
+                foreach (var heading in headings)
+                {
+                    if (heading.CategoryId == item.Category.CategoryId)
+                    {
+                        item.HeadingCount++;
+                    }
+                }
+            }
+            
+
+            return Json(viewmodel, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize(Roles = "Administrator,User")]
+        [Authorize(Roles = "Moderator,User")]
+        [Authorize(Roles = "QuestionAndAnswerTeam,User")]
+        public ActionResult CategoryDonutGraph()
+        {
             return View();
         }
 

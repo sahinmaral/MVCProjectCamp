@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Web;
 using System.Web.Mvc;
 
@@ -60,6 +61,13 @@ namespace MVCProjeKampi.Controllers.SiteController
 
             return View(viewModel);
 
+        }
+
+        [AllowAnonymous]
+        public ActionResult SearchHeadings(string searched)
+        {
+            //Search bar araştırılacak
+            return View();
         }
     }
 }

@@ -15,27 +15,37 @@
     <tr>
         <th>Id</th>
         <th>Hakkımızda Başlığı</th>
-        <th>Aktif Yap</th>
-        <th>Pasif Yap</th>
+        <th>Diğer</th>
     </tr>
     @foreach (var item in Model.Abouts)
     {
         <tr>
             <td>@item.AboutId</td>
-            <td>Başlık</td>
+            <td>@item.AboutHeader</td>
+
             @if (item.AboutStatus)
             {
-
-                <td><a class="btn btn-success disabled">Aktif Yap</a></td>
-                <td><button onclick="disableAbout()" id="disableAboutButton" class="btn btn-danger">Pasif Yap</button></td>
-
-
-
+                <td>
+                    <a class="btn btn-success disabled">Aktif Yap</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button onclick="disableAbout()" id="disableAboutButton" class="btn btn-danger">Pasif Yap</button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="/AdminAbouts/EditAbout/@item.AboutId">
+                        <button class="btn btn-info">Düzenle</button>
+                    </a>
+                </td>
             }
             @if (!item.AboutStatus)
             {
-                <td><a href="/AdminAbouts/EnableAbout/@item.AboutId" class="btn btn-success" id="enableAboutButton">Aktif Yap</a></td>
-                <td><a class="btn btn-danger disabled">Pasif Yap</a></td>
+                <td>
+                    <a href="/AdminAbouts/EnableAbout/@item.AboutId" class="btn btn-success" id="enableAboutButton">Aktif Yap</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-danger disabled">Pasif Yap</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="/AdminAbouts/EditAbout/@item.AboutId">
+                        <button class="btn btn-info">Düzenle</button>
+                    </a>
+                </td>
             }
 
 
@@ -70,7 +80,8 @@
 
 @Html.Action("AboutPartial", "AdminAbouts")
 
-<br /><br/>
+<br />
+<br />
 
 @Html.PagedListPager((IPagedList)Model.Abouts,
     p => Url.Action("Index",

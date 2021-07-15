@@ -1,4 +1,5 @@
-﻿using BusinessLayer.Concrete;
+﻿using System.Linq;
+using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
 
 using DataAccessLayer.EntityFramework;
@@ -6,6 +7,7 @@ using DataAccessLayer.EntityFramework;
 using MVCProjeKampi.Models.ViewModels;
 
 using System.Web.Mvc;
+using System.Web.UI;
 using BusinessLayer.Abstract;
 
 namespace MVCProjeKampi.Controllers.AdminController
@@ -44,8 +46,8 @@ namespace MVCProjeKampi.Controllers.AdminController
         public PartialViewResult GetContactSideMenu()
         {
             CountOfMessagesViewModel viewModel = new CountOfMessagesViewModel();
-            viewModel.ReceivedMessageCount = messageManager.GetListInboxToAdmin().Count;
-            viewModel.SentMessageCount = messageManager.GetListSendboxToAdmin().Count;
+            viewModel.ReceivedMessageCount = messageManager.GetListInboxToAdmin().Count(x=>x.IsOpened==false);
+            viewModel.SentMessageCount = messageManager.GetListSendboxToAdmin().Count(x=>x.IsOpened == false);
             viewModel.ContactCount = contactManager.GetList(x=>x.IsOpened==false).Count;
 
             return PartialView(viewModel);

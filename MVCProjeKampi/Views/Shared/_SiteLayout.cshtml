@@ -1,6 +1,6 @@
 ﻿
 @{
-    
+
 
     Layout = null;
     string username = "";
@@ -41,6 +41,13 @@
     <script src="~/Content/AdminLTE-3.0.4/plugins/jquery/jquery.min.js"></script>
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet" />
+
+    <link rel="stylesheet" href="/Content/aboutPage/nicepage.css" media="screen">
+    <link rel="stylesheet" href="/Content/aboutPage/Home.css" media="screen">
+    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
+
+
+
 </head>
 <!--
 BODY TAG OPTIONS:
@@ -72,7 +79,7 @@ to get the desired effect
             <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->
 
-                
+
                 @{
                     if (username.Equals(""))
                     {
@@ -80,11 +87,11 @@ to get the desired effect
                     }
                     else
                     {
-                        @Html.Action("Logon","Homepage")
+                        @Html.Action("Logon", "Homepage")
                     }
                 }
 
-               
+
                 <!-- Sidebar Menu -->
                 @Html.Action("Sidebar", "Homepage")
                 <!-- /.sidebar-menu -->
@@ -98,8 +105,8 @@ to get the desired effect
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
-                    
-                        
+
+
                         <div class="mb-3" style="margin-left: 2em">
                             <div class="container d-flex flex-wrap justify-content-center">
                                 <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto">
@@ -109,8 +116,9 @@ to get the desired effect
                             </div>
                         </div>
 
-                       
-                        
+
+
+
 
 
                     </div><!-- /.row -->
@@ -118,13 +126,11 @@ to get the desired effect
             </div>
             <!-- /.content-header -->
             <!-- Main content -->
-            <div class="content" style="margin-left:3em">
+            <div class="content" style="margin-left: 3em;">
                 @RenderBody()
                 <footer class="bg-light text-center text-lg-start">
-                    <!-- Copyright -->
-                    <div class="text-center p-3" style="background-color: rgba(52,58,64,255);margin-left: -4em">
-
-                        <a class="text-light" href="#">Hakkımızda : Hakkımızda Sayfası</a>
+                    <div class="text-center p-3" style="background-color: rgba(52,58,64,255);margin-left: -5em">
+                        <a class="text-light" href="/About/Index">Hakkımızda : Hakkımızda Sayfası</a>
                     </div>
                     <!-- Copyright -->
                 </footer>
@@ -139,6 +145,8 @@ to get the desired effect
     <!-- REQUIRED SCRIPTS -->
     <!-- jQuery -->
     <!-- Bootstrap -->
+
+
     <script src="~/Content/AdminLTE-3.0.4/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE -->
     <script src="~/Content/AdminLTE-3.0.4/dist/js/adminlte.js"></script>
@@ -156,8 +164,11 @@ to get the desired effect
     <script>
         $(function () {
             //Add text editor
-            $('#compose-textarea').summernote()
+            $('#compose-textarea').summernote();
         })
+
+
+
     </script>
     @*<script src="~/Content/skillcard/js/jquery-1.11.1.min.js">$.noConflict</script>*@
 

@@ -74,5 +74,23 @@ namespace MVCProjeKampi.Controllers.AdminController
             aboutManager.Update(about);
             return RedirectToAction("Index");
         }
+
+        [Authorize(Roles = "Administrator,User")]
+        [Authorize(Roles = "Moderator,User")]
+        [HttpGet]
+        public ActionResult EditAbout(int id)
+        {
+            var about = aboutManager.GetById(id);
+            return View(about);
+        }
+
+        [Authorize(Roles = "Administrator,User")]
+        [Authorize(Roles = "Moderator,User")]
+        [HttpPost]
+        public ActionResult EditAbout(About about)
+        {
+            aboutManager.Update(about);
+            return RedirectToAction("Index");
+        }
     }
 }

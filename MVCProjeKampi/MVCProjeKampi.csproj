@@ -176,6 +176,7 @@
     <Compile Include="Controllers\AdminController\AdminProfilesController.cs" />
     <Compile Include="Controllers\AdminController\AdminStatisticsController.cs" />
     <Compile Include="Controllers\AdminController\AdminWritersController.cs" />
+    <Compile Include="Controllers\SiteController\AboutController.cs" />
     <Compile Include="Controllers\SiteController\ContentsController.cs" />
     <Compile Include="Controllers\SiteController\HeadingsController.cs" />
     <Compile Include="Controllers\SiteController\HomepageController.cs" />
@@ -189,6 +190,7 @@
     </Compile>
     <Compile Include="Models\ViewModels\AboutHomepageViewModel.cs" />
     <Compile Include="Models\ViewModels\ContentByWriterViewModel.cs" />
+    <Compile Include="Models\ViewModels\CategoryAndHeadingCountViewModel.cs" />
     <Compile Include="Models\ViewModels\HomepageViewModel.cs" />
     <Compile Include="Models\ViewModels\ProfileSkillViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -198,6 +200,8 @@
     <Compile Include="Views\AdminHomepageController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\aboutPage\Home.css" />
+    <Content Include="Content\aboutPage\nicepage.css" />
     <Content Include="Content\AdminLTE-3.0.4\build\config\postcss.config.js" />
     <Content Include="Content\AdminLTE-3.0.4\build\config\rollup.config.js" />
     <Content Include="Content\AdminLTE-3.0.4\build\js\AdminLTE.js" />
@@ -2350,6 +2354,9 @@
     <Content Include="Views\Homepage\Logon.cshtml" />
     <Content Include="Views\Headings\HeadingByHeadingId.cshtml" />
     <Content Include="Views\Headings\HeadingByWriterId.cshtml" />
+    <Content Include="Views\AdminAbouts\EditAbout.cshtml" />
+    <Content Include="Views\About\Index.cshtml" />
+    <Content Include="Views\AdminStatistics\CategoryDonutGraph.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -23,11 +23,5 @@ C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAcc
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CopyComplete
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAccessLayer\obj\Debug\DataAccessLayer.dll
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
-C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAccessLayer\obj\Debug\DataAccessLayer.Migrations.m3.resources
-C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.GenerateResource.cache
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAccessLayer\obj\Debug\DataAccessLayer.Migrations.m1.resources
-C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAccessLayer\obj\Debug\DataAccessLayer.Migrations.m2.resources
-C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAccessLayer\obj\Debug\DataAccessLayer.Migrations.m21.resources
-C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAccessLayer\obj\Debug\DataAccessLayer.Migrations.m11.resources
-C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAccessLayer\obj\Debug\DataAccessLayer.Migrations.m12.resources
-C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAccessLayer\obj\Debug\DataAccessLayer.Migrations.m13.resources
+C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.GenerateResource.cache
