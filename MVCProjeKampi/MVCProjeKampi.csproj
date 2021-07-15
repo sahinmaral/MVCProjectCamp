@@ -2357,6 +2357,7 @@
     <Content Include="Views\AdminAbouts\EditAbout.cshtml" />
     <Content Include="Views\About\Index.cshtml" />
     <Content Include="Views\AdminStatistics\CategoryDonutGraph.cshtml" />
+    <Content Include="Views\AdminHeadings\HeadingReport.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

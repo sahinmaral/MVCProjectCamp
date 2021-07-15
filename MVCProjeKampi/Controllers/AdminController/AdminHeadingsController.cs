@@ -158,5 +158,36 @@ namespace MVCProjeKampi.Controllers.AdminController
             _headingManager.Delete(headingValue);
             return RedirectToAction("Index");
         }
+
+        public ActionResult HeadingReport()
+        {
+            var headings = _headingManager.GetList();
+
+            var categories = _categoryManager.GetList();
+            var writers = _writerManager.GetWriterDetails();
+
+            foreach (var heading in headings)
+            {
+                foreach (var category in categories)
+                {
+                    if (heading.CategoryId == category.CategoryId)
+                    {
+                        heading.Category = category;
+                    }
+                }
+
+                foreach (var writer in writers)
+                {
+                    if (heading.WriterId == writer.WriterId)
+                    {
+                        heading.Writer = writer;
+                    }
+                }
+            }
+
+            return View(headings);
+        }
+
+
     }
 }
