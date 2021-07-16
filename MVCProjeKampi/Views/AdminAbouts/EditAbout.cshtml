@@ -5,23 +5,6 @@
 
 <h3 class="h3">Hakkımızda Düzenleme</h3> <br/>
 
-@*@using (Html.BeginForm("EditAbout", "AdminAbouts", FormMethod.Post))
-{
-    <div class="form-group">
-
-        @Html.HiddenFor(x => x.AboutId)
-
-        @Html.Label("Hakkımızda başlığı")
-        @Html.TextBoxFor(x => x.AboutHeader, new { @class = "form-control" })
-        <br />
-
-        @Html.Label("Hakkımızda")
-        @Html.TextAreaFor(x => x.AboutText, new { @class = "form-control" })
-        <br />
-        <input type="submit" value="Güncelle" class="btn btn-success" />
-    </div>
-}*@
-
 <div class="card card-primary card-outline">
     @using (Html.BeginForm("EditAbout", "AdminAbouts", FormMethod.Post))
     {

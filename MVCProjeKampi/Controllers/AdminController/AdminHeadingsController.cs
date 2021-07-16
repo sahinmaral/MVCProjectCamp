@@ -59,7 +59,7 @@ namespace MVCProjeKampi.Controllers.AdminController
                 }).ToList();
 
 
-            List<SelectListItem> writerValues = (from x in _writerManager.GetList()
+            List<SelectListItem> writerValues = (from x in _writerManager.GetWriterDetails()
                 select new SelectListItem()
                 {
                     Text = $"{x.User.UserFirstName} {x.User.UserLastName}",

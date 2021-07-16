@@ -90,7 +90,18 @@ namespace MVCProjeKampi.Controllers.AdminController
 
             return RedirectToAction("Index");
 
-           
         }
+
+        [Authorize(Roles = "Administrator,User")]
+        [Authorize(Roles = "Moderator,User")]
+        public ActionResult BanUser(int userId,bool status)
+        {
+            var user = userService.GetById(userId);
+
+            user.UserStatus = status;
+            userService.Update(user);
+            return RedirectToAction("Index","AdminAuthorization");
+        }
+
     }
 }

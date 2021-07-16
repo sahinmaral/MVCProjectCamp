@@ -6,7 +6,7 @@
 }
 
 
-@using (Html.BeginForm("AddWriter", "Writers", FormMethod.Post))
+@using (Html.BeginForm("AddWriter", "AdminWriters", FormMethod.Post))
 {
 <div class="form-group">
     @Html.Label("Yazar Adı")
@@ -21,10 +21,6 @@
     @Html.TextBoxFor(x => x.User.UserEmail, new { @class = "form-control" })
     @Html.ValidationMessageFor(x => x.User.UserEmail, "", new { @class = "text-danger" })
     <br />
-    @*@Html.Label("Yazar Şifresi")
-    @Html.TextBoxFor(x => x.User.UserPassword, new { @class = "form-control" })
-    @Html.ValidationMessageFor(x => x.User.UserPassword, "", new { @class = "text-danger" })
-    <br />*@
     @Html.Label("Yazar Görsel Linki")
     @Html.TextBoxFor(x => x.User.UserImage, new { @class = "form-control" })
     @Html.ValidationMessageFor(x => x.User.UserImage, "", new { @class = "text-danger" })

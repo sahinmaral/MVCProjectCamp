@@ -1,0 +1,49 @@
+﻿@using MVCProjeKampi.Models.ViewModels
+@model List<UserAndRolesViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    string status = "";
+}
+
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Kullanıcı adı</th>
+        <th>Mail adresi</th>
+        <th>Durum</th>
+        <th>Diğer</th>
+        
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.User.UserId</td>
+            <td>@item.User.UserUsername</td>
+            <td>@item.User.UserEmail</td>
+            <td>
+                <a href="../AdminWriters/BanUser?userId=@item.User.UserId&&status=false" class="btn btn-danger">Banla</a>
+                <a href="../AdminWriters/BanUser?userId=@item.User.UserId&&status=true" class="btn btn-warning">Banı kaldır</a>
+
+                <a href="/AdminAuthorization/GiveAuthorization?userId=@item.User.UserId" class="btn btn-success">Yetki İşlemleri</a>
+            </td>
+            <td>
+                @if (item.User.UserStatus)
+                {
+                    status = "Normal";
+                }
+                else
+                {
+                    status = "Banlı";
+                }
+                @status
+            </td>
+        </tr>
+
+
+    }
+</table>
+
+
+
