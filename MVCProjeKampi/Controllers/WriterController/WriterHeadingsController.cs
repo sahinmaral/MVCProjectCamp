@@ -13,27 +13,27 @@ using PagedList;
 
 namespace MVCProjeKampi.Controllers.WriterController
 {
+    [Authorize(Roles = "Writer,User")]
     public class WriterHeadingsController : Controller
     {
         private IWriterService _writerService = new WriterManager(new EfWriterDal(), new EfUserDal());
         private IHeadingService _headingService = new HeadingManager(new EfHeadingDal());
         private ICategoryService _categoryService = new CategoryManager(new EfCategoryDal());
 
-        [Authorize(Roles = "Writer,User")]
+
         public ActionResult Index(int p=1)
         {
             var username = Session["Username"];
 
             var writer = _writerService.Get(x => x.User.UserUsername == username.ToString());
 
-            var list = _headingService.GetList(x => x.WriterId == writer.WriterId && x.HeadingStatus==true).ToPagedList(p,8);
+            var list = _headingService.GetList(x => x.WriterId == writer.WriterId).ToPagedList(p,8);
             
             return View(list);
         }
 
 
         [HttpGet]
-        [Authorize(Roles = "Writer,User")]
         public ActionResult AddHeading()
         {
 
@@ -52,7 +52,6 @@ namespace MVCProjeKampi.Controllers.WriterController
 
 
         [HttpPost]
-        [Authorize(Roles = "Writer,User")]
         public ActionResult AddHeading(Heading heading)
         {
             var username = Session["Username"];
@@ -80,7 +79,6 @@ namespace MVCProjeKampi.Controllers.WriterController
 
 
         [HttpGet]
-        [Authorize(Roles = "Writer,User")]
         public ActionResult EditHeading(int id)
         {
             List<SelectListItem> categoryValues = (from x in _categoryService.GetList()
@@ -114,7 +112,6 @@ namespace MVCProjeKampi.Controllers.WriterController
 
 
         [HttpPost]
-        [Authorize(Roles = "Writer,User")]
         public ActionResult EditHeading(Heading heading)
         {
             _headingService.Update(heading);

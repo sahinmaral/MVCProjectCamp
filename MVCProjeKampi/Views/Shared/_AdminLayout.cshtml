@@ -41,191 +41,229 @@ to get the desired effect
 |---------------------------------------------------------|
 -->
 <body class="hold-transition sidebar-mini">
-<div class="wrapper">
+    <div class="wrapper">
 
 
 
 
-    <!-- /.navbar -->
-    <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <!-- Brand Logo -->
-        <a href="/AdminCategory" class="brand-link">
-            <img src="~/Content/AdminLTE-3.0.4/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-                 style="opacity: .8">
-            <span class="brand-text font-weight-light">MVC Proje Kampı</span>
-        </a>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="/AdminCategory" class="brand-link">
+                <img src="~/Content/AdminLTE-3.0.4/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                     style="opacity: .8">
+                <span class="brand-text font-weight-light">MVC Proje Kampı</span>
+            </a>
 
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <!-- Sidebar user panel (optional) -->
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="image">
-                    <img src="@Session["UserImage"]" class="img-circle elevation-2" alt="User Image">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user panel (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="image">
+                        <img src="@Session["UserImage"]" class="img-circle elevation-2" alt="User Image">
+                    </div>
+                    <div class="info">
+                        <a href="/AdminHomepage" class="d-block">@Session["Fullname"] <br /> @Session["Username"]</a>
+                    </div>
                 </div>
-                <div class="info">
-                    <a href="/AdminHomepage" class="d-block">@Session["Fullname"] <br/> @Session["Username"]</a>
-                </div>
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+    with font-awesome or any other icon font library -->
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-users-cog"></i>
+                                <p>
+                                    Admin İşlemleri
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/AdminProfiles/Index" class="nav-link ">
+                                        <i class="nav-icon fas fa-user-alt"></i>
+                                        <p>
+                                            Becerilerim
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/AdminCategories/Index" class="nav-link ">
+                                        <i class="nav-icon fas fa-list"></i>
+                                        <p>
+                                            Kategoriler
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/AdminHeadings/Index" class="nav-link">
+                                        <i class="nav-icon fas fa-th"></i>
+                                        <p>
+                                            Başlıklar
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/AdminWriters/Index" class="nav-link">
+                                        <i class="nav-icon fas fa-user-edit"></i>
+                                        <p>
+                                            Yazarlar
+
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item has-treeview">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-chart-pie"></i>
+                                        <p>
+                                            İstatistikler
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="/AdminStatistics/CategoryDonutGraph" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Turta Grafik</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="pages/charts/flot.html" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Çizgi Grafik</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="/AdminStatistics" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Bazı İstatistik Veriler</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="/AdminHeadings/HeadingReport" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Başlık Raporlama</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/AdminAbouts/Index" class="nav-link">
+                                        <i class="nav-icon fas fa-file-alt"></i>
+                                        <p>
+                                            Hakkımızda
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/AdminAuthorization/Index" class="nav-link">
+                                        <i class="nav-icon fas fa-calendar-alt"></i>
+                                        <p>
+                                            Yetkilendirme
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <br />
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="/WriterProfiles/EditProfile" class="nav-link ">
+                                <i class="nav-icon fas fa-user-alt"></i>
+                                <p>
+                                    Profilim
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/AdminHeadings/MyHeadings" class="nav-link">
+                                <i class="nav-icon 	fas fa-heading"></i>
+                                <p>
+                                    Başlıklarım
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/WriterContents/ContentByHeading" class="nav-link">
+                                <i class="nav-icon 	fas fa-pencil-alt"></i>
+                                <p>
+                                    Yazılarım
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="/AdminContacts/Index" class="nav-link">
+                                <i class="nav-icon fas fa-edit"></i>
+                                <p>
+                                    İletişim & Mesajlar
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="/AdminGalleries/Index" class="nav-link">
+                                <i class="nav-icon far fa-image"></i>
+                                <p>
+                                    Galeri
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="/" class="nav-link">
+                                <i class="nav-icon fas fa-window-restore"></i>
+                                <p>
+                                    Siteye Git
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Logins/Logout" class="nav-link">
+                                <i class="nav-icon fas fa-sign-out-alt"></i>
+                                <p>
+                                    Çıkış Yap
+                                </p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
             </div>
+            <!-- /.sidebar -->
+        </aside>
 
-            <!-- Sidebar Menu -->
-            <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <!-- Add icons to the links using the .nav-icon class
-                    with font-awesome or any other icon font library -->
-                    <li class="nav-item">
-                        <a href="/AdminProfiles/Index" class="nav-link ">
-                            <i class="nav-icon fas fa-user-alt"></i>
-                            <p>
-                                Becerilerim
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/AdminCategories/Index" class="nav-link ">
-                            <i class="nav-icon fas fa-list"></i>
-                            <p>
-                                Kategoriler
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/AdminHeadings/Index" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
-                            <p>
-                                Başlıklar
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/AdminWriters/Index" class="nav-link">
-                            <i class="nav-icon fas fa-user-edit"></i>
-                            <p>
-                                Yazarlar
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
 
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-chart-pie"></i>
-                            <p>
-                                İstatistikler
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="/AdminStatistics/CategoryDonutGraph" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Turta Grafik</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/charts/flot.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Çizgi Grafik</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/AdminStatistics" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Bazı İstatistik Veriler</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/AdminHeadings/HeadingReport" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Başlık Raporlama</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/AdminAbouts/Index" class="nav-link">
-                            <i class="nav-icon fas fa-file-alt"></i>
-                            <p>
-                                Hakkımızda
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/AdminContacts/Index" class="nav-link">
-                            <i class="nav-icon fas fa-edit"></i>
-                            <p>
-                                İletişim & Mesajlar
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/AdminAuthorization/Index" class="nav-link">
-                            <i class="nav-icon fas fa-calendar-alt"></i>
-                            <p>
-                                Yetkilendirme
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/AdminGalleries/Index" class="nav-link">
-                            <i class="nav-icon far fa-image"></i>
-                            <p>
-                                Galeri
-                            </p>
-                        </a>
-                    </li>
-                    
-                    <li class="nav-item">
-                        <a href="/" class="nav-link">
-                            <i class="nav-icon fas fa-window-restore"></i>
-                            <p>
-                                Siteye Git
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/Logins/Logout" class="nav-link">
-                            <i class="nav-icon fas fa-sign-out-alt"></i>
-                            <p>
-                                Çıkış Yap
-                            </p>
-                        </a>
-                    </li>
+                        </div><!-- /.col -->
 
-                </ul>
-            </nav>
-            <!-- /.sidebar-menu -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+            <!-- Main content -->
+            <div class="content">
+                @RenderBody()
+                <!-- /.container-fluid -->
+            </div>
+            <!-- /.content -->
         </div>
-        <!-- /.sidebar -->
-    </aside>
-
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        
-                    </div><!-- /.col -->
-
-                </div><!-- /.row -->
-            </div><!-- /.container-fluid -->
-        </div>
-        <!-- /.content-header -->
-        <!-- Main content -->
-        <div class="content">
-            @RenderBody()
-            <!-- /.container-fluid -->
-        </div>
-        <!-- /.content -->
+        <!-- /.content-wrapper -->
     </div>
-    <!-- /.content-wrapper -->
-</div>
 
-<!-- ./wrapper -->
+    <!-- ./wrapper -->
     <!-- REQUIRED SCRIPTS -->
     <!-- jQuery -->
-
     <!-- Bootstrap -->
     <script src="~/Content/AdminLTE-3.0.4/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE -->
@@ -247,7 +285,7 @@ to get the desired effect
             $('#compose-textarea').summernote()
         })
     </script>
-@*<script src="~/Content/skillcard/js/jquery-1.11.1.min.js">$.noConflict</script>*@
+    @*<script src="~/Content/skillcard/js/jquery-1.11.1.min.js">$.noConflict</script>*@
 
 </body>
 </html>

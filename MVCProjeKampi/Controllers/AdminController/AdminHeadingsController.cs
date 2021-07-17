@@ -44,28 +44,42 @@ namespace MVCProjeKampi.Controllers.AdminController
             return View(headingValues);
         }
 
+        public ActionResult MyHeadings(int p = 1)
+        {
+            var username = Session["Username"];
+            var writer = writerService.Get(x => x.User.UserUsername == username.ToString());
+
+            var headingValues = headingService.GetList(x=>x.WriterId == writer.WriterId).OrderByDescending(x => x.HeadingDate).ToPagedList(p, 8);
+
+            foreach (var items in writerService.GetWriterDetails())
+            {
+                foreach (var headingValue in headingValues)
+                {
+                    if (headingValue.WriterId == items.WriterId)
+                    {
+                        headingValue.Writer.User = items.User;
+                    }
+                }
+            }
+
+            return View(headingValues);
+        }
+
 
         [HttpGet]
         public ActionResult AddHeading()
         {
+
             //DropDownList getirir
             List<SelectListItem> categoryValues = (from x in categoryService.GetList()
-                                                   select new SelectListItem()
-                                                   {
-                                                       Text = x.CategoryName,
-                                                       Value = x.CategoryId.ToString()
-                                                   }).ToList();
-
-
-            List<SelectListItem> writerValues = (from x in writerService.GetWriterDetails()
-                                                 select new SelectListItem()
-                                                 {
-                                                     Text = $"{x.User.UserFirstName} {x.User.UserLastName}",
-                                                     Value = x.WriterId.ToString()
-                                                 }).ToList();
+                select new SelectListItem()
+                {
+                    Text = x.CategoryName,
+                    Value = x.CategoryId.ToString()
+                }).ToList();
 
             ViewBag.CategoryValues = categoryValues;
-            ViewBag.WriterValues = writerValues;
+
             return View();
         }
 
@@ -73,13 +87,17 @@ namespace MVCProjeKampi.Controllers.AdminController
         [HttpPost]
         public ActionResult AddHeading(Heading heading)
         {
+            var username = Session["Username"];
+            var user = writerService.Get(x => x.User.UserUsername == username.ToString());
+
             HeadingValidator headingValidator = new HeadingValidator();
             ValidationResult results = headingValidator.Validate(heading);
             if (results.IsValid)
             {
-                heading.HeadingDate = DateTime.Parse(DateTime.Now.ToShortDateString());
+                heading.WriterId = user.WriterId;
+                heading.HeadingDate = DateTime.Now;
                 headingService.Add(heading);
-                return RedirectToAction("Index");
+                return RedirectToAction("MyHeadings");
             }
             else
             {

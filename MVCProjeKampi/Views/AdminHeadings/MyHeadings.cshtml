@@ -1,11 +1,13 @@
 ﻿@using EntityLayer.Concrete
-@using PagedList
 @using PagedList.Mvc
+@using PagedList
 @model IPagedList<Heading>
+
 @{
-    ViewBag.Title = "Yazarların başlıklar";
+    ViewBag.Title = "MyHeadings";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
 
 @{
     string statusClass = "";
@@ -28,11 +30,13 @@
                 break;
         }
     }
-
-
 }
 
 
+<!DOCTYPE html>
+<html>
+
+<body class="hold-transition sidebar-mini">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid">
@@ -58,16 +62,14 @@
                             <th style="width: 20%">
                                 Başlık Adı
                             </th>
-                            <th style="width: 15%">
-                                Oluşturan Yazar
-                            </th>
+
                             <th style="width: 8%" class="text-center">
                                 Kategori
                             </th>
                             <th style="width: 8%" class="text-center">
                                 Durum
                             </th>
-                            <th style="width: 30%" class="text-center">
+                            <th style="width: 20%" class="text-center">
                                 Diğer
                             </th>
                         </tr>
@@ -75,7 +77,6 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-
                             <tr>
                                 <td>
                                     @item.HeadingId
@@ -88,14 +89,6 @@
                                     <small>
                                         @item.HeadingDate.ToShortDateString()
                                     </small>
-                                </td>
-                                <td>
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item">
-                                            <img alt="Avatar" class="table-avatar" src="@item.Writer.User.UserImage">
-                                            @item.Writer.User.UserFirstName @item.Writer.User.UserLastName
-                                        </li>
-                                    </ul>
                                 </td>
                                 <td class="project-state">
                                     <h3><span class="badge bg-info">@item.Category.CategoryName</span></h3>
@@ -117,24 +110,6 @@
                                         </i>
                                         Düzenle
                                     </a>
-                                    @if (item.HeadingStatus)
-                                    {
-                                        <button class="btn btn-success btn-sm"
-                                                onclick="checkIfEnabled()">
-                                            <i class="fas fa-check-circle">
-                                            </i>
-                                            Onayla
-                                        </button>
-                                    }
-                                    else
-                                    {
-                                        <a class="btn btn-success btn-sm" href="/AdminHeadings/EnableHeading/@item.HeadingId">
-                                            <i class="fas fa-check-circle">
-                                            </i>
-                                            Onayla
-                                        </a>
-                                    }
-
                                     <a class="@deleteButtonClass" href="/AdminHeadings/DeleteHeading/@item.HeadingId">
                                         <i class="fas fa-trash">
                                         </i>
@@ -142,8 +117,6 @@
                                     </a>
                                 </td>
                             </tr>
-
-
                         }
 
 
@@ -154,44 +127,31 @@
         </div>
         <!-- /.card -->
     </section>
-
+</body>
+</html>
 <a href="/AdminHeadings/AddHeading/" class="btn btn-primary">Yeni Başlık Girişi</a>
 
-<br/> <br/>
+<br />
+<br />
 
-
-    @Html.PagedListPager((IPagedList)Model,
-        p => Url.Action("Index",
-            new { p })
-        ,
-        new PagedListRenderOptions
+@Html.PagedListPager((IPagedList)Model,
+    p => Url.Action("Index",
+        new { p })
+    ,
+    new PagedListRenderOptions
+    {
+        LiElementClasses = new List<string>
         {
-            LiElementClasses = new List<string>
-            {
-                {"page-link"}
-            },
-            UlElementClasses = new List<string>
-            {
-                {"pagination justify-content"}
-            }
+            {"page-link"}
+        },
+        UlElementClasses = new List<string>
+        {
+            {"pagination justify-content"}
         }
-        )
+    }
+    )
 
 
-<script>
-
-    //Boolean kısmı , javascript in tip güvenliği olmadığı için
-    //yanlış çalışıyor. False işlemi çalışmıyor
-
-    function checkIfEnabled() {
-        swal({
-                title: "Hata",
-                text: "Bu başlık zaten onaylı",
-                icon: "warning",
-                button: "Kapat"
-            });
-
-    };
 
 
-</script>
+

@@ -9,6 +9,10 @@ namespace EntityLayer.Concrete
 {
     public class Heading : IEntity
     {
+        public Heading()
+        {
+            HeadingStatus = true;
+        }
         [Key]
         public int HeadingId { get; set; }
         [StringLength(50)]

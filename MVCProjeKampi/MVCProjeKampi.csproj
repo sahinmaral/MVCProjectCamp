@@ -2364,6 +2364,7 @@
     <Content Include="Views\AdminAuthorization\Index.cshtml" />
     <Content Include="Views\AdminAuthorization\GiveAuthorization.cshtml" />
     <Content Include="Views\AdminHeadings\HeadingsByCategory.cshtml" />
+    <Content Include="Views\AdminHeadings\MyHeadings.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2392,7 +2393,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Messages\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

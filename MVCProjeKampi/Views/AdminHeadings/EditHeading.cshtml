@@ -11,15 +11,17 @@
 
     @Html.HiddenFor(x => x.HeadingId)
     @Html.HiddenFor(x => x.HeadingDate)
+    @Html.HiddenFor(x => x.CategoryId)
     @Html.HiddenFor(x => x.WriterId)
+
     @Html.Label("Başlık Adı")
     @Html.TextBoxFor(x => x.HeadingName, new { @class = "form-control" })
     <br />
     @Html.Label("Tarih")
-    @Html.TextBoxFor(x => x.HeadingDate, new { @class = "form-control" })
+    @Html.TextBoxFor(x => x.HeadingDate, new { @class = "form-control", @disabled = "disabled" })
     <br />
     @Html.Label("Kategori")
-    @Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.CategoryValues, new { @class = "form-control" })
+    @Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.CategoryValues, new { @class = "form-control", @disabled = "disabled" })
     <br />
     <input type="submit" value="Güncelle" class="btn btn-success" />
 </div>
