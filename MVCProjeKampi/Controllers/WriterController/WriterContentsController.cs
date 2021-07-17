@@ -11,13 +11,13 @@ using PagedList;
 
 namespace MVCProjeKampi.Controllers.WriterController
 {
+    [Authorize(Roles = "Writer,User")]
     public class WriterContentsController : Controller
     {
         private IContentService contentManager = new ContentManager(new EfContentDal());
         private IUserService userService = new UserManager(new EfUserDal(), new EfSkillDal(), new RoleManager(new EfRoleDal(), new EfUserDal(), new EfUserRoleDal()));
         private IWriterService writerService = new WriterManager(new EfWriterDal(), new EfUserDal());
 
-        [Authorize(Roles = "Writer,User")]
         public ActionResult ContentByHeading(int p=1)
         {
             var username = Session["Username"];

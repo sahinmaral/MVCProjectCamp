@@ -46,6 +46,16 @@ namespace MVCProjeKampi.Controllers.AdminController
             return View(viewModel);
         }
 
+        public ActionResult MyContentByHeading(int p = 1)
+        {
+            var username = Session["Username"];
+            var user = userService.Get(x => x.UserUsername == username.ToString());
+
+            var contentValues = contentService.GetList(x => x.Writer.UserId == user.UserId).ToPagedList(p, 9);
+
+            return View(contentValues);
+        }
+
 
     }
 }
