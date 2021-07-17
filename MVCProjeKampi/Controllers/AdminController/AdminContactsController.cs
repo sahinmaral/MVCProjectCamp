@@ -46,8 +46,8 @@ namespace MVCProjeKampi.Controllers.AdminController
         public PartialViewResult GetContactSideMenu()
         {
             CountOfMessagesViewModel viewModel = new CountOfMessagesViewModel();
-            viewModel.ReceivedMessageCount = messageManager.GetListInboxToAdmin().Count(x=>x.IsOpened==false);
-            viewModel.SentMessageCount = messageManager.GetListSendboxToAdmin().Count(x=>x.IsOpened == false);
+            viewModel.ReceivedMessageCount = messageManager.GetListInbox().Count(x=>x.IsOpened==false);
+            viewModel.SentMessageCount = messageManager.GetListSendbox().Count(x=>x.IsOpened == false);
             viewModel.ContactCount = contactManager.GetList(x=>x.IsOpened==false).Count;
 
             return PartialView(viewModel);

@@ -164,6 +164,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController\AdminMessagesController.cs" />
     <Compile Include="Controllers\AdminController\AdminAboutsController.cs" />
     <Compile Include="Controllers\AdminController\AdminAuthorizationController.cs" />
     <Compile Include="Controllers\AdminController\AdminCategoriesController.cs" />
@@ -173,7 +174,6 @@
     <Compile Include="Controllers\AdminController\AdminGalleriesController.cs" />
     <Compile Include="Controllers\AdminController\AdminHeadingsController.cs" />
     <Compile Include="Controllers\LoginsController.cs" />
-    <Compile Include="Controllers\AdminController\AdminMessagesController.cs" />
     <Compile Include="Controllers\AdminController\AdminProfilesController.cs" />
     <Compile Include="Controllers\AdminController\AdminStatisticsController.cs" />
     <Compile Include="Controllers\AdminController\AdminWritersController.cs" />
@@ -181,10 +181,10 @@
     <Compile Include="Controllers\SiteController\ContentsController.cs" />
     <Compile Include="Controllers\SiteController\HeadingsController.cs" />
     <Compile Include="Controllers\SiteController\HomepageController.cs" />
+    <Compile Include="Controllers\WriterController\WriterMessagesController.cs" />
     <Compile Include="Controllers\WriterController\WriterContentsController.cs" />
     <Compile Include="Controllers\WriterController\WriterHeadingsController.cs" />
     <Compile Include="Controllers\WriterController\WriterHomepageController.cs" />
-    <Compile Include="Controllers\WriterController\WriterMessagesController.cs" />
     <Compile Include="Controllers\WriterController\WriterProfilesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -2363,6 +2363,7 @@
     <Content Include="Views\AdminHeadings\HeadingReport.cshtml" />
     <Content Include="Views\AdminAuthorization\Index.cshtml" />
     <Content Include="Views\AdminAuthorization\GiveAuthorization.cshtml" />
+    <Content Include="Views\AdminHeadings\HeadingsByCategory.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2391,6 +2392,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Messages\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

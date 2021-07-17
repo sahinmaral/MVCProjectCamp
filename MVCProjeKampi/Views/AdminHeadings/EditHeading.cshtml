@@ -16,7 +16,7 @@
     @Html.TextBoxFor(x => x.HeadingName, new { @class = "form-control" })
     <br />
     @Html.Label("Tarih")
-    @Html.TextBoxFor(x => x.HeadingName, new { @class = "form-control" })
+    @Html.TextBoxFor(x => x.HeadingDate, new { @class = "form-control" })
     <br />
     @Html.Label("Kategori")
     @Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.CategoryValues, new { @class = "form-control" })

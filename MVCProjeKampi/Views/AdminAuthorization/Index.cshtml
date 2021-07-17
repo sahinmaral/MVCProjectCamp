@@ -12,8 +12,8 @@
         <th>#</th>
         <th>Kullanıcı adı</th>
         <th>Mail adresi</th>
-        <th>Durum</th>
         <th>Diğer</th>
+        <th>Durum</th>
         
     </tr>
     @foreach (var item in Model)
@@ -23,10 +23,7 @@
             <td>@item.User.UserUsername</td>
             <td>@item.User.UserEmail</td>
             <td>
-                <a href="../AdminWriters/BanUser?userId=@item.User.UserId&&status=false" class="btn btn-danger">Banla</a>
-                <a href="../AdminWriters/BanUser?userId=@item.User.UserId&&status=true" class="btn btn-warning">Banı kaldır</a>
-
-                <a href="/AdminAuthorization/GiveAuthorization?userId=@item.User.UserId" class="btn btn-success">Yetki İşlemleri</a>
+                <a href="/AdminAuthorization/GiveAuthorization?userId=@item.User.UserId" class="btn btn-warning">Kullanıcı İşlemleri</a>
             </td>
             <td>
                 @if (item.User.UserStatus)

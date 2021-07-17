@@ -27,7 +27,7 @@ namespace BusinessLayer.Concrete
             return _messageDal.List();
         }
 
-        public List<Message> GetListInboxToAdmin()
+        public List<Message> GetListInbox()
         {
             var username = HttpContext.Current.Session["Username"].ToString();
 
@@ -42,31 +42,7 @@ namespace BusinessLayer.Concrete
         }
 
         public void Add(Message entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SendMessageAdmin(Message entity)
-        {
-            entity.MessageContent = entity.MessageContent.Replace("<p>", "");
-            entity.MessageContent = entity.MessageContent.Replace("</p>", "");
-            entity.SenderMail = "admin@gmail.com";
-            entity.MessageDate = DateTime.Now;
-            _messageDal.Insert(entity);
-        }
-
-        public void SendMessageUser(Message entity)
-        {
-            var username = HttpContext.Current.Session["Username"];
-
-            var user = _userService.Get(x => x.UserUsername == username.ToString());
-
-            entity.MessageContent = entity.MessageContent.Replace("<p>", "");
-            entity.MessageContent = entity.MessageContent.Replace("</p>", "");
-
-            entity.SenderMail = user.UserEmail;
-
-            entity.MessageDate = DateTime.Now;
+        { 
             _messageDal.Insert(entity);
         }
 
@@ -100,7 +76,7 @@ namespace BusinessLayer.Concrete
             return _messageDal.List(filter);
         }
 
-        public List<Message> GetListSendboxToAdmin()
+        public List<Message> GetListSendbox()
         {
             var username = HttpContext.Current.Session["Username"].ToString();
 

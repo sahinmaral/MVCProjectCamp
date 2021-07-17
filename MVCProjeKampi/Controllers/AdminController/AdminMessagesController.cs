@@ -8,6 +8,7 @@ using EntityLayer.Concrete;
 
 using FluentValidation.Results;
 
+using System;
 using System.Web.Mvc;
 
 namespace MVCProjeKampi.Controllers.AdminController
@@ -15,33 +16,29 @@ namespace MVCProjeKampi.Controllers.AdminController
     public class AdminMessagesController : Controller
     {
         private IMessageService messageManager = new MessageManager(new EfMessageDal(),
-            new UserManager(new EfUserDal(), new EfSkillDal(),
-                new RoleManager(new EfRoleDal(), new EfUserDal(), new EfUserRoleDal())));
+           new UserManager(new EfUserDal(), new EfSkillDal(),
+               new RoleManager(new EfRoleDal(), new EfUserDal(), new EfUserRoleDal())));
         private MessageValidator validator = new MessageValidator();
 
-        [Authorize(Roles = "QuestionAndAnswerTeam,User")]
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
+        private IUserService userService = new UserManager(new EfUserDal(), new EfSkillDal(),
+            new RoleManager(new EfRoleDal(), new EfUserDal(), new EfUserRoleDal()));
+
         public ActionResult Inbox()
         {
             //Mesaja girdikten sonra sayfayı geri alınca yenilenmiyor
             //Sonrasında bakılması gerekiyor
-            var messageValues = messageManager.GetListInboxToAdmin();
+            var messageValues = messageManager.GetListInbox();
             return View(messageValues);
         }
 
-        [Authorize(Roles = "QuestionAndAnswerTeam,User")]
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
+
         public ActionResult Sendbox()
         {
-            var messageValues = messageManager.GetListSendboxToAdmin();
+            var messageValues = messageManager.GetListSendbox();
             return View(messageValues);
         }
 
-        [Authorize(Roles = "QuestionAndAnswerTeam,User")]
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
+
         public ActionResult GetMessageDetails(int id)
         {
             var contactValues = messageManager.GetById(id);
@@ -50,9 +47,7 @@ namespace MVCProjeKampi.Controllers.AdminController
             return View(contactValues);
         }
 
-        [Authorize(Roles = "QuestionAndAnswerTeam,User")]
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
+
         [HttpGet]
         public ActionResult NewMessage()
         {
@@ -60,15 +55,22 @@ namespace MVCProjeKampi.Controllers.AdminController
         }
 
 
-        [Authorize(Roles = "QuestionAndAnswerTeam,User")]
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
         [HttpPost]
         public ActionResult NewMessage(Message message)
         {
+            //İlerleyen zamanlarda eğer kullanı email güncelleyebilirse
+            //kullanıcı id üzerinden yapmak zorunda
+
+            var username = Session["Username"].ToString();
+
+            var user = userService.Get(x => x.UserUsername == username);
+
+            message.MessageDate = DateTime.Now;
+
             ValidationResult results = validator.Validate(message);
             if (results.IsValid)
             {
+                message.SenderMail = user.UserEmail;
                 messageManager.Add(message);
                 return RedirectToAction("Index", "AdminContacts");
             }
@@ -82,6 +84,5 @@ namespace MVCProjeKampi.Controllers.AdminController
 
             return View();
         }
-
     }
 }

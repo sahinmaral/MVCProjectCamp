@@ -6,19 +6,9 @@
 
 @model EntityLayer.Concrete.Message
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-</head>
 
 
 
-<body class="hold-transition sidebar-mini">
 
 
     <!-- Main content -->
@@ -53,13 +43,16 @@
                                         new { id = "compose-textarea", @class = "form-control", style = "height: 300px" })
                                     @Html.ValidationMessageFor(x => x.MessageContent)
                                 </div>
-                                <div class="form-group">
+                                
+
+                                @*  Dosya ekleme sonradan eklenebilir
+                                    <div class="form-group">
                                     <div class="btn btn-default btn-file">
                                         <i class="fas fa-paperclip"></i> Dosya Ekle
                                         <input type="file" name="attachment">
                                     </div>
                                     <p class="help-block">Max. 32MB</p>
-                                </div>
+                                </div>*@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
@@ -92,6 +85,3 @@
     </script>
 
 
-
-</body>
-</html>

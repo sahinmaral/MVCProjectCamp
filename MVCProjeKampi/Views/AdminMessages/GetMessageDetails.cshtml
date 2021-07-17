@@ -11,12 +11,12 @@
 
 <body class="hold-transition sidebar-mini">
 
-<!-- Main content -->
+    <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-3">
-                    <a href="/Messages/NewMessage" class="btn btn-primary btn-block mb-3">Yeni Mesaj Oluştur</a>
+                    <a href="/AdminMessages/NewMessage" class="btn btn-primary btn-block mb-3">Yeni Mesaj Oluştur</a>
                     @Html.Action("GetContactSideMenu", "AdminContacts")
                 </div>
                 <!-- /.col -->
@@ -34,13 +34,17 @@
                         <div class="card-body p-0">
                             <div class="mailbox-read-info">
                                 <h5>Mesaj Konusu : @Html.DisplayFor(x => x.Subject)</h5>
-                                <br/>
+                                <br />
                                 <h6>
                                     Kimden: @Html.DisplayFor(x => x.ReceiverMail)
                                     <span class="mailbox-read-time float-right">@Model.MessageDate.ToShortDateString()</span>
                                 </h6>
                             </div>
                             <!-- /.mailbox-read-info -->
+                            <div class="mailbox-read-message border-bottom">
+                                <p>@Html.Raw(@Model.MessageContent)</p>
+                            </div>
+                            <!-- /.mailbox-controls -->
                             <div class="mailbox-controls with-border text-center">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-container="body" title="Delete">
@@ -57,10 +61,6 @@
                                 <button type="button" class="btn btn-default btn-sm" data-toggle="tooltip" title="Print">
                                     <i class="fas fa-print"></i>
                                 </button>
-                            </div>
-                            <!-- /.mailbox-controls -->
-                            <div class="mailbox-read-message">
-                                <p>@Html.Raw(@Model.MessageContent)</p>
                             </div>
                             <!-- /.mailbox-read-message -->
                         </div>

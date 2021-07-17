@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using BusinessLayer.Abstract;
+﻿using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
+
 using DataAccessLayer.EntityFramework;
+
+using System.Linq;
+using System.Web.Mvc;
 
 namespace MVCProjeKampi.Controllers.SiteController
 {
+    [AllowAnonymous]
     public class AboutController : Controller
     {
         private IAboutService aboutService = new AboutManager(new EfAboutDal());

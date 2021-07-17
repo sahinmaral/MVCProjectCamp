@@ -28,11 +28,13 @@
                 break;
         }
     }
-
-
 }
 
 
+<!DOCTYPE html>
+<html>
+
+<body class="hold-transition sidebar-mini">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid">
@@ -58,7 +60,7 @@
                             <th style="width: 20%">
                                 Başlık Adı
                             </th>
-                            <th style="width: 15%">
+                            <th style="width: 30%">
                                 Oluşturan Yazar
                             </th>
                             <th style="width: 8%" class="text-center">
@@ -75,7 +77,6 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-
                             <tr>
                                 <td>
                                     @item.HeadingId
@@ -117,33 +118,18 @@
                                         </i>
                                         Düzenle
                                     </a>
-                                    @if (item.HeadingStatus)
-                                    {
-                                        <button class="btn btn-success btn-sm"
-                                                onclick="checkIfEnabled()">
-                                            <i class="fas fa-check-circle">
-                                            </i>
-                                            Onayla
-                                        </button>
-                                    }
-                                    else
-                                    {
-                                        <a class="btn btn-success btn-sm" href="/AdminHeadings/EnableHeading/@item.HeadingId">
-                                            <i class="fas fa-check-circle">
-                                            </i>
-                                            Onayla
-                                        </a>
-                                    }
-
-                                    <a class="@deleteButtonClass" href="/AdminHeadings/DeleteHeading/@item.HeadingId">
-                                        <i class="fas fa-times">
+                                    <a class="btn btn-success btn-sm" href="/AdminHeadings/EnableHeading/@item.HeadingId">
+                                        <i class="fas fa-check-circle">
                                         </i>
-                                        Pasif hale getir
+                                        Onayla
+                                    </a>
+                                    <a class="@deleteButtonClass" href="/AdminHeadings/DeleteHeading/@item.HeadingId">
+                                        <i class="fas fa-trash">
+                                        </i>
+                                        Sil
                                     </a>
                                 </td>
                             </tr>
-
-
                         }
 
 
@@ -154,12 +140,22 @@
         </div>
         <!-- /.card -->
     </section>
-
+</body>
+</html>
 <a href="/AdminHeadings/AddHeading/" class="btn btn-primary">Yeni Başlık Girişi</a>
 
-<br/> <br/>
+<br />
+<br />
 
 
+<div style="width: 100px; height: 100px;
+            position: absolute;
+            top:0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+  	
+            margin: auto;">
     @Html.PagedListPager((IPagedList)Model,
         p => Url.Action("Index",
             new { p })
@@ -176,22 +172,8 @@
             }
         }
         )
+</div>
 
 
-<script>
-
-    //Boolean kısmı , javascript in tip güvenliği olmadığı için
-    //yanlış çalışıyor. False işlemi çalışmıyor
-
-    function checkIfEnabled() {
-        swal({
-                title: "Hata",
-                text: "Bu başlık zaten onaylı",
-                icon: "warning",
-                button: "Kapat"
-            });
-
-    };
 
 
-</script>
