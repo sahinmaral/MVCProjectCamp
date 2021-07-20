@@ -95,14 +95,12 @@ to get the desired effect
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
+        <div class="content-wrapper" style="margin-top:-0.1em">
             <!-- Content Header (Page header) -->
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
-
-
-                        <div class="mb-3" style="margin-left: 2em">
+                        <div class="mb-3">
                             <div class="container d-flex flex-wrap justify-content-center">
                                 <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto">
                                     <input type="search" class="form-control" placeholder="başlık" aria-label="Search" style="width:15em">
@@ -110,32 +108,24 @@ to get the desired effect
                                 </form>
                             </div>
                         </div>
-
-
-
-
-
-
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
             </div>
+
             <!-- /.content-header -->
             <!-- Main content -->
-            <div class="content" style="margin-left: 3em;">
+            <div class="content">
                 @RenderBody()
-                
-                
-                <footer class="bg-light text-center text-lg-start">
-                    <div class="text-center p-3" style="background-color: rgba(52,58,64,255);margin-left: -5em">
-                        <a class="text-light" href="/About/Index">Hakkımızda : Hakkımızda Sayfası</a>
-                    </div>
-                </footer>
-                
-
                 <!-- /.container-fluid -->
+                
+                @*Footer gerekli*@
             </div>
+            
             <!-- /.content -->
         </div>
+        <!-- /.content-wrapper -->
+        
+
         <!-- /.content-wrapper -->
     </div>
 

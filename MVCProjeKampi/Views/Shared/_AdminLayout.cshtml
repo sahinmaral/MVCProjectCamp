@@ -1,56 +1,37 @@
-﻿
-@{
-    Layout = null;
-}
+﻿<!DOCTYPE html>
+<html>
 
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>MVC Proje Kampı</title>
-
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="~/Content/AdminLTE-3.0.4/plugins/fontawesome-free/css/all.min.css" />
-    <!-- IonIcons -->
-    @*<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />*@
-    <!-- summernote -->
-    <link rel="stylesheet" href="~/Content/AdminLTE-3.0.4/plugins/summernote/summernote-bs4.css" />
-    <!-- Theme style -->
-    <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="~/Content/AdminLTE-3.0.4/plugins/icheck-bootstrap/icheck-bootstrap.min.css" />
-    <link rel="stylesheet" href="~/Content/AdminLTE-3.0.4/dist/css/adminlte.min.css" />
-
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/Content/AdminLTE-3.0.4/plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="~/Content/AdminLTE-3.0.4/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Sweet Alert -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-    <script src="~/Content/AdminLTE-3.0.4/plugins/jquery/jquery.min.js"></script>
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/Content/AdminLTE-3.0.4/dist/css/adminlte.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="~/Content/AdminLTE-3.0.4/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="~/Content/AdminLTE-3.0.4/plugins/summernote/summernote-bs4.css">
     <!-- Google Font: Source Sans Pro -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
-<!--
-BODY TAG OPTIONS:
-=================
-Apply one or more of the following classes to to the body tag
-to get the desired effect
-|---------------------------------------------------------|
-|LAYOUT OPTIONS | sidebar-collapse                        |
-|               | sidebar-mini                            |
-|---------------------------------------------------------|
--->
-<body class="hold-transition sidebar-mini">
+
+<body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
-
-
-
-        <!-- /.navbar -->
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="/AdminCategory" class="brand-link">
+            <a href="/" class="brand-link">
                 <img src="~/Content/AdminLTE-3.0.4/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                      style="opacity: .8">
                 <span class="brand-text font-weight-light">MVC Proje Kampı</span>
@@ -72,7 +53,7 @@ to get the desired effect
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
-    with font-awesome or any other icon font library -->
+                        with font-awesome or any other icon font library -->
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-users-cog"></i>
@@ -238,13 +219,13 @@ to get the desired effect
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
+        <div class="content-wrapper" style="margin-top:-0.1em">
             <!-- Content Header (Page header) -->
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-
+                            @*<h1 class="m-0 text-dark">@ViewBag.Title</h1>*@
                         </div><!-- /.col -->
 
                     </div><!-- /.row -->
@@ -259,33 +240,33 @@ to get the desired effect
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
-    </div>
+       
 
+    </div>
     <!-- ./wrapper -->
-    <!-- REQUIRED SCRIPTS -->
     <!-- jQuery -->
-    <!-- Bootstrap -->
-    <script src="~/Content/AdminLTE-3.0.4/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- AdminLTE -->
-    <script src="~/Content/AdminLTE-3.0.4/dist/js/adminlte.js"></script>
-    <!-- AdminLTE App -->
-    <script src="~/Content/AdminLTE-3.0.4/dist/js/adminlte.min.js"></script>
-    <!--icheck-mailbox-->
-    <script src="~/Content/AdminLTE-3.0.4/plugins/icheck-bootstrap/icheck-mailbox.js"></script>
-    <!-- OPTIONAL SCRIPTS -->
-    <script src="~/Content/AdminLTE-3.0.4/plugins/chart.js/Chart.min.js"></script>
-    <script src="~/Content/AdminLTE-3.0.4/dist/js/demo.js"></script>
-    <script src="~/Content/AdminLTE-3.0.4/dist/js/pages/dashboard3.js"></script>
-    <!-- Summernote -->
-    <script src="~/Content/AdminLTE-3.0.4/plugins/summernote/summernote-bs4.min.js"></script>
-    <!-- Page Script -->
+    <script src="~/Content/AdminLTE-3.0.4/plugins/jquery/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="~/Content/AdminLTE-3.0.4/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
+        $.widget.bridge('uibutton', $.ui.button);
+
         $(function () {
             //Add text editor
-            $('#compose-textarea').summernote()
+            $('#compose-textarea').summernote();
         })
     </script>
-    @*<script src="~/Content/skillcard/js/jquery-1.11.1.min.js">$.noConflict</script>*@
-
+    <!-- Bootstrap 4 -->
+    <script src="~/Content/AdminLTE-3.0.4/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Summernote -->
+    <script src="~/Content/AdminLTE-3.0.4/plugins/summernote/summernote-bs4.min.js"></script>
+    <!-- overlayScrollbars -->
+    <script src="~/Content/AdminLTE-3.0.4/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/Content/AdminLTE-3.0.4/dist/js/adminlte.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/Content/AdminLTE-3.0.4/dist/js/demo.js"></script>
 </body>
+
 </html>

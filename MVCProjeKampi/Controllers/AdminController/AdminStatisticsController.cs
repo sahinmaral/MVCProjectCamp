@@ -14,6 +14,7 @@ using MVCProjeKampi.Models.ViewModels;
 
 namespace MVCProjeKampi.Controllers.AdminController
 {
+    [Authorize(Roles = "Administrator")]
     public class AdminStatisticsController : Controller
     {
         #region Business Katmanı Instance lar
@@ -22,10 +23,6 @@ namespace MVCProjeKampi.Controllers.AdminController
         private IBaseService<Heading> headingManager = new HeadingManager(new EfHeadingDal());
         #endregion
 
- 
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
-        [Authorize(Roles = "QuestionAndAnswerTeam,User")]
         public ActionResult Index()
         {
             #region Toplam kategori sayısı getirme
@@ -69,9 +66,7 @@ namespace MVCProjeKampi.Controllers.AdminController
             return View();
         }
 
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
-        [Authorize(Roles = "QuestionAndAnswerTeam,User")]
+
         public ActionResult GetCategoryDonutGraph()
         {
             List<CategoryAndHeadingCountViewModel> viewmodel = new List<CategoryAndHeadingCountViewModel>();
@@ -104,9 +99,7 @@ namespace MVCProjeKampi.Controllers.AdminController
             return Json(viewmodel, JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
-        [Authorize(Roles = "QuestionAndAnswerTeam,User")]
+
         public ActionResult CategoryDonutGraph()
         {
             return View();

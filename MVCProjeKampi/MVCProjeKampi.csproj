@@ -200,7 +200,7 @@
     <Compile Include="Models\ViewModels\ContentsByHeadingViewModel.cs" />
     <Compile Include="Models\ViewModels\CountOfMessagesViewModel.cs" />
     <Compile Include="Roles\AdminRoleProvider.cs" />
-    <Compile Include="Views\AdminHomepageController.cs" />
+    <Compile Include="Controllers\AdminController\AdminHomepageController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\aboutPage\Home.css" />

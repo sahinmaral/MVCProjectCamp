@@ -40,7 +40,7 @@
                 </p>
                 <p class="card-text" style="text-align: right">
 
-                    @item.HeadingDate &nbsp; &nbsp; 
+                    @item.HeadingDate.ToShortDateString() @item.HeadingDate.ToShortTimeString() &nbsp;&nbsp;
 
                     @foreach (var writer in Model.Writers)
                     {

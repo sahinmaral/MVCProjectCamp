@@ -21,7 +21,7 @@ namespace MVCProjeKampi.Controllers.SiteController
         private IWriterService writerService = new WriterManager(new EfWriterDal(), new EfUserDal());
 
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize(Roles = "Writer,User")]
         public ActionResult WriteContentOnHeading(ContentsByHeadingViewModel viewmodel)
         {
 
@@ -50,8 +50,6 @@ namespace MVCProjeKampi.Controllers.SiteController
             content.HeadingId = viewmodel.GoingToAddContent.HeadingId;
             content.ContentText = viewmodel.GoingToAddContent.ContentText;
             
-            
-
             contentService.Add(content);
 
             return RedirectToAction("HeadingByHeadingId", "Headings" , new {id = viewmodel.GoingToAddContent.Heading.HeadingId});

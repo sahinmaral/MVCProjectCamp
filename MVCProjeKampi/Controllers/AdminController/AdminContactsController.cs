@@ -12,6 +12,8 @@ using BusinessLayer.Abstract;
 
 namespace MVCProjeKampi.Controllers.AdminController
 {
+
+    [Authorize(Roles = "Administrator")]
     public class AdminContactsController : Controller
     {
         private ContactManager contactManager = new ContactManager(new EfContactDal());
@@ -22,17 +24,13 @@ namespace MVCProjeKampi.Controllers.AdminController
 
         private ContactValidator contactValidator = new ContactValidator();
 
-
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
         public ActionResult Index()
         {
             var contactValues = contactManager.GetList();
             return View(contactValues);
         }
 
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
+
         public ActionResult GetContactDetails(int id)
         {
             var contactValues = contactManager.GetById(id);
@@ -41,8 +39,7 @@ namespace MVCProjeKampi.Controllers.AdminController
             return View(contactValues);
         }
 
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
+
         public PartialViewResult GetContactSideMenu()
         {
             CountOfMessagesViewModel viewModel = new CountOfMessagesViewModel();

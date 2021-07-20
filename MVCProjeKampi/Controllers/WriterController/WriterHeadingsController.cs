@@ -63,6 +63,7 @@ namespace MVCProjeKampi.Controllers.WriterController
             {
                 heading.WriterId = user.WriterId;
                 heading.HeadingDate = DateTime.Parse(DateTime.Now.ToShortDateString());
+                heading.HeadingStatus = true;
                 _headingService.Add(heading);
                 return RedirectToAction("Index");
             }

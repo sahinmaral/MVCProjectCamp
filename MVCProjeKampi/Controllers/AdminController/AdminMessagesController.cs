@@ -13,6 +13,7 @@ using System.Web.Mvc;
 
 namespace MVCProjeKampi.Controllers.AdminController
 {
+    [Authorize(Roles = "Administrator")]
     public class AdminMessagesController : Controller
     {
         private IMessageService messageManager = new MessageManager(new EfMessageDal(),
@@ -84,5 +85,14 @@ namespace MVCProjeKampi.Controllers.AdminController
 
             return View();
         }
+
+        public ActionResult SaveMessageToTheDraft(int id)
+        {
+            Message message = messageManager.GetById(id);
+            message.IsDraft = true;
+            messageManager.Update(message);
+            return RedirectToAction("Index", "AdminContacts");
+        }
+
     }
 }

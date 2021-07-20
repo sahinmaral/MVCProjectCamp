@@ -13,6 +13,8 @@ using PagedList;
 
 namespace MVCProjeKampi.Controllers.AdminController
 {
+
+    [Authorize(Roles = "Administrator")]
     public class AdminWritersController : Controller
     {
         WriterValidator writerValidator = new WriterValidator();
@@ -20,9 +22,7 @@ namespace MVCProjeKampi.Controllers.AdminController
         private IUserService userService = new UserManager(new EfUserDal(), new EfSkillDal(),
             new RoleManager(new EfRoleDal(), new EfUserDal(), new EfUserRoleDal()));
 
-        [Authorize(Roles = "QuestionAndAnswerTeam,User")]
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
+
         public ActionResult Index(int p=1)
         {
             var WriterValues = writerManager.GetWriterDetails().ToPagedList(p,8);
@@ -30,18 +30,13 @@ namespace MVCProjeKampi.Controllers.AdminController
             return View(WriterValues);
         }
 
-
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
         [HttpGet]
         public ActionResult AddWriter()
         {
             return View();
         }
+        
         [HttpPost]
-        [Authorize(Roles = "QuestionAndAnswerTeam,User")]
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
         public ActionResult AddWriter(Writer writer)
         {
             
@@ -62,9 +57,6 @@ namespace MVCProjeKampi.Controllers.AdminController
         }
 
         [HttpGet]
-        [Authorize(Roles = "QuestionAndAnswerTeam,User")]
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
         public ActionResult EditWriter(int id)
         {
             var user = userService.GetById(id);
@@ -72,9 +64,6 @@ namespace MVCProjeKampi.Controllers.AdminController
         }
 
         [HttpPost]
-        [Authorize(Roles = "QuestionAndAnswerTeam,User")]
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
         public ActionResult EditWriter(User user)
         {
             var foundUser = userService.GetById(user.UserId);
@@ -92,8 +81,7 @@ namespace MVCProjeKampi.Controllers.AdminController
 
         }
 
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
+
         public ActionResult BanUser(int userId,bool status)
         {
             var user = userService.GetById(userId);

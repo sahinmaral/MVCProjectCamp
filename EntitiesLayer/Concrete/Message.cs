@@ -7,6 +7,12 @@ namespace EntityLayer.Concrete
 {
     public class Message : IEntity
     {
+        public Message()
+        {
+            IsOpened = false;
+            IsDraft = false;
+        }
+
         [Key]
         public int MessageId { get; set; }
 
@@ -30,5 +36,6 @@ namespace EntityLayer.Concrete
         public DateTime MessageDate { get; set; }
 
         public bool IsOpened { get; set; }
+        public bool IsDraft { get; set; }
     }
 }

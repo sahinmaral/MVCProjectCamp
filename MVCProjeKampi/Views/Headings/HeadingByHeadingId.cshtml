@@ -9,8 +9,9 @@
 
 }
 
-<h2 style="margin-top:-1em"><b>@Model.Heading.HeadingName</b></h2>
+<h2 style="margin-top: -1em; margin-left:0.5em"><b>@Model.Heading.HeadingName</b></h2>
 
+<div style="margin-left:1em">
 @if (Model.ContentList.Count >= 8)
 {
     @Html.PagedListPager((IPagedList)Model.ContentList,
@@ -30,10 +31,10 @@
         }
         )
 }
+</div>
 
 
-
-<div style="margin-top:2em">
+<div style="margin-top: 2em; margin-left:1em">
 
     @foreach (var item in Model.ContentList)
     {
@@ -78,7 +79,7 @@
 </div>
 
 
-
+<div style="margin-left:1em">
     @Html.PagedListPager((IPagedList)Model.ContentList,
         p => Url.Action("HeadingByHeadingId",
             new { id = @Model.Heading.HeadingId, p })
@@ -95,7 +96,7 @@
             }
         }
         )
-
+</div>
 
 
 

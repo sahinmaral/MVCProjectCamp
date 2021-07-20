@@ -13,36 +13,32 @@ using PagedList;
 
 namespace MVCProjeKampi.Controllers.AdminController
 {
+    [Authorize(Roles = "Administrator")]
     public class AdminCategoriesController : Controller
     {
         private IBaseService<Category> categoryManager = new CategoryManager(new EfCategoryDal());
 
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
-        [Authorize(Roles = "QuestionAndAnswerTeam,User")]
         public ActionResult Index(int p=1)
         {
             var CategoryValues = categoryManager.GetList().ToPagedList(p,8);
             return View(CategoryValues);
         }
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
+
+
         public ActionResult EditCategories()
         {
             var CategoryValues = categoryManager.GetList();
             return View(CategoryValues);
         }
 
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
+
         [HttpGet]
         public ActionResult AddCategory()
         {
             return View();
         }
 
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
+
         [HttpPost]
         public ActionResult AddCategory(Category p)
         {
@@ -64,8 +60,7 @@ namespace MVCProjeKampi.Controllers.AdminController
             return View();
         }
 
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
+
         public ActionResult DeleteCategory(int id)
         {
             var CategoryValues = categoryManager.GetById(id);
@@ -74,8 +69,6 @@ namespace MVCProjeKampi.Controllers.AdminController
         }
 
         [HttpGet]
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
         public ActionResult UpdateCategory(int id)
         {
             var CategoryValues = categoryManager.GetById(id);
@@ -83,8 +76,6 @@ namespace MVCProjeKampi.Controllers.AdminController
         }
 
         [HttpPost]
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
         public ActionResult UpdateCategory(Category category)
         {
             CategoryValidator validationRules = new CategoryValidator();

@@ -13,6 +13,7 @@ using EntityLayer.Concrete;
 
 namespace MVCProjeKampi.Controllers.AdminController
 {
+    [Authorize(Roles = "Administrator")]
     public class AdminAuthorizationController : Controller
     {
         private IUserService userService = new UserManager(new EfUserDal(), new EfSkillDal(),
@@ -21,10 +22,6 @@ namespace MVCProjeKampi.Controllers.AdminController
         private IRoleService roleService = new RoleManager(new EfRoleDal(),
             new EfUserDal(), new EfUserRoleDal());
 
-        
-
-        [Authorize(Roles="Administrator,User")]
-        [Authorize(Roles="Moderator,User")]
         public ActionResult Index()
         {
             var users = userService.GetList();
@@ -45,9 +42,7 @@ namespace MVCProjeKampi.Controllers.AdminController
             return View(viewmodel);
         }
 
-        
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
+
         [HttpGet]
         public ActionResult GiveAuthorization(int userId)
         {
@@ -84,8 +79,6 @@ namespace MVCProjeKampi.Controllers.AdminController
             return PartialView(viewModel);
         }
 
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
         [HttpPost]
         public ActionResult GiveAuthorization(UserAndRolesViewModel viewModel)
         {

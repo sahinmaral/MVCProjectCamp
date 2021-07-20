@@ -7,15 +7,6 @@
     int counter = 0;
 }
 
-<select class="form-select form-select-sm" style="width: 3em; text-align: left;" aria-label=".form-select-sm example">
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-</select> &nbsp; &nbsp; /
-
-<button class="btn btn-secondary btn-sm" style="height: 1.6em; margin-top: -0.3em; margin-left: 1em; padding-top:0em">5</button>
-<button class="btn btn-secondary btn-sm" style="height: 1.6em; margin-top: -0.3em; margin-left: 0em; padding-top:0em">>></button>
-
 <div style="margin-top:2em">
 
     @foreach (var item in Model.Contents)
@@ -24,7 +15,7 @@
         {
             break;
         }
-        <div class="card">
+        <div class="card" style=" margin-left: 1em">
             <div class="card-body">
                 <h5 class="card-title">
                     <a href="/Headings/HeadingByHeadingId/@item.HeadingId">@item.Heading.HeadingName</a>

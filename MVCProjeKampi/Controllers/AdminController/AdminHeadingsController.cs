@@ -17,14 +17,12 @@ using PagedList;
 namespace MVCProjeKampi.Controllers.AdminController
 {
 
-    [Authorize(Roles = "Administrator,User")]
-    [Authorize(Roles = "Moderator,User")]
+    [Authorize(Roles = "Administrator")]
     public class AdminHeadingsController : Controller
     {
         private IHeadingService headingService = new HeadingManager(new EfHeadingDal());
         private ICategoryService categoryService = new CategoryManager(new EfCategoryDal());
         private IWriterService writerService = new WriterManager(new EfWriterDal(), new EfUserDal());
-
 
         public ActionResult Index(int p = 1)
         {
@@ -43,6 +41,7 @@ namespace MVCProjeKampi.Controllers.AdminController
 
             return View(headingValues);
         }
+
 
         public ActionResult MyHeadings(int p = 1)
         {
@@ -66,6 +65,7 @@ namespace MVCProjeKampi.Controllers.AdminController
         }
 
 
+
         [HttpGet]
         public ActionResult AddHeading()
         {
@@ -82,6 +82,7 @@ namespace MVCProjeKampi.Controllers.AdminController
 
             return View();
         }
+
 
 
         [HttpPost]
@@ -111,38 +112,14 @@ namespace MVCProjeKampi.Controllers.AdminController
         }
 
 
-
         [HttpGet]
         public ActionResult EditHeading(int id)
         {
-            List<SelectListItem> categoryValues = (from x in categoryService.GetList()
-                                                   select new SelectListItem()
-                                                   {
-                                                       Text = x.CategoryName,
-                                                       Value = x.CategoryId.ToString()
-                                                   }).ToList();
+            var heading = headingService.GetById(id);
 
-
-            List<SelectListItem> writerValues = (from x in writerService.GetWriterDetails()
-                                                 select new SelectListItem()
-                                                 {
-                                                     Text = $"{x.User.UserFirstName} {x.User.UserLastName}",
-                                                     Value = x.WriterId.ToString()
-                                                 }).ToList();
-
-
-
-            var headingValue = headingService.GetById(id);
-
-            if (headingValue == null)
-            {
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.CategoryValues = categoryValues;
-            ViewBag.WriterValues = writerValues;
-            return View(headingValue);
+            return View(heading);
         }
+
 
 
         [HttpPost]
@@ -161,6 +138,7 @@ namespace MVCProjeKampi.Controllers.AdminController
             return RedirectToAction("Index");
 
         }
+
 
 
         public ActionResult DeleteHeading(int id)

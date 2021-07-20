@@ -13,9 +13,7 @@ namespace MVCProjeKampi.Controllers.AdminController
     {
         IUserService _userService = new UserManager(new EfUserDal(),new EfSkillDal(),new RoleManager(new EfRoleDal(),new EfUserDal(),new EfUserRoleDal()));
 
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
-        [Authorize(Roles = "QuestionAndAnswerTeam,User")]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Index()
         {
             var username = Session["Username"];

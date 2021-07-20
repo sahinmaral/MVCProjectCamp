@@ -13,6 +13,7 @@ using PagedList;
 
 namespace MVCProjeKampi.Controllers.AdminController
 {
+    [Authorize(Roles = "Administrator")]
     public class AdminContentsController : Controller
     {
         private IContentService contentService = new ContentManager(new EfContentDal());
@@ -20,9 +21,6 @@ namespace MVCProjeKampi.Controllers.AdminController
         private IWriterService writerService = new WriterManager(new EfWriterDal(), new EfUserDal());
         private IHeadingService headingService = new HeadingManager(new EfHeadingDal());
 
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
-        [Authorize(Roles = "QuestionAndAnswerTeam,User")]
         public ActionResult ContentByHeading(int id)
         {
 
@@ -45,6 +43,7 @@ namespace MVCProjeKampi.Controllers.AdminController
 
             return View(viewModel);
         }
+
 
         public ActionResult MyContentByHeading(int p = 1)
         {

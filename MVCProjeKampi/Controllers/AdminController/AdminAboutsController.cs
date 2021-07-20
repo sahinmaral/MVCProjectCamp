@@ -10,15 +10,12 @@ using PagedList;
 
 namespace MVCProjeKampi.Controllers.AdminController
 {
+    [Authorize(Roles = "Administrator")]
     public class AdminAboutsController : Controller
     {
         private AboutManager aboutManager = new AboutManager(new EfAboutDal());
-
         AboutHomepageViewModel viewModel = new AboutHomepageViewModel();
 
-        [Authorize(Roles = "QuestionAndAnswerTeam,User")]
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
         public ActionResult Index(int p=1)
         {
             viewModel.Abouts = aboutManager.GetList().ToPagedList(p,8);
@@ -28,13 +25,13 @@ namespace MVCProjeKampi.Controllers.AdminController
             return View(viewModel);
         }
 
+
         public PartialViewResult AboutPartial()
         {
             return PartialView();
         }
 
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
+
         [HttpGet]
         public ActionResult AddAbout()
         {
@@ -42,16 +39,15 @@ namespace MVCProjeKampi.Controllers.AdminController
             return View();
         }
 
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
+
         [HttpPost]
         public ActionResult AddAbout(About about)
         {
             aboutManager.Add(about);
             return RedirectToAction("Index");
         }
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
+
+
         public ActionResult DisableAbout(int id)
         {
             var about = aboutManager.GetById(id);
@@ -59,8 +55,8 @@ namespace MVCProjeKampi.Controllers.AdminController
             aboutManager.Update(about);
             return RedirectToAction("Index");
         }
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
+
+
         public ActionResult EnableAbout(int id)
         {
             foreach (var abouts in aboutManager.GetList())
@@ -75,8 +71,7 @@ namespace MVCProjeKampi.Controllers.AdminController
             return RedirectToAction("Index");
         }
 
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
+
         [HttpGet]
         public ActionResult EditAbout(int id)
         {
@@ -84,8 +79,7 @@ namespace MVCProjeKampi.Controllers.AdminController
             return View(about);
         }
 
-        [Authorize(Roles = "Administrator,User")]
-        [Authorize(Roles = "Moderator,User")]
+
         [HttpPost]
         public ActionResult EditAbout(About about)
         {
