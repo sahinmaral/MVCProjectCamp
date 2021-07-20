@@ -1,20 +1,33 @@
 ﻿@using EntityLayer.Concrete
-@model List<Contact>
-
+@model List<EntityLayer.Concrete.Message>
 @{
     ViewBag.Title = "Mesaj Sayfası";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     string message = "";
+    string draftStarClass = "";
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-    <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="~/AdminLTE-3.0.4/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-</head>
-<body class="hold-transition sidebar-mini">
 
+
+<!-- Content Wrapper. Contains page content -->
+<!-- Content Header (Page header) -->
+<!--<section class="content-header">
+<div class="container-fluid">
+    <div class="row mb-2">
+        <div class="col-sm-6">
+            <h1></h1>
+        </div>
+        <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="/_AdminLayout">Anasayfa</a></li>
+                <li class="breadcrumb-item active">Gelen Kutusu</li>
+            </ol>
+        </div>
+    </div>
+</div>-->
+<!-- /.container-fluid -->
+<!--</section>-->
+<!-- Main content -->
 <section class="content">
     <div class="row">
         <div class="col-md-3">
@@ -25,7 +38,7 @@
         <div class="col-md-9">
             <div class="card card-primary card-outline">
                 <div class="card-header">
-                    <h3 class="card-title">İletişim</h3>
+                    <h3 class="card-title">Taslak</h3>
                     <div class="card-tools">
                         <div class="input-group input-group-sm">
                             <input type="text" class="form-control" placeholder="Mail kutusunda ara">
@@ -65,9 +78,17 @@
                     <div class="table-responsive mailbox-messages">
                         <table class="table table-hover table-striped">
                             <tbody>
-                            @foreach (var item in Model)
-                            {
-                                
+                                @foreach (var item in Model)
+                                {
+                                    if (item.IsDraft)
+                                    {
+                                        draftStarClass = "fas fa-star";
+                                    }
+                                    else
+                                    {
+                                        draftStarClass = "far fa-star";
+                                    }
+
                                     <tr>
                                         <td>
                                             <div class="icheck-primary">
@@ -82,26 +103,33 @@
                                                 <label for="check1"></label>
                                             </div>
                                         </td>
-                                        <td class="mailbox-name"><a href="/AdminContacts/GetContactDetails/@item.ContactId">@item.Username</a></td>
+                                        <td class="mailbox-star">
+
+                                            <a href="/AdminMessages/SaveMessageToTheDraft/@item.MessageId">
+                                                <i class="@draftStarClass"></i>
+                                            </a>
+                                        </td>
+                                        <td class="mailbox-name"><a href="/AdminMessages/GetMessageDetails/@item.MessageId">@item.SenderMail</a></td>
                                         <td class="mailbox-subject">
-                                            
+
                                             @{
-                                                if (item.Message.Length > 30)
+                                                if (item.MessageContent.Length > 30)
                                                 {
-                                                    message = item.Message.Substring(0, 30);
+                                                    message = item.MessageContent.Substring(0, 30);
                                                 }
                                                 else
                                                 {
-                                                    message = item.Message;
+                                                    message = item.MessageContent;
                                                 }
                                             }
+
                                             <b>@item.Subject</b> - @Html.Raw(message)...
                                         </td>
                                         <td class="mailbox-attachment"></td>
-                                        <td class="mailbox-date">@item.ContactDate.ToShortDateString()</td>
-                                    </tr> 
-                                
-                            }
+                                        <td class="mailbox-date">@item.MessageDate.ToShortDateString()</td>
+                                    </tr>
+
+                                }
                             </tbody>
                         </table>
                         <!-- /.table -->
@@ -140,54 +168,47 @@
     </div>
     <!-- /.row -->
 </section>
-    
+
 
 <!-- Page Script -->
 <script>
-    $(function () {
-        //Enable check and uncheck all functionality
-        $('.checkbox-toggle').click(function () {
-            var clicks = $(this).data('clicks');
-            if (clicks) {
-                //Uncheck all checkboxes
-                $('.mailbox-messages input[type=\'checkbox\']').prop('checked', false)
-                $('.checkbox-toggle .far.fa-check-square').removeClass('fa-check-square').addClass('fa-square');
-            } else {
-                //Check all checkboxes
-                $('.mailbox-messages input[type=\'checkbox\']').prop('checked', true)
-                $('.checkbox-toggle .far.fa-square').removeClass('fa-square').addClass('fa-check-square');
-            }
-            $(this).data('clicks', !clicks);
+        $(function () {
+            //Enable check and uncheck all functionality
+            $('.checkbox-toggle').click(function () {
+                var clicks = $(this).data('clicks');
+                if (clicks) {
+                    //Uncheck all checkboxes
+                    $('.mailbox-messages input[type=\'checkbox\']').prop('checked', false);
+                    $('.checkbox-toggle .far.fa-check-square').removeClass('fa-check-square').addClass('fa-square');
+                } else {
+                    //Check all checkboxes
+                    $('.mailbox-messages input[type=\'checkbox\']').prop('checked', true);
+                    $('.checkbox-toggle .far.fa-square').removeClass('fa-square').addClass('fa-check-square');
+                }
+                $(this).data('clicks', !clicks);
+            })
+
+            //Handle starring for glyphicon and font awesome
+            $('.mailbox-star').click(function (e) {
+                e.preventDefault();
+                //detect type
+                var $this = $(this).find('a > i');
+                var glyph = $this.hasClass('glyphicon');
+                var fa = $this.hasClass('fa');
+
+                //Switch states
+                if (glyph) {
+                    $this.toggleClass('glyphicon-star');
+                    $this.toggleClass('glyphicon-star-empty');
+                }
+
+                if (fa) {
+                    $this.toggleClass('fa-star');
+                    $this.toggleClass('fa-star-o');
+                }
+            })
         })
-
-        //Handle starring for glyphicon and font awesome
-        $('.mailbox-star').click(function (e) {
-            e.preventDefault()
-            //detect type
-            var $this = $(this).find('a > i');
-            var glyph = $this.hasClass('glyphicon');
-            var fa = $this.hasClass('fa');
-
-            //Switch states
-            if (glyph) {
-                $this.toggleClass('glyphicon-star');
-                $this.toggleClass('glyphicon-star-empty');
-            }
-
-            if (fa) {
-                $this.toggleClass('fa-star');
-                $this.toggleClass('fa-star-o');
-            }
-        })
-    })
 </script>
 
-<script src="~/AdminLTE-3.0.4/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="~/AdminLTE-3.0.4/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="~/AdminLTE-3.0.4/dist/js/adminlte.min.js"></script>
 
-</body>
-</html>
 

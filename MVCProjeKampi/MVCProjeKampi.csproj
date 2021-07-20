@@ -2366,6 +2366,7 @@
     <Content Include="Views\AdminHeadings\HeadingsByCategory.cshtml" />
     <Content Include="Views\AdminHeadings\MyHeadings.cshtml" />
     <Content Include="Views\AdminContents\MyContentByHeading.cshtml" />
+    <Content Include="Views\AdminMessages\Draft.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -4,15 +4,10 @@
     ViewBag.Title = "Mesaj Sayfası";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     string message = "";
+    string draftStarClass = "";
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-    <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="~/AdminLTE-3.0.4/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-</head>
-<body class="hold-transition sidebar-mini">
+
 
     <!-- Content Wrapper. Contains page content -->
     <!-- Content Header (Page header) -->
@@ -85,15 +80,35 @@
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
+                                        if (item.IsDraft)
+                                        {
+                                            draftStarClass = "fas fa-star";
+                                        }
+                                        else
+                                        {
+                                            draftStarClass = "far fa-star";
+                                        }
 
                                         <tr>
                                             <td>
                                                 <div class="icheck-primary">
-                                                    <input type="checkbox" value="" id="check1">
+                                                    @if (item.IsOpened)
+                                                    {
+                                                        <input type="checkbox" value="" id="check1" checked="checked" disabled="disabled">
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="checkbox" value="" id="check1" disabled="disabled">
+                                                    }
                                                     <label for="check1"></label>
                                                 </div>
                                             </td>
-                                            <td class="mailbox-star"><a href="/AdminMessages/SendMessageToTheDraft/@item.MessageId"><i class="fas fa-star text-warning"></i></a></td>
+                                            <td class="mailbox-star">
+
+                                                <a href="/AdminMessages/SaveMessageToTheDraft/@item.MessageId">
+                                                    <i class="@draftStarClass"></i>
+                                                </a>
+                                            </td>
                                             <td class="mailbox-name"><a href="/AdminMessages/GetMessageDetails/@item.MessageId">@item.SenderMail</a></td>
                                             <td class="mailbox-subject">
 
@@ -160,48 +175,40 @@
         $(function () {
             //Enable check and uncheck all functionality
             $('.checkbox-toggle').click(function () {
-                var clicks = $(this).data('clicks')
+                var clicks = $(this).data('clicks');
                 if (clicks) {
                     //Uncheck all checkboxes
-                    $('.mailbox-messages input[type=\'checkbox\']').prop('checked', false)
-                    $('.checkbox-toggle .far.fa-check-square').removeClass('fa-check-square').addClass('fa-square')
+                    $('.mailbox-messages input[type=\'checkbox\']').prop('checked', false);
+                    $('.checkbox-toggle .far.fa-check-square').removeClass('fa-check-square').addClass('fa-square');
                 } else {
                     //Check all checkboxes
-                    $('.mailbox-messages input[type=\'checkbox\']').prop('checked', true)
-                    $('.checkbox-toggle .far.fa-square').removeClass('fa-square').addClass('fa-check-square')
+                    $('.mailbox-messages input[type=\'checkbox\']').prop('checked', true);
+                    $('.checkbox-toggle .far.fa-square').removeClass('fa-square').addClass('fa-check-square');
                 }
-                $(this).data('clicks', !clicks)
+                $(this).data('clicks', !clicks);
             })
 
             //Handle starring for glyphicon and font awesome
             $('.mailbox-star').click(function (e) {
-                e.preventDefault()
+                e.preventDefault();
                 //detect type
-                var $this = $(this).find('a > i')
-                var glyph = $this.hasClass('glyphicon')
-                var fa = $this.hasClass('fa')
+                var $this = $(this).find('a > i');
+                var glyph = $this.hasClass('glyphicon');
+                var fa = $this.hasClass('fa');
 
                 //Switch states
                 if (glyph) {
-                    $this.toggleClass('glyphicon-star')
-                    $this.toggleClass('glyphicon-star-empty')
+                    $this.toggleClass('glyphicon-star');
+                    $this.toggleClass('glyphicon-star-empty');
                 }
 
                 if (fa) {
-                    $this.toggleClass('fa-star')
-                    $this.toggleClass('fa-star-o')
+                    $this.toggleClass('fa-star');
+                    $this.toggleClass('fa-star-o');
                 }
             })
         })
     </script>
 
-    <script src="~/AdminLTE-3.0.4/plugins/jquery/jquery.min.js"></script>
-    <!-- Bootstrap 4 -->
-    <script src="~/AdminLTE-3.0.4/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="~/AdminLTE-3.0.4/dist/js/adminlte.min.js"></script>
-
-</body>
-</html>
 
 

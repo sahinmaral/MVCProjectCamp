@@ -16,7 +16,7 @@ namespace MVCProjeKampi.Controllers.AdminController
     [Authorize(Roles = "Administrator")]
     public class AdminMessagesController : Controller
     {
-        private IMessageService messageManager = new MessageManager(new EfMessageDal(),
+        private IMessageService messageService = new MessageManager(new EfMessageDal(),
            new UserManager(new EfUserDal(), new EfSkillDal(),
                new RoleManager(new EfRoleDal(), new EfUserDal(), new EfUserRoleDal())));
         private MessageValidator validator = new MessageValidator();
@@ -28,23 +28,32 @@ namespace MVCProjeKampi.Controllers.AdminController
         {
             //Mesaja girdikten sonra sayfayı geri alınca yenilenmiyor
             //Sonrasında bakılması gerekiyor
-            var messageValues = messageManager.GetListInbox();
+            var messageValues = messageService.GetListInbox();
             return View(messageValues);
         }
 
+        public ActionResult Draft()
+        {
+
+            var username = Session["Username"].ToString();
+            var user = userService.Get(x => x.UserUsername == username);
+
+            var messageValues = messageService.GetList(x=>x.IsDraft==true);
+            return View(messageValues);
+        }
 
         public ActionResult Sendbox()
         {
-            var messageValues = messageManager.GetListSendbox();
+            var messageValues = messageService.GetListSendbox();
             return View(messageValues);
         }
 
 
         public ActionResult GetMessageDetails(int id)
         {
-            var contactValues = messageManager.GetById(id);
+            var contactValues = messageService.GetById(id);
             contactValues.IsOpened = true;
-            messageManager.Update(contactValues);
+            messageService.Update(contactValues);
             return View(contactValues);
         }
 
@@ -72,7 +81,7 @@ namespace MVCProjeKampi.Controllers.AdminController
             if (results.IsValid)
             {
                 message.SenderMail = user.UserEmail;
-                messageManager.Add(message);
+                messageService.Add(message);
                 return RedirectToAction("Index", "AdminContacts");
             }
             else
@@ -85,13 +94,25 @@ namespace MVCProjeKampi.Controllers.AdminController
 
             return View();
         }
-
+        
         public ActionResult SaveMessageToTheDraft(int id)
         {
-            Message message = messageManager.GetById(id);
-            message.IsDraft = true;
-            messageManager.Update(message);
-            return RedirectToAction("Index", "AdminContacts");
+            Message message = messageService.GetById(id);
+
+            if (message.IsDraft)
+            {
+                message.IsDraft = false;
+                messageService.Update(message);
+                return RedirectToAction("Inbox", "AdminMessages");
+            }
+            else
+            {
+                message.IsDraft = true;
+                messageService.Update(message);
+                return RedirectToAction("Inbox", "AdminMessages");
+            }
+            
+            
         }
 
     }

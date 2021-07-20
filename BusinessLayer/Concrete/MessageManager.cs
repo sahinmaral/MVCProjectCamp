@@ -42,7 +42,9 @@ namespace BusinessLayer.Concrete
         }
 
         public void Add(Message entity)
-        { 
+        {
+            entity.MessageContent = entity.MessageContent.Replace("<p>", "");
+            entity.MessageContent = entity.MessageContent.Replace("</p>", "");
             _messageDal.Insert(entity);
         }
 
