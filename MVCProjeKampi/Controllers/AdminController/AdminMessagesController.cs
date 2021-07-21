@@ -9,6 +9,7 @@ using EntityLayer.Concrete;
 using FluentValidation.Results;
 
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace MVCProjeKampi.Controllers.AdminController
@@ -16,9 +17,7 @@ namespace MVCProjeKampi.Controllers.AdminController
     [Authorize(Roles = "Administrator")]
     public class AdminMessagesController : Controller
     {
-        private IMessageService messageService = new MessageManager(new EfMessageDal(),
-           new UserManager(new EfUserDal(), new EfSkillDal(),
-               new RoleManager(new EfRoleDal(), new EfUserDal(), new EfUserRoleDal())));
+        private IMessageService messageService = new MessageManager(new EfMessageDal());
         private MessageValidator validator = new MessageValidator();
 
         private IUserService userService = new UserManager(new EfUserDal(), new EfSkillDal(),
@@ -28,8 +27,14 @@ namespace MVCProjeKampi.Controllers.AdminController
         {
             //Mesaja girdikten sonra sayfayı geri alınca yenilenmiyor
             //Sonrasında bakılması gerekiyor
-            var messageValues = messageService.GetListInbox();
-            return View(messageValues);
+
+            var username = Session["Username"].ToString();
+
+            var user = userService.Get(x => x.UserUsername == username);
+
+            var messages =  messageService.GetList(x => x.ReceiverMail == user.UserEmail);
+
+            return View(messages);
         }
 
         public ActionResult Draft()
@@ -44,8 +49,13 @@ namespace MVCProjeKampi.Controllers.AdminController
 
         public ActionResult Sendbox()
         {
-            var messageValues = messageService.GetListSendbox();
-            return View(messageValues);
+            var username = Session["Username"];
+
+            var user = userService.Get(x => x.UserUsername == username.ToString());
+
+            List<Message> messages = messageService.GetList(x => x.SenderMail == user.UserEmail);
+
+            return View(messages);
         }
 
 

@@ -14,26 +14,15 @@ namespace BusinessLayer.Concrete
     public class MessageManager : IMessageService
     {
         private IMessageDal _messageDal;
-        private IUserService _userService;
 
-        public MessageManager(IMessageDal messageDal,IUserService userService)
+        public MessageManager(IMessageDal messageDal)
         {
             _messageDal = messageDal;
-            _userService = userService;
         }
 
         public List<Message> GetList()
         {
             return _messageDal.List();
-        }
-
-        public List<Message> GetListInbox()
-        {
-            var username = HttpContext.Current.Session["Username"].ToString();
-
-            var user = _userService.Get(x => x.UserUsername == username);
-
-            return _messageDal.List(x => x.ReceiverMail == user.UserEmail);
         }
 
         public Message Get(Expression<Func<Message, bool>> filter)
@@ -78,13 +67,5 @@ namespace BusinessLayer.Concrete
             return _messageDal.List(filter);
         }
 
-        public List<Message> GetListSendbox()
-        {
-            var username = HttpContext.Current.Session["Username"].ToString();
-
-            var user = _userService.Get(x => x.UserUsername == username);
-
-            return _messageDal.List(x => x.SenderMail == user.UserEmail );
-        }
     }
 }

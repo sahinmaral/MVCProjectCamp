@@ -15,6 +15,7 @@ namespace EntityLayer.Concrete
         }
         [Key]
         public int HeadingId { get; set; }
+
         [StringLength(50)]
         public string HeadingName { get; set; }
 

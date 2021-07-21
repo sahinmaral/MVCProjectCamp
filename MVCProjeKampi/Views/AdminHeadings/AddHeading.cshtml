@@ -1,7 +1,10 @@
-﻿@model EntityLayer.Concrete.Heading
+﻿
+@model EntityLayer.Concrete.Heading
+
 @{
     ViewBag.Title = "Yeni Başlık Ekleme";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
 }
 
 @using (Html.BeginForm("AddHeading", "AdminHeadings", FormMethod.Post))
@@ -9,11 +12,10 @@
     <div class="form-group">
         @Html.Label("Başlık Adı")
         @Html.TextBoxFor(x => x.HeadingName, new { @class = "form-control" })
-        @Html.ValidationMessageFor(x => x.WriterId, "", new { @class = "text-danger" })
+        @Html.ValidationMessageFor(x => x.HeadingName , "" , new {@class="text-danger"})
         <br />
         @Html.Label("Kategori ")
-        @Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.CategoryValues, new { @class = "form-control" })
-        @Html.ValidationMessageFor(x => x.CategoryId, "", new { @class = "text-danger" })
+        @Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.Categories,new { @class = "form-control" })
         <br />
         <button class="btn btn-info">Başlık Ekle</button>
         <br />

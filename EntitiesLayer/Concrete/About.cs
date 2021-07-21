@@ -10,11 +10,17 @@ namespace EntityLayer.Concrete
     {
         [Key]
         public int AboutId { get; set; }
-        [StringLength(1000)]
+
+
+        [StringLength(30)]
         public string AboutHeader { get; set; }
+
+
         [StringLength(1000)]
         [AllowHtml]
         public string AboutText { get; set; }
+
+
         [DefaultValue("false")]
         public bool AboutStatus { get; set; }
 

@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.UI;
+
 using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
+
 using DataAccessLayer.EntityFramework;
+
 using EntityLayer.Concrete;
+
 using FluentValidation.Results;
+
 using PagedList;
 
 namespace MVCProjeKampi.Controllers.WriterController
@@ -16,19 +21,19 @@ namespace MVCProjeKampi.Controllers.WriterController
     [Authorize(Roles = "Writer,User")]
     public class WriterHeadingsController : Controller
     {
-        private IWriterService _writerService = new WriterManager(new EfWriterDal(), new EfUserDal());
-        private IHeadingService _headingService = new HeadingManager(new EfHeadingDal());
-        private ICategoryService _categoryService = new CategoryManager(new EfCategoryDal());
+        private IWriterService writerService = new WriterManager(new EfWriterDal(), new EfUserDal());
+        private IHeadingService headingService = new HeadingManager(new EfHeadingDal());
+        private ICategoryService categoryService = new CategoryManager(new EfCategoryDal());
+        private HeadingValidator headingValidator = new HeadingValidator();
 
-
-        public ActionResult Index(int p=1)
+        public ActionResult Index(int p = 1)
         {
             var username = Session["Username"];
 
-            var writer = _writerService.Get(x => x.User.UserUsername == username.ToString());
+            var writer = writerService.Get(x => x.User.UserUsername == username.ToString());
 
-            var list = _headingService.GetList(x => x.WriterId == writer.WriterId).ToPagedList(p,8);
-            
+            var list = headingService.GetList(x => x.WriterId == writer.WriterId).ToPagedList(p, 8);
+
             return View(list);
         }
 
@@ -38,7 +43,7 @@ namespace MVCProjeKampi.Controllers.WriterController
         {
 
             //DropDownList getirir
-            List<SelectListItem> categoryValues = (from x in _categoryService.GetList()
+            List<SelectListItem> categoryValues = (from x in categoryService.GetList()
                                                    select new SelectListItem()
                                                    {
                                                        Text = x.CategoryName,
@@ -46,7 +51,7 @@ namespace MVCProjeKampi.Controllers.WriterController
                                                    }).ToList();
 
             ViewBag.CategoryValues = categoryValues;
-            
+
             return View();
         }
 
@@ -55,16 +60,16 @@ namespace MVCProjeKampi.Controllers.WriterController
         public ActionResult AddHeading(Heading heading)
         {
             var username = Session["Username"];
-            var user = _writerService.Get(x => x.User.UserUsername == username.ToString());
+            var user = writerService.Get(x => x.User.UserUsername == username.ToString());
 
-            HeadingValidator headingValidator = new HeadingValidator();
             ValidationResult results = headingValidator.Validate(heading);
+
             if (results.IsValid)
             {
                 heading.WriterId = user.WriterId;
                 heading.HeadingDate = DateTime.Parse(DateTime.Now.ToShortDateString());
                 heading.HeadingStatus = true;
-                _headingService.Add(heading);
+                headingService.Add(heading);
                 return RedirectToAction("Index");
             }
             else
@@ -74,6 +79,15 @@ namespace MVCProjeKampi.Controllers.WriterController
                     ModelState.AddModelError(result.PropertyName, result.ErrorMessage);
                 }
             }
+
+            List<SelectListItem> categoryValues = (from x in categoryService.GetList()
+                                                   select new SelectListItem()
+                                                   {
+                                                       Text = x.CategoryName,
+                                                       Value = x.CategoryId.ToString()
+                                                   }).ToList();
+
+            ViewBag.CategoryValues = categoryValues;
             return View();
 
         }
@@ -82,32 +96,7 @@ namespace MVCProjeKampi.Controllers.WriterController
         [HttpGet]
         public ActionResult EditHeading(int id)
         {
-            List<SelectListItem> categoryValues = (from x in _categoryService.GetList()
-                                                   select new SelectListItem()
-                                                   {
-                                                       Text = x.CategoryName,
-                                                       Value = x.CategoryId.ToString()
-                                                   }).ToList();
-
-
-            List<SelectListItem> writerValues = (from x in _writerService.GetWriterDetails()
-                                                 select new SelectListItem()
-                                                 {
-                                                     Text = $"{x.User.UserFirstName} {x.User.UserLastName}",
-                                                     Value = x.WriterId.ToString()
-                                                 }).ToList();
-
-
-
-            var headingValue = _headingService.GetById(id);
-
-            if (headingValue == null)
-            {
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.CategoryValues = categoryValues;
-            ViewBag.WriterValues = writerValues;
+            var headingValue = headingService.GetById(id);
             return View(headingValue);
         }
 
@@ -115,16 +104,30 @@ namespace MVCProjeKampi.Controllers.WriterController
         [HttpPost]
         public ActionResult EditHeading(Heading heading)
         {
-            _headingService.Update(heading);
-            return RedirectToAction("Index");
+
+            ValidationResult results = headingValidator.Validate(heading);
+            if (results.IsValid)
+            {
+                headingService.Update(heading);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                foreach (var item in results.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+
+            return View(heading);
         }
 
 
         public ActionResult DeleteHeading(int id)
         {
-            var headingValue = _headingService.GetById(id);
+            var headingValue = headingService.GetById(id);
             headingValue.HeadingStatus = false;
-            _headingService.Delete(headingValue);
+            headingService.Delete(headingValue);
             return RedirectToAction("Index");
         }
     }

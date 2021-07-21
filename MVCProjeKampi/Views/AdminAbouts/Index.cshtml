@@ -53,10 +53,34 @@
     }
 </table>
 
+<button onclick="Toast()" class="btn btn-danger">Toastr testing</button>
+
 <script>
 
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-bottom-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
+
+    var Toast = function () {
+        toastr.error("Testing");
+    }
+
     var disableAbout = function() {
-        if (@Model.EnabledAbouts == 1) {
+        if (@Model.EnabledAbouts == true) {
 
             swal({
                 text: "Herhangi bir hakkımızda yazısı kalmayacağı için birinci olan hakkımızda yazısı aktif olacaktır. Onaylıyor musunuz ? ",
@@ -74,6 +98,7 @@
         }
 
     };
+
 
 </script>
 
@@ -95,7 +120,7 @@
         },
         UlElementClasses = new List<string>
         {
-            {"pagination justify-content"}
+            {"pagination justify-content-center"}
         }
     }
     )

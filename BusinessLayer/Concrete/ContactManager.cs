@@ -51,12 +51,12 @@ namespace BusinessLayer.Concrete
 
         public int GetCount()
         {
-            throw new NotImplementedException();
+            return _contactDal.List().Count;
         }
 
         public int GetCount(Expression<Func<Contact, bool>> filter)
         {
-            throw new NotImplementedException();
+            return _contactDal.List(filter).Count;
         }
 
         public List<Contact> GetList(Expression<Func<Contact, bool>> filter)

@@ -2,7 +2,7 @@
 @model List<EntityLayer.Concrete.Message>
 @{
     ViewBag.Title = "Mesaj Sayfası";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
     string message = "";
     string draftStarClass = "";
 }
@@ -11,8 +11,8 @@
 <section class="content">
     <div class="row">
         <div class="col-md-3">
-            <a href="/AdminMessages/NewMessage" class="btn btn-primary btn-block mb-3">Yeni Mesaj Oluştur</a>
-            @Html.Action("GetContactSideMenu", "AdminContacts")
+            <a href="/WriterMessages/NewMessage" class="btn btn-primary btn-block mb-3">Yeni Mesaj Oluştur</a>
+            @Html.Action("GetContactSideMenu", "WriterMessages")
         </div>
         <!-- /.col -->
         <div class="col-md-9">
@@ -34,10 +34,20 @@
                 <!-- /.card-header -->
                 <div class="card-body p-0">
                     <div class="mailbox-controls">
-                        
+                        <!-- Check all button -->
+                        <button type="button" class="btn btn-default btn-sm checkbox-toggle">
+                            <i class="far fa-square"></i>
+                        </button>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-sm"><i class="far fa-trash-alt"></i></button>
+                            <button type="button" class="btn btn-default btn-sm"><i class="fas fa-reply"></i></button>
+                            <button type="button" class="btn btn-default btn-sm"><i class="fas fa-share"></i></button>
+                        </div>
+                        <!-- /.btn-group -->
+                        <button type="button" class="btn btn-default btn-sm"><i class="fas fa-sync-alt"></i></button>
                         <div class="float-right">
                             1-50/200
-                            <div class="btn-group" style="margin-bottom:0.5em">
+                            <div class="btn-group">
                                 <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-left"></i></button>
                                 <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-right"></i></button>
                             </div>
@@ -75,11 +85,11 @@
                                         </td>
                                         <td class="mailbox-star">
 
-                                            <a href="/AdminMessages/SaveMessageToTheDraft/@item.MessageId">
+                                            <a href="/WriterMessages/SaveMessageToTheDraft/@item.MessageId">
                                                 <i class="@draftStarClass"></i>
                                             </a>
                                         </td>
-                                        <td class="mailbox-name"><a href="/AdminMessages/GetMessageDetails/@item.MessageId">@item.SenderMail</a></td>
+                                        <td class="mailbox-name"><a href="/WriterMessages/GetMessageDetails/@item.MessageId">@item.SenderMail</a></td>
                                         <td class="mailbox-subject">
 
                                             @{
@@ -109,10 +119,20 @@
                 <!-- /.card-body -->
                 <div class="card-footer p-0">
                     <div class="mailbox-controls">
-
+                        <!-- Check all button -->
+                        <button type="button" class="btn btn-default btn-sm checkbox-toggle">
+                            <i class="far fa-square"></i>
+                        </button>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-sm"><i class="far fa-trash-alt"></i></button>
+                            <button type="button" class="btn btn-default btn-sm"><i class="fas fa-reply"></i></button>
+                            <button type="button" class="btn btn-default btn-sm"><i class="fas fa-share"></i></button>
+                        </div>
+                        <!-- /.btn-group -->
+                        <button type="button" class="btn btn-default btn-sm"><i class="fas fa-sync-alt"></i></button>
                         <div class="float-right">
                             1-50/200
-                            <div class="btn-group" style="margin-bottom:0.5em">
+                            <div class="btn-group">
                                 <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-left"></i></button>
                                 <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-right"></i></button>
                             </div>
@@ -169,6 +189,7 @@
             })
         })
 </script>
+
 
 
 

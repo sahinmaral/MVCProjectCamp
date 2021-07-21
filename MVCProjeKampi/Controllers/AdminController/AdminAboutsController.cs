@@ -1,10 +1,14 @@
-﻿using BusinessLayer.Concrete;
+﻿using System.Collections.Generic;
+using System.Linq;
+using BusinessLayer.Concrete;
 
 using DataAccessLayer.EntityFramework;
 
 using EntityLayer.Concrete;
 
 using System.Web.Mvc;
+using BusinessLayer.ValidationRules;
+using FluentValidation.Results;
 using MVCProjeKampi.Models.ViewModels;
 using PagedList;
 
@@ -14,14 +18,16 @@ namespace MVCProjeKampi.Controllers.AdminController
     public class AdminAboutsController : Controller
     {
         private AboutManager aboutManager = new AboutManager(new EfAboutDal());
-        AboutHomepageViewModel viewModel = new AboutHomepageViewModel();
+        private AboutValidator validator = new AboutValidator();
 
-        public ActionResult Index(int p=1)
+        public ActionResult Index(int p = 1)
         {
-            viewModel.Abouts = aboutManager.GetList().ToPagedList(p,8);
+
+            AboutHomepageViewModel viewModel = new AboutHomepageViewModel();
+            viewModel.Abouts = aboutManager.GetList().ToPagedList(p, 8);
             viewModel.EnabledAbouts = aboutManager.GetList(x => x.AboutStatus == true).Count;
             viewModel.DisabledAbouts = aboutManager.GetList(x => x.AboutStatus == false).Count;
-            
+
             return View(viewModel);
         }
 
@@ -35,7 +41,6 @@ namespace MVCProjeKampi.Controllers.AdminController
         [HttpGet]
         public ActionResult AddAbout()
         {
-            
             return View();
         }
 
@@ -43,8 +48,22 @@ namespace MVCProjeKampi.Controllers.AdminController
         [HttpPost]
         public ActionResult AddAbout(About about)
         {
-            aboutManager.Add(about);
-            return RedirectToAction("Index");
+            ValidationResult results = validator.Validate(about);
+            if (results.IsValid)
+            {
+                aboutManager.Add(about);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                foreach (var result in results.Errors)
+                {
+                    ModelState.AddModelError(result.PropertyName, result.ErrorMessage);
+                }
+
+            }
+
+            return View();
         }
 
 
@@ -83,8 +102,21 @@ namespace MVCProjeKampi.Controllers.AdminController
         [HttpPost]
         public ActionResult EditAbout(About about)
         {
-            aboutManager.Update(about);
-            return RedirectToAction("Index");
+            ValidationResult results = validator.Validate(about);
+            if (results.IsValid)
+            {
+                aboutManager.Update(about);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                foreach (var item in results.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName,item.ErrorMessage);
+                }
+            }
+
+            return View();
         }
     }
 }

@@ -16,36 +16,39 @@ namespace MVCProjeKampi.Controllers.AdminController
     [Authorize(Roles = "Administrator")]
     public class AdminContactsController : Controller
     {
-        private ContactManager contactManager = new ContactManager(new EfContactDal());
-
-        private IMessageService messageManager = new MessageManager(new EfMessageDal(),
-            new UserManager(new EfUserDal(), new EfSkillDal(),
-                new RoleManager(new EfRoleDal(), new EfUserDal(), new EfUserRoleDal())));
+        private IContactService contactService = new ContactManager(new EfContactDal());
+        private IMessageService messageService = new MessageManager(new EfMessageDal());
+        private IUserService userService = new UserManager(new EfUserDal(), new EfSkillDal(),
+            new RoleManager(new EfRoleDal(), new EfUserDal(), new EfUserRoleDal()));
 
         private ContactValidator contactValidator = new ContactValidator();
 
         public ActionResult Index()
         {
-            var contactValues = contactManager.GetList();
+            var contactValues = contactService.GetList();
             return View(contactValues);
         }
 
 
         public ActionResult GetContactDetails(int id)
         {
-            var contactValues = contactManager.GetById(id);
+            var contactValues = contactService.GetById(id);
             contactValues.IsOpened = true;
-            contactManager.Update(contactValues);
+            contactService.Update(contactValues);
             return View(contactValues);
         }
 
 
         public PartialViewResult GetContactSideMenu()
         {
+            var username = Session["Username"];
+            var user = userService.Get(x => x.UserUsername == username.ToString());
+
             CountOfMessagesViewModel viewModel = new CountOfMessagesViewModel();
-            viewModel.ReceivedMessageCount = messageManager.GetListInbox().Count(x=>x.IsOpened==false);
-            viewModel.SentMessageCount = messageManager.GetListSendbox().Count(x=>x.IsOpened == false);
-            viewModel.ContactCount = contactManager.GetList(x=>x.IsOpened==false).Count;
+            viewModel.DraftCount = messageService.GetCount(x => x.IsDraft == true);
+            viewModel.ReceivedMessageCount = messageService.GetCount(x=>x.ReceiverMail == user.UserEmail && x.IsOpened == false);
+            viewModel.SentMessageCount = messageService.GetCount(x=>x.SenderMail==user.UserEmail && x.IsOpened == false);
+            viewModel.ContactCount = contactService.GetCount(x => x.IsOpened == false);
 
             return PartialView(viewModel);
         }

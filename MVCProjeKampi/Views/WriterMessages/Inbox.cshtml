@@ -5,6 +5,7 @@
     ViewBag.Title = "Mesaj Sayfası";
     Layout = "~/Views/Shared/_WriterLayout.cshtml";
     string message = "";
+    string draftStarClass = "";
 }
 
 
@@ -69,14 +70,34 @@
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
+                                        if (item.IsDraft)
+                                        {
+                                            draftStarClass = "fas fa-star";
+                                        }
+                                        else
+                                        {
+                                            draftStarClass = "far fa-star";
+                                        }
+
                                         <tr>
                                             <td>
                                                 <div class="icheck-primary">
-                                                    <input type="checkbox" value="" id="check1">
+                                                    @if (item.IsOpened)
+                                                    {
+                                                        <input type="checkbox" value="" id="check1" checked="checked" disabled="disabled">
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="checkbox" value="" id="check1" disabled="disabled">
+                                                    }
                                                     <label for="check1"></label>
                                                 </div>
                                             </td>
-                                            <td class="mailbox-star"><a href="#"><i class="fas fa-star text-warning"></i></a></td>
+                                            <td class="mailbox-star">
+                                                <a href="/WriterMessages/SaveMessageToTheDraft/@item.MessageId">
+                                                    <i class="@draftStarClass"></i>
+                                                </a>
+                                            </td>
                                             <td class="mailbox-name"><a href="/WriterMessages/GetMessageDetails/@item.MessageId">@item.SenderMail</a></td>
                                             <td class="mailbox-subject">
 

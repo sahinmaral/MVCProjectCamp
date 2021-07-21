@@ -27,22 +27,23 @@
     }
 
 </table>
-<br />
+
+<a href="../AdminCategories/AddCategory" class="btn btn-primary">Yeni Kategori Ekle</a>
 
 
     @Html.PagedListPager((IPagedList)Model,
-        p => Url.Action("Index",
-            new { p })
-        ,
-        new PagedListRenderOptions
-        {
-            LiElementClasses = new List<string>
+            p => Url.Action("Index",
+                new { p })
+            ,
+            new PagedListRenderOptions
             {
-                {"page-link"}
-            },
-            UlElementClasses = new List<string>
-            {
-                {"pagination justify-content-center"}
+                LiElementClasses = new List<string>
+                {
+                    {"page-link"}
+                },
+                UlElementClasses = new List<string>
+                {
+                    {"pagination justify-content-center"}
+                }
             }
-        }
-        )
+            )

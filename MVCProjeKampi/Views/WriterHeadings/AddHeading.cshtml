@@ -9,11 +9,10 @@
     <div class="form-group">
         @Html.Label("Başlık Adı")
         @Html.TextBoxFor(x => x.HeadingName, new { @class = "form-control" })
-        @Html.ValidationMessageFor(x => x.WriterId, "", new { @class = "text-danger" })
+        @Html.ValidationMessageFor(x => x.HeadingName, "", new { @class = "text-danger" })
         <br />
         @Html.Label("Kategori ")
         @Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.CategoryValues, new { @class = "form-control" })
-        @Html.ValidationMessageFor(x => x.CategoryId, "", new { @class = "text-danger" })
         <br />
         <button class="btn btn-info">Başlık Ekle</button>
         <br />

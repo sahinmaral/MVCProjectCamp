@@ -8,11 +8,12 @@ using EntityLayer.Concrete;
 
 using FluentValidation.Results;
 
+using PagedList;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using PagedList;
 
 namespace MVCProjeKampi.Controllers.AdminController
 {
@@ -23,7 +24,7 @@ namespace MVCProjeKampi.Controllers.AdminController
         private IHeadingService headingService = new HeadingManager(new EfHeadingDal());
         private ICategoryService categoryService = new CategoryManager(new EfCategoryDal());
         private IWriterService writerService = new WriterManager(new EfWriterDal(), new EfUserDal());
-
+        private HeadingValidator headingValidator = new HeadingValidator();
         public ActionResult Index(int p = 1)
         {
             var headingValues = headingService.GetList().OrderByDescending(x => x.HeadingDate).ToPagedList(p, 8);
@@ -69,16 +70,16 @@ namespace MVCProjeKampi.Controllers.AdminController
         [HttpGet]
         public ActionResult AddHeading()
         {
-
             //DropDownList getirir
-            List<SelectListItem> categoryValues = (from x in categoryService.GetList()
-                select new SelectListItem()
-                {
-                    Text = x.CategoryName,
-                    Value = x.CategoryId.ToString()
-                }).ToList();
 
-            ViewBag.CategoryValues = categoryValues;
+            List<SelectListItem> categoryValues = (from x in categoryService.GetList()
+                                                   select new SelectListItem()
+                                                   {
+                                                       Text = x.CategoryName,
+                                                       Value = x.CategoryId.ToString()
+                                                   }).ToList();
+
+            ViewBag.Categories = categoryValues;
 
             return View();
         }
@@ -91,7 +92,7 @@ namespace MVCProjeKampi.Controllers.AdminController
             var username = Session["Username"];
             var user = writerService.Get(x => x.User.UserUsername == username.ToString());
 
-            HeadingValidator headingValidator = new HeadingValidator();
+
             ValidationResult results = headingValidator.Validate(heading);
             if (results.IsValid)
             {
@@ -107,6 +108,16 @@ namespace MVCProjeKampi.Controllers.AdminController
                     ModelState.AddModelError(result.PropertyName, result.ErrorMessage);
                 }
             }
+
+            List<SelectListItem> categoryValues = (from x in categoryService.GetList()
+                select new SelectListItem()
+                {
+                    Text = x.CategoryName,
+                    Value = x.CategoryId.ToString()
+                }).ToList();
+
+            ViewBag.Categories = categoryValues;
+
             return View();
 
         }
@@ -125,8 +136,22 @@ namespace MVCProjeKampi.Controllers.AdminController
         [HttpPost]
         public ActionResult EditHeading(Heading heading)
         {
-            headingService.Update(heading);
-            return RedirectToAction("Index");
+            HeadingValidator headingValidator = new HeadingValidator();
+            ValidationResult results = headingValidator.Validate(heading);
+            if (results.IsValid)
+            {
+                headingService.Update(heading);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                foreach (var result in results.Errors)
+                {
+                    ModelState.AddModelError(result.PropertyName, result.ErrorMessage);
+                }
+            }
+
+            return View();
         }
 
 

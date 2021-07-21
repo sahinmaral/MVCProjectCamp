@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using EntityLayer.Concrete;
+using PagedList;
 
 namespace MVCProjeKampi.Controllers.AdminController
 {
@@ -22,24 +23,12 @@ namespace MVCProjeKampi.Controllers.AdminController
         private IRoleService roleService = new RoleManager(new EfRoleDal(),
             new EfUserDal(), new EfUserRoleDal());
 
-        public ActionResult Index()
+        public ActionResult Index(int p=1)
         {
-            var users = userService.GetList();
+            var users = userService.GetList().ToPagedList(p,8);
 
-            List<UserAndRolesViewModel> viewmodel = new List<UserAndRolesViewModel>();
 
-            foreach (var user in users)
-            {
-                viewmodel.Add(new UserAndRolesViewModel()
-                {
-                    User = user,
-                    //UserRoles = roleService.GetRolesForUser(user.UserUsername)
-            });
-
-                
-            }
-
-            return View(viewmodel);
+            return View(users);
         }
 
 

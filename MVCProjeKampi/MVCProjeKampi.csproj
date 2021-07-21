@@ -2386,6 +2386,7 @@
     <Content Include="Views\WriterMessages\GetContactSideMenu.cshtml" />
     <Content Include="Views\WriterContents\ContentByHeading.cshtml" />
     <Content Include="Views\WriterProfiles\EditProfile.cshtml" />
+    <Content Include="Views\WriterMessages\Draft.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

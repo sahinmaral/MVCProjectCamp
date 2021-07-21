@@ -1,13 +1,16 @@
 ﻿using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
+using BusinessLayer.ValidationRules;
 
 using DataAccessLayer.EntityFramework;
+
+using EntityLayer.Concrete;
 
 using MVCProjeKampi.Models.ViewModels;
 
 using System;
 using System.Web.Mvc;
-using EntityLayer.Concrete;
+using FluentValidation.Results;
 
 namespace MVCProjeKampi.Controllers.SiteController
 {
@@ -19,6 +22,7 @@ namespace MVCProjeKampi.Controllers.SiteController
             new RoleManager(new EfRoleDal(), new EfUserDal(), new EfUserRoleDal()));
 
         private IWriterService writerService = new WriterManager(new EfWriterDal(), new EfUserDal());
+        private ContentValidator validator = new ContentValidator();
 
         [HttpPost]
         [Authorize(Roles = "Writer,User")]
@@ -26,13 +30,6 @@ namespace MVCProjeKampi.Controllers.SiteController
         {
 
             var username = Session["Username"];
-
-            if (username.Equals(null))
-            {
-                //Burası düzeltilecek
-                return RedirectToAction("Login", "Logins");
-            }
-
 
             var user = userService.Get(x => x.UserUsername == username.ToString());
 
@@ -49,10 +46,24 @@ namespace MVCProjeKampi.Controllers.SiteController
             content.WriterId = viewmodel.GoingToAddContent.WriterId;
             content.HeadingId = viewmodel.GoingToAddContent.HeadingId;
             content.ContentText = viewmodel.GoingToAddContent.ContentText;
-            
-            contentService.Add(content);
 
-            return RedirectToAction("HeadingByHeadingId", "Headings" , new {id = viewmodel.GoingToAddContent.Heading.HeadingId});
+            ValidationResult results = validator.Validate(content);
+
+            if (results.IsValid)
+            {
+                contentService.Add(content);
+                return RedirectToAction("HeadingByHeadingId", "Headings", new { id = viewmodel.GoingToAddContent.Heading.HeadingId });
+            }
+            else
+            {
+                foreach (var item in results.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName,item.ErrorMessage);
+                }
+            }
+
+            return RedirectToAction("HeadingByHeadingId", "Headings", new { id = viewmodel.GoingToAddContent.Heading.HeadingId });
+
 
 
         }

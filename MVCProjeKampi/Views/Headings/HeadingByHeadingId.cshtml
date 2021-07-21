@@ -63,9 +63,10 @@
         {
             <div class="mb-3">
                 @Html.HiddenFor(x => x.Heading.HeadingName)
+
                 @Html.TextAreaFor(x => x.GoingToAddContent.ContentText,
                     new { @class = "form-control", @style = "width: 50em; height: 7em", @placeholder = @Model.Heading.HeadingName + " hakkında yazı yazın." })
-
+                @Html.ValidationMessageFor(x=>x.GoingToAddContent.ContentText,"",new {@class="text-danger"})
 
 
                 <br />

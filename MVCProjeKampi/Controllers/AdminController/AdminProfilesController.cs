@@ -18,7 +18,7 @@ namespace MVCProjeKampi.Controllers.AdminController
         {
             var username = Session["Username"];
 
-            var user = _userService.Get(x => x.UserUsername.Equals(username));
+            var user = _userService.Get(x => x.UserUsername == username.ToString());
             var skills = _userService.GetUserSkills(user.UserId);
 
             ProfileSkillViewModel viewmodel = new ProfileSkillViewModel()

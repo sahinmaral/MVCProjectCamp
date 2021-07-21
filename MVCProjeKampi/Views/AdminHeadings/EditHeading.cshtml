@@ -17,8 +17,8 @@
     @Html.Label("Başlık Adı")
     @Html.TextBoxFor(x => x.HeadingName, new { @class = "form-control" })
     <br />
-    @Html.Label("Tarih")
-    @Html.TextBoxFor(x => x.HeadingDate, new { @class = "form-control", @disabled = "disabled" })
+    @Html.Label("Oluşturulma Tarihi")
+    @Html.TextBoxFor(x=>x.HeadingDate, new { @class = "form-control", disabled="disabled", @Value = Model.HeadingDate.ToString("dd.MM.yyyy") })
     <br />
     @Html.Label("Kategori")
     @Html.TextBoxFor(x => x.Category.CategoryName, new { @class = "form-control", @disabled = "disabled" })

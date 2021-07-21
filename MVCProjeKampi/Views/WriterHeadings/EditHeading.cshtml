@@ -5,7 +5,6 @@
     ViewBag.Title = "Başlık güncelleme sayfası";
     Layout = "~/Views/Shared/_WriterLayout.cshtml";
 
-    var headingDate = Model.HeadingDate.ToShortDateString();
 }
 
 @using (Html.BeginForm("EditHeading", "WriterHeadings", FormMethod.Post))
@@ -15,12 +14,14 @@
         @Html.HiddenFor(x => x.HeadingId)
         @Html.HiddenFor(x => x.HeadingDate)
         @Html.HiddenFor(x => x.WriterId)
+        @Html.HiddenFor(x=>x.CategoryId)
+
         @Html.Label("Başlık Adı")
         @Html.TextBoxFor(x => x.HeadingName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x=>x.HeadingName,"",new {@class="text-danger"})
         <br />
-
         @Html.Label("Oluşturulma Tarihi")
-        @Html.TextBoxFor(x=>headingDate, new { @disabled = "disabled", @class = "form-control" })
+        @Html.TextBoxFor(x=>x.HeadingDate, new { @class = "form-control", disabled="disabled", @Value = Model.HeadingDate.ToString("dd.MM.yyyy") })
         <br />
         @Html.Label("Kategori")
         @Html.TextBoxFor(x => x.CategoryId, new { @disabled = "@disabled", @class = "form-control" })

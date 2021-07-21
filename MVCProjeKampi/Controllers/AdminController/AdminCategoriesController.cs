@@ -17,7 +17,7 @@ namespace MVCProjeKampi.Controllers.AdminController
     public class AdminCategoriesController : Controller
     {
         private IBaseService<Category> categoryManager = new CategoryManager(new EfCategoryDal());
-
+        private CategoryValidator categoryValidator = new CategoryValidator();
         public ActionResult Index(int p=1)
         {
             var CategoryValues = categoryManager.GetList().ToPagedList(p,8);
@@ -42,7 +42,6 @@ namespace MVCProjeKampi.Controllers.AdminController
         [HttpPost]
         public ActionResult AddCategory(Category p)
         {
-            CategoryValidator categoryValidator = new CategoryValidator();
             ValidationResult results = categoryValidator.Validate(p);
 
             if(results.IsValid)
@@ -78,8 +77,7 @@ namespace MVCProjeKampi.Controllers.AdminController
         [HttpPost]
         public ActionResult UpdateCategory(Category category)
         {
-            CategoryValidator validationRules = new CategoryValidator();
-            ValidationResult results = validationRules.Validate(category);
+            ValidationResult results = categoryValidator.Validate(category);
 
             if(results.IsValid)
             {

@@ -2,6 +2,8 @@
     Yeni Hakkımızda Yazı Girişi
 </button>
 
+@model EntityLayer.Concrete.About
+
 <div class="modal fade" id="Modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -11,19 +13,26 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="post" action="/AdminAbouts/AddAbout/">
+            @using (Html.BeginForm("AddAbout", "AdminAbouts", FormMethod.Post))
+            {
                 <div class="modal-body">
+                    @Html.Label("Hakkımda başlığı", new { @class = "text-bold" })
+                    @Html.TextBoxFor(x => x.AboutHeader, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.AboutHeader, "", new { @class = "text-danger" })
 
-                    <label>Hakkımızda başlığı</label>
-                    <input type="text" name="AboutHeader" class="form-control" />
-                    <label>Hakkımda Metin</label>
-                    <input type="text" name="AboutText" class="form-control" />
+
+                    @Html.Label("Hakkımda Metni", new { @class = "text-bold" })
+                    @Html.TextBoxFor(x => x.AboutText, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.AboutText, "", new { @class = "text-danger" })
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
                     <button type="submit" class="btn btn-primary">Kaydet</button>
                 </div>
-            </form>
+            }
+
+
         </div>
     </div>
 </div>

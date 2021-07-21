@@ -1,5 +1,7 @@
-﻿@using MVCProjeKampi.Models.ViewModels
-@model List<UserAndRolesViewModel>
+﻿@using EntityLayer.Concrete
+@using PagedList
+@using PagedList.Mvc
+@model IPagedList<User>
 
 @{
     ViewBag.Title = "Index";
@@ -14,19 +16,19 @@
         <th>Mail adresi</th>
         <th>Diğer</th>
         <th>Durum</th>
-        
+
     </tr>
     @foreach (var item in Model)
     {
         <tr>
-            <td>@item.User.UserId</td>
-            <td>@item.User.UserUsername</td>
-            <td>@item.User.UserEmail</td>
+            <td>@item.UserId</td>
+            <td>@item.UserUsername</td>
+            <td>@item.UserEmail</td>
             <td>
-                <a href="/AdminAuthorization/GiveAuthorization?userId=@item.User.UserId" class="btn btn-warning">Kullanıcı İşlemleri</a>
+                <a href="/AdminAuthorization/GiveAuthorization?userId=@item.UserId" class="btn btn-warning">Kullanıcı İşlemleri</a>
             </td>
             <td>
-                @if (item.User.UserStatus)
+                @if (item.UserStatus)
                 {
                     status = "Normal";
                 }
@@ -40,7 +42,25 @@
 
 
     }
+
 </table>
+
+@Html.PagedListPager((IPagedList)Model,
+    p => Url.Action("Index",
+        new { p })
+    ,
+    new PagedListRenderOptions
+    {
+        LiElementClasses = new List<string>
+        {
+            {"page-link"}
+        },
+        UlElementClasses = new List<string>
+        {
+            {"pagination justify-content-center"}
+        }
+    }
+    )
 
 
 
