@@ -46,10 +46,21 @@ namespace BusinessLayer.Concrete
 
         }
 
-        public void GiveRoleToUser(UserRole entity)
+        public void GiveRoleFromUser(UserRole entity)
         {
             _userRoleDal.Insert(entity);
         }
+
+        public void DeleteRoleFromUser(UserRole entity)
+        {
+            _userRoleDal.Delete(entity);
+        }
+
+        public UserRole GetUserRole(int userId, int roleId)
+        {
+            return _userRoleDal.Get(x => x.UserId == userId && x.RoleId == roleId);
+        }
+
 
         public List<Role> GetList()
         {

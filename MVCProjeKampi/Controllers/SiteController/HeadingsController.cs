@@ -13,6 +13,7 @@ using MVCProjeKampi.Models.ViewModels;
 using PagedList;
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -73,14 +74,38 @@ namespace MVCProjeKampi.Controllers.SiteController
         }
 
         [AllowAnonymous]
+        public ActionResult HeadingByHeadingName(string headingName)
+        {
+            //Jeff Bezos'un astronot olması -> Jeff Bezos
+
+            var heading = headingService.Get(x => x.HeadingName.StartsWith(headingName));
+            return RedirectToAction("HeadingByHeadingId", "Headings", new {id = heading.HeadingId});
+        }
+
+        [AllowAnonymous]
         public ActionResult SearchHeadings(string searched)
         {
             //Search bar araştırılacak
             return View();
         }
 
+        [AllowAnonymous]
+        public JsonResult GetHeadings()
+        {
+            var headings = headingService.GetList();
+
+            List<string> headingNames = new List<string>(); 
+
+            for (int i = 0; i < headings.Count; i++)
+            {
+                headingNames.Add(headings[i].HeadingName); 
+            }
+
+            return new JsonResult { Data = headingNames.ToArray(), JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
         [HttpPost]
-        [Authorize(Roles = "Writer,User")]
+        [Authorize(Roles = "User")]
         public ActionResult WriteContentOnHeading(Content content)
         {
 

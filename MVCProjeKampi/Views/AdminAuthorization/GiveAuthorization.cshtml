@@ -32,7 +32,9 @@
     <i class="far fa-arrow-alt-circle-left"></i> &nbsp; Geri Dön
 </a>
 
-<h3 style="text-align: center">@Model.User.UserUsername kullanıcısı işlemleri</h3> <br/><br />
+<h3 style="text-align: center">@Model.User.UserUsername kullanıcısı işlemleri</h3>
+<br />
+<br />
 
 
 <table class="table table-striped">
@@ -47,10 +49,7 @@
         <tr>
             <td>
                 <button class="btn btn-primary" data-toggle="modal" data-target="#Modal1">
-                    Yetki Verme
-                </button>
-                <button class="btn btn-warning" data-toggle="modal" data-target="#Modal2">
-                    Yetki Alma
+                    Yetki Değiştirme
                 </button>
             </td>
             <td>
@@ -75,6 +74,9 @@
             </div>
             @using (Html.BeginForm("GiveAuthorization", "AdminAuthorization", FormMethod.Post))
             {
+
+                @Html.HiddenFor(x => x.User.UserId)
+
                 <div class="modal-body">
 
                     @Html.HiddenFor(x => x.User.UserId)
@@ -83,23 +85,41 @@
                     {
                         if (Model.Roles[i].IsSelected == true)
                         {
-                            <div class="col-sm-10">
-                                @Html.HiddenFor(x => x.Roles[i].Role.RoleId)
-                                <div class="form-check col-sm-10">
-                                    <input class="form-check-input" type="checkbox" value="" id="@Model.Roles[i].Role.RoleId" disabled checked="checked">
-                                    <label class="col-sm-2" style="font-size: 20px" for="@Model.Roles[i].Role.RoleId">
-                                        @Model.Roles[i].Role.RoleName
-                                    </label>
+                            if (Model.Roles[i].Role.RoleName == "Kullanıcı")
+                            {
+                                <div class="col-sm-10">
+
+                                    @Html.HiddenFor(x => x.Roles[i].Role.RoleId)
+                                    <div class="form-check col-sm-10">
+                                        <input class="form-check-input" type="radio" value="" id="@Model.Roles[i].Role.RoleId" disabled checked="checked">
+                                        <label class="col-sm-2" style="font-size: 20px" for="@Model.Roles[i].Role.RoleId">
+                                            @Model.Roles[i].Role.RoleName
+                                        </label>
+                                    </div>
                                 </div>
-                            </div>
+                            }
+                            else
+                            {
+                                <div class="col-sm-10">
+
+                                    @Html.HiddenFor(x => x.Roles[i].Role.RoleId)
+                                    <div class="form-check col-sm-10">
+                                        <input class="form-check-input" type="radio" value="@Model.Roles[i].Role.RoleId" name="Roles" id="@Model.Roles[i].Role.RoleId" checked="checked">
+                                        <label class="col-sm-2" style="font-size: 20px" for="@Model.Roles[i].Role.RoleId">
+                                            @Model.Roles[i].Role.RoleName
+                                        </label>
+                                    </div>
+                                </div>
+                            }
 
                         }
+
                         else
                         {
                             <div class="col-sm-10">
                                 @Html.HiddenFor(x => x.Roles[i].Role.RoleId)
                                 <div class="form-check col-sm-10">
-                                    <input class="form-check-input" type="checkbox" value="" id="@Model.Roles[i].Role.RoleId">
+                                    <input class="form-check-input" type="radio" value="@Model.Roles[i].Role.RoleId" name="Roles" id="@Model.Roles[i].Role.RoleId">
                                     <label class="col-sm-2" style="font-size: 20px" for="@Model.Roles[i].Role.RoleId">
                                         @Model.Roles[i].Role.RoleName
                                     </label>

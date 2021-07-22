@@ -2,7 +2,7 @@
 
 namespace MVCProjeKampi.Controllers.WriterController
 {
-    [Authorize(Roles = "Writer,User")]
+    [Authorize(Roles = "Writer")]
     public class WriterHomepageController : Controller
     {
         public ActionResult Index()

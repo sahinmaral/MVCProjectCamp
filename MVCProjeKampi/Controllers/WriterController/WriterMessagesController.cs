@@ -8,15 +8,16 @@ using EntityLayer.Concrete;
 
 using FluentValidation.Results;
 
-using System;
-using System.Collections.Generic;
-using System.Web.Mvc;
 using MVCProjeKampi.Models.ViewModels;
+
 using PagedList;
+
+using System;
+using System.Web.Mvc;
 
 namespace MVCProjeKampi.Controllers.WriterController
 {
-    [Authorize(Roles = "Writer,User")]
+    [Authorize(Roles = "Writer")]
     public class WriterMessagesController : Controller
     {
         private IMessageService messageService = new MessageManager(new EfMessageDal());

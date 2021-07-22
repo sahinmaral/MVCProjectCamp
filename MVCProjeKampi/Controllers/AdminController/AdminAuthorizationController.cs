@@ -3,14 +3,15 @@ using BusinessLayer.Concrete;
 
 using DataAccessLayer.EntityFramework;
 
+using EntityLayer.Concrete;
+
 using MVCProjeKampi.Models.ViewModels;
+
+using PagedList;
 
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Web.Mvc;
-using EntityLayer.Concrete;
-using PagedList;
 
 namespace MVCProjeKampi.Controllers.AdminController
 {
@@ -23,12 +24,20 @@ namespace MVCProjeKampi.Controllers.AdminController
         private IRoleService roleService = new RoleManager(new EfRoleDal(),
             new EfUserDal(), new EfUserRoleDal());
 
-        public ActionResult Index(int p=1)
+
+        public ActionResult Index(int p = 1)
         {
-            var users = userService.GetList().ToPagedList(p,8);
+            var username = Session["Username"];
 
+            var user = userService.Get(x => x.UserUsername == username.ToString());
 
-            return View(users);
+            var users = userService.GetList();
+
+            users.Remove(user);
+
+            var pagedListUsers = users.ToPagedList(p, 8);
+
+            return View(pagedListUsers);
         }
 
 
@@ -69,25 +78,34 @@ namespace MVCProjeKampi.Controllers.AdminController
         }
 
         [HttpPost]
-        public ActionResult GiveAuthorization(UserAndRolesViewModel viewModel)
+        public ActionResult GiveAuthorization(UserAndRolesViewModel viewModel, FormCollection frm)
         {
             var user = userService.GetById(viewModel.User.UserId);
 
-            foreach (var role in viewModel.Roles)
-            {
-                if (role.IsSelected)
-                {
-                    var selectedRole = roleService.GetById(role.Role.RoleId);
-                    UserRole item = new UserRole()
-                    {
-                        RoleId = selectedRole.RoleId,
-                        UserId = user.UserId
-                    };
+            int roleId = int.Parse(frm["Roles"]);
 
-                    roleService.GiveRoleToUser(item);
-                }
-                
+            var selectedRole = roleService.GetById(roleId);
+
+            var roles = roleService.GetRolesForUser(user.UserUsername).ToList();
+
+            var userRole = roles.Find(x => x == "User");
+
+            roles.Remove(userRole);
+
+            foreach (var role in roles)
+            {
+                int deletedRole = roleService.Get(x => x.RoleName == role).RoleId;
+
+                var deletedUserRole = roleService.GetUserRole(user.UserId, deletedRole);
+                roleService.DeleteRoleFromUser(deletedUserRole);
             }
+
+            roleService.GiveRoleFromUser(new UserRole()
+            {
+                RoleId = selectedRole.RoleId,
+                UserId = user.UserId
+            });
+
 
             return RedirectToAction("Index", "AdminAuthorization");
         }

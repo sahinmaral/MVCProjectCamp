@@ -6,12 +6,10 @@ using DataAccessLayer.EntityFramework;
 using PagedList;
 
 using System.Web.Mvc;
-using EntityLayer.Concrete;
-using FluentValidation.Results;
 
 namespace MVCProjeKampi.Controllers.WriterController
 {
-    [Authorize(Roles = "Writer,User")]
+    [Authorize(Roles = "Writer")]
     public class WriterContentsController : Controller
     {
         private IContentService contentManager = new ContentManager(new EfContentDal());

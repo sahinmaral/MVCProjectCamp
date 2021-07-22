@@ -1907,6 +1907,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\searchBar.css" />
     <Content Include="Content\skillcard\css\style.css" />
     <Content Include="Content\skillcard\images\5.jpg" />
     <Content Include="Content\skillcard\images\img1.jpg" />

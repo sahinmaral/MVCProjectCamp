@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using System.Web.UI;
-
-using BusinessLayer.Abstract;
+﻿using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
 
@@ -16,9 +10,14 @@ using FluentValidation.Results;
 
 using PagedList;
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+
 namespace MVCProjeKampi.Controllers.WriterController
 {
-    [Authorize(Roles = "Writer,User")]
+    [Authorize(Roles = "Writer")]
     public class WriterHeadingsController : Controller
     {
         private IWriterService writerService = new WriterManager(new EfWriterDal(), new EfUserDal());
