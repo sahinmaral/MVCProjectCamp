@@ -14,7 +14,7 @@
             <div class="form-group">
                 @Html.HiddenFor(x => x.AboutId)
                 @Html.TextBoxFor(x => x.AboutHeader, new { placeholder = "Alıcı: ", @class = "form-control" })
-                @Html.ValidationMessageFor(x=>x.AboutHeader,"",new {@class="text-danger"})
+                @Html.ValidationMessageFor(x=>x.AboutHeader,"",new {@class="text-danger" , @style="font-weight: bold"})
             </div>
             <div class="form-group">
                 @Html.TextAreaFor(x => x.AboutText,

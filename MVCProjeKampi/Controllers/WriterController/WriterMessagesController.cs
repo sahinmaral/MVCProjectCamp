@@ -12,9 +12,11 @@ using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using MVCProjeKampi.Models.ViewModels;
+using PagedList;
 
-namespace MVCProjeKampi.Controllers.AdminController
+namespace MVCProjeKampi.Controllers.WriterController
 {
+    [Authorize(Roles = "Writer,User")]
     public class WriterMessagesController : Controller
     {
         private IMessageService messageService = new MessageManager(new EfMessageDal());
@@ -23,7 +25,7 @@ namespace MVCProjeKampi.Controllers.AdminController
         private IUserService userService = new UserManager(new EfUserDal(), new EfSkillDal(),
             new RoleManager(new EfRoleDal(), new EfUserDal(), new EfUserRoleDal()));
 
-        public ActionResult Inbox()
+        public ActionResult Inbox(int p=1)
         {
             //Mesaja girdikten sonra sayfayı geri alınca yenilenmiyor
             //Sonrasında bakılması gerekiyor
@@ -32,18 +34,18 @@ namespace MVCProjeKampi.Controllers.AdminController
 
             var user = userService.Get(x => x.UserUsername == username);
 
-            var messageValues = messageService.GetList(x => x.ReceiverMail == user.UserEmail);
+            var messageValues = messageService.GetList(x => x.ReceiverMail == user.UserEmail).ToPagedList(p,10);
             return View(messageValues);
         }
 
 
-        public ActionResult Sendbox()
+        public ActionResult Sendbox(int p=1)
         {
             var username = Session["Username"];
 
             var user = userService.Get(x => x.UserUsername == username.ToString());
 
-            List<Message> messages = messageService.GetList(x => x.SenderMail == user.UserEmail);
+            var messages = messageService.GetList(x => x.SenderMail == user.UserEmail).ToPagedList(p,10);
 
             return View(messages);
         }
@@ -54,6 +56,7 @@ namespace MVCProjeKampi.Controllers.AdminController
             var user = userService.Get(x => x.UserUsername == username.ToString());
 
             CountOfMessagesViewModel viewModel = new CountOfMessagesViewModel();
+            viewModel.ArchiveCount = messageService.GetCount(x => x.IsArchived == true);
             viewModel.DraftCount = messageService.GetCount(x => x.IsDraft == true);
             viewModel.ReceivedMessageCount = messageService.GetCount(x => x.ReceiverMail == user.UserEmail && x.IsOpened == false);
             viewModel.SentMessageCount = messageService.GetCount(x => x.SenderMail == user.UserEmail && x.IsOpened == false);
@@ -61,33 +64,75 @@ namespace MVCProjeKampi.Controllers.AdminController
             return PartialView(viewModel);
         }
 
-        public ActionResult Draft()
+        public ActionResult Archive(int p=1)
         {
 
             var username = Session["Username"].ToString();
             var user = userService.Get(x => x.UserUsername == username);
 
-            var messageValues = messageService.GetList(x => x.IsDraft == true);
+            var messageValues = messageService.GetList(x => x.IsArchived == true).ToPagedList(p,10);
             return View(messageValues);
         }
 
-        public ActionResult SaveMessageToTheDraft(int id)
+        //public ActionResult Draft()
+        //{
+
+        //    var username = Session["Username"].ToString();
+        //    var user = userService.Get(x => x.UserUsername == username);
+
+        //    var messageValues = messageService.GetList(x => x.IsDraft == true);
+        //    return View(messageValues);
+        //}
+
+        public ActionResult SaveMessageToTheArchive(int id)
         {
             Message message = messageService.GetById(id);
 
-            if (message.IsDraft)
+            if (message.IsArchived)
             {
-                message.IsDraft = false;
+                message.IsArchived = false;
                 messageService.Update(message);
             }
             else
             {
-                message.IsDraft = true;
+                message.IsArchived = true;
                 messageService.Update(message);
             }
 
-            return RedirectToAction("Inbox", "WriterMessages");
+            //Sonra yapılacak
+            //Hangi action üzerinden gönderiyorsam oraya göndersin
+            return RedirectToAction("Archive", "WriterMessages");
         }
+
+
+        //public ActionResult SaveMessageToTheDraft(Message message)
+        //{
+        //    //İlerleyen zamanlarda eğer kullanı email güncelleyebilirse
+        //    //kullanıcı id üzerinden yapmak zorunda
+
+        //    var username = Session["Username"].ToString();
+
+        //    var user = userService.Get(x => x.UserUsername == username);
+
+        //    message.MessageDate = DateTime.Now;
+
+        //    ValidationResult results = validator.Validate(message);
+        //    if (results.IsValid)
+        //    {
+        //        message.SenderMail = user.UserEmail;
+        //        messageService.Add(message);
+        //        return RedirectToAction("Draft", "WriterMessages");
+        //    }
+        //    else
+        //    {
+        //        foreach (var item in results.Errors)
+        //        {
+        //            ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+        //        }
+        //    }
+
+        //    return View("NewMessage");
+        //}
 
         public ActionResult GetMessageDetails(int id)
         {
@@ -122,7 +167,7 @@ namespace MVCProjeKampi.Controllers.AdminController
             {
                 message.SenderMail = user.UserEmail;
                 messageService.Add(message);
-                return RedirectToAction("Index", "AdminContacts");
+                return RedirectToAction("Sendbox", "WriterMessages");
             }
             else
             {

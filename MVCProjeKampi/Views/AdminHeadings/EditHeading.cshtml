@@ -16,6 +16,7 @@
 
     @Html.Label("Başlık Adı")
     @Html.TextBoxFor(x => x.HeadingName, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x=>x.HeadingName , "" , new {@class="text-danger", @style = "font-weight: bold" })
     <br />
     @Html.Label("Oluşturulma Tarihi")
     @Html.TextBoxFor(x=>x.HeadingDate, new { @class = "form-control", disabled="disabled", @Value = Model.HeadingDate.ToString("dd.MM.yyyy") })

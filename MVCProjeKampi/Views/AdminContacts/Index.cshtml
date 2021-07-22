@@ -1,5 +1,7 @@
 ﻿@using EntityLayer.Concrete
-@model List<Contact>
+@using PagedList
+@using PagedList.Mvc
+@model IPagedList<Contact>
 
 @{
     ViewBag.Title = "Mesaj Sayfası";
@@ -41,17 +43,7 @@
                 <!-- /.card-header -->
                 <div class="card-body p-0">
                     <div class="mailbox-controls">
-                        <!-- Check all button -->
-                        <!-- /.btn-group -->
-                        <div class="float-right">
-                            1-50/200
-                            <div class="btn-group" style="margin-bottom:0.5em">
-                                <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-left"></i></button>
-                                <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-right"></i></button>
-                            </div>
-                            <!-- /.btn-group -->
-                        </div>
-                        <!-- /.float-right -->
+                        <br/>
                     </div>
                     <div class="table-responsive mailbox-messages">
                         <table class="table table-hover table-striped">
@@ -102,19 +94,25 @@
                 <!-- /.card-body -->
                 <div class="card-footer p-0">
                     <div class="mailbox-controls">
-                        <!-- Check all button -->
-                        <div class="btn-group">
+                        <div class="mailbox-controls" style="margin-bottom:-1em">
+
+                            @Html.PagedListPager((IPagedList)Model,
+                                p => Url.Action("Index",
+                                    new { p })
+                                ,
+                                new PagedListRenderOptions
+                                {
+                                    LiElementClasses = new List<string>
+                                    {
+                                        {"page-link"}
+                                    },
+                                    UlElementClasses = new List<string>
+                                    {
+                                        {"pagination justify-content-center"}
+                                    }
+                                }
+                                )
                         </div>
-                        <!-- /.btn-group -->
-                        <div class="float-right" style="margin-bottom:0.5em">
-                            1-50/200
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-left"></i></button>
-                                <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-right"></i></button>
-                            </div>
-                            <!-- /.btn-group -->
-                        </div>
-                        <!-- /.float-right -->
                     </div>
                 </div>
             </div>

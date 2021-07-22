@@ -11,6 +11,7 @@ using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using PagedList;
 
 namespace MVCProjeKampi.Controllers.AdminController
 {
@@ -23,7 +24,7 @@ namespace MVCProjeKampi.Controllers.AdminController
         private IUserService userService = new UserManager(new EfUserDal(), new EfSkillDal(),
             new RoleManager(new EfRoleDal(), new EfUserDal(), new EfUserRoleDal()));
 
-        public ActionResult Inbox()
+        public ActionResult Inbox(int p = 1)
         {
             //Mesaja girdikten sonra sayfayı geri alınca yenilenmiyor
             //Sonrasında bakılması gerekiyor
@@ -32,28 +33,88 @@ namespace MVCProjeKampi.Controllers.AdminController
 
             var user = userService.Get(x => x.UserUsername == username);
 
-            var messages =  messageService.GetList(x => x.ReceiverMail == user.UserEmail);
+            var messages = messageService.GetList(x => x.ReceiverMail == user.UserEmail).ToPagedList(p, 10);
 
             return View(messages);
         }
 
-        public ActionResult Draft()
+        public ActionResult Archive(int p = 1)
         {
 
             var username = Session["Username"].ToString();
             var user = userService.Get(x => x.UserUsername == username);
 
-            var messageValues = messageService.GetList(x=>x.IsDraft==true);
+            var messageValues = messageService.GetList(x => x.IsArchived == true).ToPagedList(p, 10);
             return View(messageValues);
         }
 
-        public ActionResult Sendbox()
+        //public ActionResult Draft()
+        //{
+
+        //    var username = Session["Username"].ToString();
+        //    var user = userService.Get(x => x.UserUsername == username);
+
+        //    var messageValues = messageService.GetList(x => x.IsDraft == true);
+        //    return View(messageValues);
+        //}
+
+        public ActionResult SaveMessageToTheArchive(int id)
+        {
+            Message message = messageService.GetById(id);
+
+            if (message.IsArchived)
+            {
+                message.IsArchived = false;
+                messageService.Update(message);
+            }
+            else
+            {
+                message.IsArchived = true;
+                messageService.Update(message);
+            }
+
+            //Sonra yapılacak
+            //Hangi action üzerinden gönderiyorsam oraya göndersin
+            return RedirectToAction("Archive", "AdminMessages");
+        }
+
+
+        //public ActionResult SaveMessageToTheDraft(Message message)
+        //{
+        //    //İlerleyen zamanlarda eğer kullanı email güncelleyebilirse
+        //    //kullanıcı id üzerinden yapmak zorunda
+
+        //    var username = Session["Username"].ToString();
+
+        //    var user = userService.Get(x => x.UserUsername == username);
+
+        //    message.MessageDate = DateTime.Now;
+
+        //    ValidationResult results = validator.Validate(message);
+        //    if (results.IsValid)
+        //    {
+        //        message.SenderMail = user.UserEmail;
+        //        messageService.Add(message);
+        //        return RedirectToAction("Draft", "AdminMessages");
+        //    }
+        //    else
+        //    {
+        //        foreach (var item in results.Errors)
+        //        {
+        //            ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+        //        }
+        //    }
+
+        //    return View("NewMessage");
+        //}
+
+        public ActionResult Sendbox(int p=1)
         {
             var username = Session["Username"];
 
             var user = userService.Get(x => x.UserUsername == username.ToString());
 
-            List<Message> messages = messageService.GetList(x => x.SenderMail == user.UserEmail);
+            var messages = messageService.GetList(x => x.SenderMail == user.UserEmail).ToPagedList(p,10);
 
             return View(messages);
         }
@@ -104,26 +165,8 @@ namespace MVCProjeKampi.Controllers.AdminController
 
             return View();
         }
-        
-        public ActionResult SaveMessageToTheDraft(int id)
-        {
-            Message message = messageService.GetById(id);
 
-            if (message.IsDraft)
-            {
-                message.IsDraft = false;
-                messageService.Update(message);
-                return RedirectToAction("Inbox", "AdminMessages");
-            }
-            else
-            {
-                message.IsDraft = true;
-                messageService.Update(message);
-                return RedirectToAction("Inbox", "AdminMessages");
-            }
-            
-            
-        }
+
 
     }
 }

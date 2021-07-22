@@ -25,12 +25,6 @@ namespace MVCProjeKampi.Controllers.AdminController
         }
 
 
-        public ActionResult EditCategories()
-        {
-            var CategoryValues = categoryManager.GetList();
-            return View(CategoryValues);
-        }
-
 
         [HttpGet]
         public ActionResult AddCategory()
@@ -62,8 +56,9 @@ namespace MVCProjeKampi.Controllers.AdminController
 
         public ActionResult DeleteCategory(int id)
         {
-            var CategoryValues = categoryManager.GetById(id);
-            categoryManager.Delete(CategoryValues);
+            var categoryValues = categoryManager.GetById(id);
+            categoryValues.CategoryStatus = false;
+            categoryManager.Update(categoryValues);
             return RedirectToAction("Index");
         }
 

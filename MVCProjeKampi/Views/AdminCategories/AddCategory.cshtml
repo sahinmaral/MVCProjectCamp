@@ -11,11 +11,11 @@
 <div class="form-group">
     @Html.Label("Kategori Adı : ")
     @Html.TextBoxFor(x => x.CategoryName, new { @class = "form-control" })
-    @Html.ValidationMessageFor(x => x.CategoryName , "" , new {@class="text-danger"})
+    @Html.ValidationMessageFor(x => x.CategoryName, "", new { @class = "text-danger", @style = "font-weight: bold" })
     <br /><br />
     @Html.Label("Açıklamayı yazınız")
     @Html.TextAreaFor(x => x.CategoryDescription, new { @class = "form-control" })
-    @Html.ValidationMessageFor(x => x.CategoryDescription, "", new { @class = "text-danger" })
+    @Html.ValidationMessageFor(x => x.CategoryDescription, "", new { @class = "text-danger", @style = "font-weight: bold" })
     <br /><br />
     <button class="btn btn-info">Kaydet</button>
 </div>

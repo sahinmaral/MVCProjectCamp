@@ -1,22 +1,23 @@
-﻿@using MVCProjeKampi.Models.ViewModels
+﻿@using EntityLayer.Concrete
+@using MVCProjeKampi.Models.ViewModels
 @using PagedList
 @using PagedList.Mvc
-@model ContentsByHeadingViewModel
+@model Content
 
 @{
-    ViewBag.Title = @Model.Heading.HeadingName;
     Layout = "~/Views/Shared/_SiteLayout.cshtml";
-
+    ContentsByHeadingViewModel viewmodel = @ViewBag.ContentsByHeadingViewModel;
+    ViewBag.Title = viewmodel.Heading.HeadingName;
 }
 
-<h2 style="margin-top: -1em; margin-left:0.5em"><b>@Model.Heading.HeadingName</b></h2>
+<h2 style="margin-top: -1em; margin-left:0.5em"><b>@viewmodel.Heading.HeadingName</b></h2>
 
 <div style="margin-left:1em">
-@if (Model.ContentList.Count >= 8)
+@if (viewmodel.ContentList.Count >= 8)
 {
-    @Html.PagedListPager((IPagedList)Model.ContentList,
+    @Html.PagedListPager((IPagedList)viewmodel.ContentList,
         p => Url.Action("HeadingByHeadingId",
-            new { id = @Model.Heading.HeadingId, p })
+            new { id = @viewmodel.Heading.HeadingId, p })
         ,
         new PagedListRenderOptions
         {
@@ -36,7 +37,7 @@
 
 <div style="margin-top: 2em; margin-left:1em">
 
-    @foreach (var item in Model.ContentList)
+    @foreach (var item in viewmodel.ContentList)
     {
         <div class="card">
             <div class="card-body">
@@ -59,14 +60,14 @@
     else
     {
 
-        using (Html.BeginForm("WriteContentOnHeading", "Contents", FormMethod.Post))
+        using (Html.BeginForm("WriteContentOnHeading", "Headings", FormMethod.Post))
         {
             <div class="mb-3">
-                @Html.HiddenFor(x => x.Heading.HeadingName)
+                @Html.HiddenFor(x => x.Heading.HeadingId , new {@Value= viewmodel.Heading.HeadingId})
 
-                @Html.TextAreaFor(x => x.GoingToAddContent.ContentText,
-                    new { @class = "form-control", @style = "width: 50em; height: 7em", @placeholder = @Model.Heading.HeadingName + " hakkında yazı yazın." })
-                @Html.ValidationMessageFor(x=>x.GoingToAddContent.ContentText,"",new {@class="text-danger"})
+                @Html.TextAreaFor(x => x.ContentText,
+                    new { @class = "form-control", @style = "width: 50em; height: 7em", @placeholder = @viewmodel.Heading.HeadingName + " hakkında yazı yazın." })
+                @Html.ValidationMessageFor(x=>x.ContentText,"",new {@class="text-danger"})
 
 
                 <br />
@@ -81,9 +82,9 @@
 
 
 <div style="margin-left:1em">
-    @Html.PagedListPager((IPagedList)Model.ContentList,
+    @Html.PagedListPager((IPagedList)viewmodel.ContentList,
         p => Url.Action("HeadingByHeadingId",
-            new { id = @Model.Heading.HeadingId, p })
+            new { id = @viewmodel.Heading.HeadingId, p })
         ,
         new PagedListRenderOptions
         {

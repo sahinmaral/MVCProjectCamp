@@ -7,23 +7,18 @@
 }
 
 
-<link href="~/Content/bootstrap.css" rel="stylesheet" />
-
-
 @using (Html.BeginForm("UpdateCategory", "AdminCategories", FormMethod.Post))
 {
 <div class="form-group">
+    @Html.HiddenFor(x => x.CategoryId, new { @readonly = "readonly", @class = "form-control" })
 
-    @Html.Label("Kategori Id : ")
-    @Html.TextBoxFor(x => x.CategoryId, new { @readonly = "readonly", @class = "form-control" })
-    <br /><br />
     @Html.Label("Kategori Adı : ")
     @Html.TextBoxFor(x => x.CategoryName, new { @class = "form-control" })
-    @Html.ValidationMessageFor(x => x.CategoryName)
+    @Html.ValidationMessageFor(x => x.CategoryName, "", new { @class = "text-danger", @style = "font-weight: bold" })
     <br /><br />
     @Html.Label("Açıklamayı yazınız")
     @Html.TextAreaFor(x => x.CategoryDescription, new { @class = "form-control" })
-    @Html.ValidationMessageFor(x => x.CategoryDescription)
+    @Html.ValidationMessageFor(x => x.CategoryDescription , "" , new {@class="text-danger" , @style="font-weight: bold"})
     <br /><br />
     @Html.Label("Durumunu işaretleyiniz")
     <div class="form-check">

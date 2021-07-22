@@ -178,7 +178,6 @@
     <Compile Include="Controllers\AdminController\AdminStatisticsController.cs" />
     <Compile Include="Controllers\AdminController\AdminWritersController.cs" />
     <Compile Include="Controllers\SiteController\AboutController.cs" />
-    <Compile Include="Controllers\SiteController\ContentsController.cs" />
     <Compile Include="Controllers\SiteController\HeadingsController.cs" />
     <Compile Include="Controllers\SiteController\HomepageController.cs" />
     <Compile Include="Controllers\WriterController\WriterMessagesController.cs" />
@@ -2345,7 +2344,7 @@
     <Content Include="Views\Logins\Login.cshtml" />
     <Content Include="Views\AdminCategories\Index.cshtml" />
     <Content Include="Views\ErrorPages\Page401.cshtml" />
-    <Content Include="Views\AdminProfiles\Index.cshtml" />
+    <Content Include="Views\AdminProfiles\Skills.cshtml" />
     <Content Include="Views\Shared\_WriterLayout.cshtml" />
     <Content Include="Views\WriterHomepage\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -2366,7 +2365,8 @@
     <Content Include="Views\AdminHeadings\HeadingsByCategory.cshtml" />
     <Content Include="Views\AdminHeadings\MyHeadings.cshtml" />
     <Content Include="Views\AdminContents\MyContentByHeading.cshtml" />
-    <Content Include="Views\AdminMessages\Draft.cshtml" />
+    <Content Include="Views\AdminMessages\Archive.cshtml" />
+    <Content Include="Views\AdminProfiles\EditProfile.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2387,6 +2387,7 @@
     <Content Include="Views\WriterContents\ContentByHeading.cshtml" />
     <Content Include="Views\WriterProfiles\EditProfile.cshtml" />
     <Content Include="Views\WriterMessages\Draft.cshtml" />
+    <Content Include="Views\WriterMessages\Archive.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

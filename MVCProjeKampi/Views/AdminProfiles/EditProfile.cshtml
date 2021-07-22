@@ -1,18 +1,23 @@
-﻿@model EntityLayer.Concrete.User
+﻿
+@model EntityLayer.Concrete.User
+
 @{
-    ViewBag.Title = "Bilgilerini düzenle";
-    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+    ViewBag.Title = "EditProfile";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
+
+
 <h3 class="h3">Profilinizi Düzenleyin</h3>
 <br />
-@using (Html.BeginForm("EditProfile", "WriterProfiles", FormMethod.Post))
+@using (Html.BeginForm("EditProfile", "AdminProfiles", FormMethod.Post))
 {
     <div class="form-group">
-        @Html.HiddenFor(x=>x.UserId)
+        @Html.HiddenFor(x => x.UserId)
 
         @Html.Label("Yazar Adı")
         @Html.TextBoxFor(x => x.UserFirstName, new { @class = "form-control" })
-        @Html.ValidationMessageFor(x => x.UserFirstName, "", new { @class = "text-danger", @style = "font-weight: bold" })
+        @Html.ValidationMessageFor(x => x.UserFirstName, "", new { @class = "text-danger" , @style="font-weight: bold"})
         <br />
         @Html.Label("Yazar Soyadı")
         @Html.TextBoxFor(x => x.UserLastName, new { @class = "form-control" })

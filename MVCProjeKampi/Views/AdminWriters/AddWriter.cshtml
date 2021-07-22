@@ -11,27 +11,27 @@
 <div class="form-group">
     @Html.Label("Yazar Adı")
     @Html.TextBoxFor(x => x.User.UserFirstName, new { @class = "form-control" })
-    @Html.ValidationMessageFor(x => x.User.UserFirstName, "", new { @class = "text-danger" })
+    @Html.ValidationMessageFor(x => x.User.UserFirstName, "", new { @class = "text-danger", @style = "font-weight: bold" })
     <br />
     @Html.Label("Yazar Soyadı")
     @Html.TextBoxFor(x => x.User.UserLastName, new { @class = "form-control" })
-    @Html.ValidationMessageFor(x => x.User.UserLastName, "", new { @class = "text-danger" })
+    @Html.ValidationMessageFor(x => x.User.UserLastName, "", new { @class = "text-danger", @style = "font-weight: bold" })
     <br />
     @Html.Label("Yazar Mail")
     @Html.TextBoxFor(x => x.User.UserEmail, new { @class = "form-control" })
-    @Html.ValidationMessageFor(x => x.User.UserEmail, "", new { @class = "text-danger" })
+    @Html.ValidationMessageFor(x => x.User.UserEmail, "", new { @class = "text-danger", @style = "font-weight: bold" })
     <br />
     @Html.Label("Yazar Görsel Linki")
     @Html.TextBoxFor(x => x.User.UserImage, new { @class = "form-control" })
-    @Html.ValidationMessageFor(x => x.User.UserImage, "", new { @class = "text-danger" })
+    @Html.ValidationMessageFor(x => x.User.UserImage, "", new { @class = "text-danger", @style = "font-weight: bold" })
     <br />
     @Html.Label("Yazar Ünvan")
     @Html.TextBoxFor(x => x.User.UserTitle, new { @class = "form-control" })
-    @Html.ValidationMessageFor(x => x.User.UserTitle, "", new { @class = "text-danger" })
+    @Html.ValidationMessageFor(x => x.User.UserTitle, "", new { @class = "text-danger", @style = "font-weight: bold" })
     <br />
     @Html.Label("Yazar Hakkında")
     @Html.TextBoxFor(x => x.User.UserAbout, new { @class = "form-control" })
-    @Html.ValidationMessageFor(x => x.User.UserAbout, "", new { @class = "text-danger" })
+    @Html.ValidationMessageFor(x => x.User.UserAbout, "", new { @class = "text-danger", @style = "font-weight: bold" })
     <br />
     <button class="btn btn-info">Yazarı Ekle</button>
     <br />

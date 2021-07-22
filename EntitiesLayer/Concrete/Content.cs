@@ -1,7 +1,6 @@
 ﻿using EntityLayer.Abstract;
 
 using System;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace EntityLayer.Concrete

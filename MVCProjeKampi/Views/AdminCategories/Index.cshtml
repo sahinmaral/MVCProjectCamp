@@ -6,6 +6,17 @@
 @{
     ViewBag.Title = "Kategoriler";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+    string CheckCategoryStatus(bool categoryStatus)
+    {
+        switch (categoryStatus)
+        {
+            case true:
+                return "Normal";
+            case false:
+                return "Silinmiş";
+        }
+    }
 }
 
 @*Sebebini anlamadığım şekilde kategori hariç
@@ -15,17 +26,23 @@
     <tr>
         <th>#</th>
         <th>Kategori Adı</th>
-        <th>Kategori Başlıklar</th>
+        <th>Kategori İşlemleri</th>
+        <th>Kategori Durumu</th>
+        
     </tr>
     @foreach (var item in Model)
     {
         <tr>
             <th>@item.CategoryId</th>
             <td>@item.CategoryName</td>
-            <td><a href="../AdminHeadings/HeadingsByCategory/@item.CategoryId" class="btn btn-primary">Başlıklar</a></td>
+            <td>@CheckCategoryStatus(item.CategoryStatus)</td>
+            <td>
+                <a href="/AdminCategories/DeleteCategory/@item.CategoryId" class="btn btn-danger">Sil</a>
+                <a href="/AdminCategories/UpdateCategory/@item.CategoryId" class="btn btn-warning">Güncelle</a>
+                <a href="../AdminHeadings/HeadingsByCategory/@item.CategoryId" class="btn btn-primary">Başlıklar</a>
+            </td>
         </tr>
     }
-
 </table>
 
 <a href="../AdminCategories/AddCategory" class="btn btn-primary">Yeni Kategori Ekle</a>

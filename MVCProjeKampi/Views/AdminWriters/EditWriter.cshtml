@@ -15,16 +15,19 @@
 
     @Html.Label("Yazar Adı")
     @Html.TextBoxFor(x => x.UserFirstName, new { @class = "form-control" })
-    @Html.ValidationMessageFor(x => x.UserFirstName, "", new { @class = "text-danger" })
+    @Html.ValidationMessageFor(x => x.UserFirstName, "", new { @class = "text-danger", @style = "font-weight: bold" })
     <br />
     @Html.Label("Yazar Soyadı")
     @Html.TextBoxFor(x => x.UserLastName, new { @class = "form-control" })
-    @Html.ValidationMessageFor(x => x.UserLastName, "", new { @class = "text-danger" })
+    @Html.ValidationMessageFor(x => x.UserLastName, "", new { @class = "text-danger", @style = "font-weight: bold" })
     <br />
     @Html.Label("Yazar Mail")
     @Html.TextBoxFor(x => x.UserEmail, new { @class = "form-control" })
-    @Html.ValidationMessageFor(x => x.UserEmail, "", new { @class = "text-danger" })
+    @Html.ValidationMessageFor(x => x.UserEmail, "", new { @class = "text-danger", @style = "font-weight: bold" })
     <br />
+    
+    @*İleride cloud üzerinden resim upload edilip linki gönderilebilir*@
+
     @Html.Label("Yazar Görsel Linki")
     @Html.TextBoxFor(x => x.UserImage, new { @class = "form-control" })
     @Html.ValidationMessageFor(x => x.UserImage, "", new { @class = "text-danger" })

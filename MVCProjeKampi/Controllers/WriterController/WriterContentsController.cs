@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using BusinessLayer.Abstract;
+﻿using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
+
 using DataAccessLayer.EntityFramework;
-using MVCProjeKampi.Models.ViewModels;
+
 using PagedList;
+
+using System.Web.Mvc;
+using EntityLayer.Concrete;
+using FluentValidation.Results;
 
 namespace MVCProjeKampi.Controllers.WriterController
 {
@@ -16,7 +16,8 @@ namespace MVCProjeKampi.Controllers.WriterController
     {
         private IContentService contentManager = new ContentManager(new EfContentDal());
         private IUserService userService = new UserManager(new EfUserDal(), new EfSkillDal(), new RoleManager(new EfRoleDal(), new EfUserDal(), new EfUserRoleDal()));
-        private IWriterService writerService = new WriterManager(new EfWriterDal(), new EfUserDal());
+
+        //Başlığa göre arama yapılabilir
 
         public ActionResult ContentByHeading(int p=1)
         {
@@ -27,5 +28,34 @@ namespace MVCProjeKampi.Controllers.WriterController
 
             return View(contentValues);
         }
+
+        //[HttpGet]
+        //public ActionResult EditContent(int id)
+        //{
+        //    var headingValue = headingService.GetById(id);
+        //    return View(headingValue);
+        //}
+
+
+        //[HttpPost]
+        //public ActionResult EditContent(Heading heading)
+        //{
+
+        //    ValidationResult results = headingValidator.Validate(heading);
+        //    if (results.IsValid)
+        //    {
+        //        headingService.Update(heading);
+        //        return RedirectToAction("Index");
+        //    }
+        //    else
+        //    {
+        //        foreach (var item in results.Errors)
+        //        {
+        //            ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+        //        }
+        //    }
+
+        //    return View(heading);
+        //}
     }
 }

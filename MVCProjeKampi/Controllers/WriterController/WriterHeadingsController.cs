@@ -117,6 +117,9 @@ namespace MVCProjeKampi.Controllers.WriterController
                 {
                     ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
                 }
+
+                var category = categoryService.GetById(heading.CategoryId);
+                heading.Category = category;
             }
 
             return View(heading);

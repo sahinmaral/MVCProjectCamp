@@ -11,6 +11,7 @@ namespace EntityLayer.Concrete
         {
             IsOpened = false;
             IsDraft = false;
+            IsArchived = false;
         }
 
         [Key]
@@ -37,5 +38,6 @@ namespace EntityLayer.Concrete
 
         public bool IsOpened { get; set; }
         public bool IsDraft { get; set; }
+        public bool IsArchived { get; set; }
     }
 }

@@ -1,4 +1,6 @@
 ﻿@using MVCProjeKampi.Models.ViewModels
+@using PagedList
+@using PagedList.Mvc
 @model ContentByWriterViewModel
 
 @{
@@ -6,6 +8,28 @@
     Layout = "~/Views/Shared/_SiteLayout.cshtml";
     int counter = 0;
 }
+
+<div style="margin-left:1em">
+    @if (Model.Contents.Count >= 8)
+    {
+        @Html.PagedListPager((IPagedList)Model.Contents,
+            p => Url.Action("HeadingByWriterId",
+                new { id = Model.Writer.WriterId, p })
+            ,
+            new PagedListRenderOptions
+            {
+                LiElementClasses = new List<string>
+                {
+                    {"page-link"}
+                },
+                UlElementClasses = new List<string>
+                {
+                    {"pagination justify-content"}
+                }
+            }
+            )
+    }
+</div>
 
 <div style="margin-top:2em">
 
@@ -34,3 +58,21 @@
 
 </div>
 
+<div style="margin-left: 1em;">
+    @Html.PagedListPager((IPagedList)Model.Contents,
+        p => Url.Action("HeadingByWriterId",
+            new { id = Model.Writer.WriterId, p })
+        ,
+        new PagedListRenderOptions
+        {
+            LiElementClasses = new List<string>
+            {
+                {"page-link"}
+            },
+            UlElementClasses = new List<string>
+            {
+                {"pagination justify-content"}
+            }
+        }
+        )
+</div>

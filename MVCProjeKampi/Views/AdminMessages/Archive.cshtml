@@ -1,5 +1,7 @@
 ﻿@using EntityLayer.Concrete
-@model List<EntityLayer.Concrete.Message>
+@using PagedList
+@using PagedList.Mvc
+@model PagedList.IPagedList<Message>
 @{
     ViewBag.Title = "Mesaj Sayfası";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -34,16 +36,7 @@
                 <!-- /.card-header -->
                 <div class="card-body p-0">
                     <div class="mailbox-controls">
-                        
-                        <div class="float-right">
-                            1-50/200
-                            <div class="btn-group" style="margin-bottom:0.5em">
-                                <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-left"></i></button>
-                                <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-right"></i></button>
-                            </div>
-                            <!-- /.btn-group -->
-                        </div>
-                        <!-- /.float-right -->
+                        <br/>
                     </div>
                     <div class="table-responsive mailbox-messages">
                         <table class="table table-hover table-striped">
@@ -52,11 +45,11 @@
                                 {
                                     if (item.IsDraft)
                                     {
-                                        draftStarClass = "fas fa-star";
+                                        draftStarClass = "far fa-star";
                                     }
                                     else
                                     {
-                                        draftStarClass = "far fa-star";
+                                        draftStarClass = "fas fa-star";
                                     }
 
                                     <tr>
@@ -75,7 +68,7 @@
                                         </td>
                                         <td class="mailbox-star">
 
-                                            <a href="/AdminMessages/SaveMessageToTheDraft/@item.MessageId">
+                                            <a href="/AdminMessages/SaveMessageToTheArchive/@item.MessageId">
                                                 <i class="@draftStarClass"></i>
                                             </a>
                                         </td>
@@ -108,17 +101,24 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer p-0">
-                    <div class="mailbox-controls">
+                    <div class="mailbox-controls" style="margin-bottom:-1em">
 
-                        <div class="float-right">
-                            1-50/200
-                            <div class="btn-group" style="margin-bottom:0.5em">
-                                <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-left"></i></button>
-                                <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-right"></i></button>
-                            </div>
-                            <!-- /.btn-group -->
-                        </div>
-                        <!-- /.float-right -->
+                        @Html.PagedListPager((IPagedList)Model,
+                            p => Url.Action("Archive",
+                                new { p })
+                            ,
+                            new PagedListRenderOptions
+                            {
+                                LiElementClasses = new List<string>
+                                {
+                                    {"page-link"}
+                                },
+                                UlElementClasses = new List<string>
+                                {
+                                    {"pagination justify-content-center"}
+                                }
+                            }
+                            )
                     </div>
                 </div>
             </div>

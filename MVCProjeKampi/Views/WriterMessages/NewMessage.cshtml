@@ -1,4 +1,5 @@
-﻿@model EntityLayer.Concrete.Message
+﻿@using EntityLayer.Concrete
+@model EntityLayer.Concrete.Message
 
 @{
     ViewBag.Title = "Yeni Mesaj Sayfası";
@@ -27,7 +28,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <a href="/WriterMessages/Inbox" class="btn btn-primary btn-block mb-3">Mesajlara geri dön</a>
-                    @Html.Action("GetContactSideMenu", "AdminContacts")
+                    @Html.Action("GetContactSideMenu", "WriterMessages")
                 </div>
                 <!-- /.col -->
 
@@ -42,16 +43,16 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     @Html.TextBoxFor(x => x.ReceiverMail, new { placeholder = "Alıcı: ", @class = "form-control" })
-                                    @Html.ValidationMessageFor(x => x.ReceiverMail)
+                                    @Html.ValidationMessageFor(x => x.ReceiverMail, "", new { @class = "text-danger", @style = "font-weight: bold" })
                                 </div>
                                 <div class="form-group">
                                     @Html.TextBoxFor(x => x.Subject, new { placeholder = "Konu: ", @class = "form-control" })
-                                    @Html.ValidationMessageFor(x => x.Subject)
+                                    @Html.ValidationMessageFor(x => x.Subject, "" , new {@class="text-danger", @style = "font-weight: bold" })
                                 </div>
                                 <div class="form-group">
                                     @Html.TextAreaFor(x => x.MessageContent,
                                         new { id = "compose-textarea", @class = "form-control", style = "height: 300px" })
-                                    @Html.ValidationMessageFor(x => x.MessageContent)
+                                    @Html.ValidationMessageFor(x => x.MessageContent, "", new { @class = "text-danger", @style = "font-weight: bold" })
                                 </div>
                                 <div class="form-group">
                                     <div class="btn btn-default btn-file">
@@ -64,7 +65,7 @@
                             <!-- /.card-body -->
                             <div class="card-footer">
                                 <div class="float-right">
-                                    <button type="button" class="btn btn-default"><i class="fas fa-pencil-alt"></i> Taslaklara kaydet</button>
+                                    @*<button type="submit" class="btn btn-default"><i class="fas fa-pencil-alt"></i> Taslaklara kaydet</button>*@
                                     <button type="submit" class="btn btn-primary"><i class="far fa-envelope"></i> Gönder</button>
                                 </div>
                                 <button type="reset" class="btn btn-default"><i class="fas fa-times"></i> Yoksay</button>
@@ -81,8 +82,7 @@
     </section>
 
 
-
-    <script>
+<script>
         $(function () {
             //Add text editor
             $('#compose-textarea').summernote().noConflict;

@@ -1,5 +1,7 @@
-﻿@using EntityLayer.Concrete
-@model List<EntityLayer.Concrete.Message>
+﻿@using PagedList
+@using EntityLayer.Concrete
+@using PagedList.Mvc
+@model IPagedList<Message>
 @{
     ViewBag.Title = "Mesaj Sayfası";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -42,16 +44,7 @@
                     <!-- /.card-header -->
                     <div class="card-body p-0">
                         <div class="mailbox-controls">
-                            
-                            <div class="float-right">
-                                1-50/200
-                                <div class="btn-group" style="margin-bottom:0.5em">
-                                    <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-left"></i></button>
-                                    <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-right"></i></button>
-                                </div>
-                                <!-- /.btn-group -->
-                            </div>
-                            <!-- /.float-right -->
+                            <br/>
                         </div>
                         <div class="table-responsive mailbox-messages">
                             <table class="table table-hover table-striped">
@@ -82,7 +75,7 @@
                                             </td>
                                             <td class="mailbox-star">
 
-                                                <a href="/AdminMessages/SaveMessageToTheDraft/@item.MessageId">
+                                                <a href="/AdminMessages/SaveMessageToTheArchive/@item.MessageId">
                                                     <i class="@draftStarClass"></i>
                                                 </a>
                                             </td>
@@ -114,17 +107,25 @@
                     <!-- /.card-body -->
                     <div class="card-footer p-0">
                         <div class="mailbox-controls">
-                            <!-- Check all button -->
-                            
-                            <div class="float-right">
-                                1-50/200
-                                <div class="btn-group" style="margin-bottom:0.5em">
-                                    <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-left"></i></button>
-                                    <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-right"></i></button>
-                                </div>
-                                <!-- /.btn-group -->
+                            <div class="mailbox-controls" style="margin-bottom:-1em">
+
+                                @Html.PagedListPager((IPagedList)Model,
+                                    p => Url.Action("Sendbox",
+                                        new { p })
+                                    ,
+                                    new PagedListRenderOptions
+                                    {
+                                        LiElementClasses = new List<string>
+                                        {
+                                            {"page-link"}
+                                        },
+                                        UlElementClasses = new List<string>
+                                        {
+                                            {"pagination justify-content-center"}
+                                        }
+                                    }
+                                    )
                             </div>
-                            <!-- /.float-right -->
                         </div>
                     </div>
                 </div>

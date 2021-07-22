@@ -1,5 +1,7 @@
 ﻿@using EntityLayer.Concrete
-@model List<EntityLayer.Concrete.Message>
+@using PagedList
+@using PagedList.Mvc
+@model IPagedList<Message>
 @{
     ViewBag.Title = "Mesaj Sayfası";
     Layout = "~/Views/Shared/_WriterLayout.cshtml";
@@ -18,7 +20,7 @@
         <div class="col-md-9">
             <div class="card card-primary card-outline">
                 <div class="card-header">
-                    <h3 class="card-title">Taslak</h3>
+                    <h3 class="card-title">Arşiv</h3>
                     <div class="card-tools">
                         <div class="input-group input-group-sm">
                             <input type="text" class="form-control" placeholder="Mail kutusunda ara">
@@ -34,29 +36,20 @@
                 <!-- /.card-header -->
                 <div class="card-body p-0">
                     <div class="mailbox-controls">
-                        
-                        <div class="float-right" style="margin-bottom:0.5em">
-                            1-50/200
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-left"></i></button>
-                                <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-right"></i></button>
-                            </div>
-                            <!-- /.btn-group -->
-                        </div>
-                        <!-- /.float-right -->
+                        <br/>
                     </div>
                     <div class="table-responsive mailbox-messages">
                         <table class="table table-hover table-striped">
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                    if (item.IsDraft)
+                                    if (item.IsArchived)
                                     {
-                                        draftStarClass = "fas fa-star";
+                                        draftStarClass = "far fa-star";
                                     }
                                     else
                                     {
-                                        draftStarClass = "far fa-star";
+                                        draftStarClass = "fas fa-star";
                                     }
 
                                     <tr>
@@ -75,7 +68,7 @@
                                         </td>
                                         <td class="mailbox-star">
 
-                                            <a href="/WriterMessages/SaveMessageToTheDraft/@item.MessageId">
+                                            <a href="/WriterMessages/SaveMessageToTheArchive/@item.MessageId">
                                                 <i class="@draftStarClass"></i>
                                             </a>
                                         </td>
@@ -108,17 +101,25 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer p-0">
-                    <div class="mailbox-controls">
-                        
-                        <div class="float-right" style="margin-bottom:0.5em">
-                            1-50/200
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-left"></i></button>
-                                <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-right"></i></button>
-                            </div>
-                            <!-- /.btn-group -->
-                        </div>
-                        <!-- /.float-right -->
+                    <div class="mailbox-controls" style="margin-bottom:-1em">
+
+                        @Html.PagedListPager((IPagedList)Model,
+                            p => Url.Action("Inbox",
+                                new { p })
+                            ,
+                            new PagedListRenderOptions
+                            {
+                                LiElementClasses = new List<string>
+                                {
+                                    {"page-link"}
+                                },
+                                UlElementClasses = new List<string>
+                                {
+                                    {"pagination justify-content-center"}
+                                }
+                            }
+                            )
+
                     </div>
                 </div>
             </div>

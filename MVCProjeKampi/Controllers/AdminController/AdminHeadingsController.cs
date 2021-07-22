@@ -149,9 +149,14 @@ namespace MVCProjeKampi.Controllers.AdminController
                 {
                     ModelState.AddModelError(result.PropertyName, result.ErrorMessage);
                 }
+
+                var category = categoryService.GetById(heading.CategoryId);
+                heading.Category = category;
             }
 
-            return View();
+            
+
+            return View(heading);
         }
 
 

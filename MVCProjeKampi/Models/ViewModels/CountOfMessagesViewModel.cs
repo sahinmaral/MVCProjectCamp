@@ -11,5 +11,6 @@ namespace MVCProjeKampi.Models.ViewModels
         public int SentMessageCount { get; set; }
         public int ContactCount { get; set; }
         public int DraftCount { get; set; }
+        public int ArchiveCount { get; set; }
     }
 }

@@ -9,6 +9,7 @@ using MVCProjeKampi.Models.ViewModels;
 using System.Web.Mvc;
 using System.Web.UI;
 using BusinessLayer.Abstract;
+using PagedList;
 
 namespace MVCProjeKampi.Controllers.AdminController
 {
@@ -23,9 +24,9 @@ namespace MVCProjeKampi.Controllers.AdminController
 
         private ContactValidator contactValidator = new ContactValidator();
 
-        public ActionResult Index()
+        public ActionResult Index(int p=1)
         {
-            var contactValues = contactService.GetList();
+            var contactValues = contactService.GetList().ToPagedList(p,10);
             return View(contactValues);
         }
 
@@ -45,10 +46,10 @@ namespace MVCProjeKampi.Controllers.AdminController
             var user = userService.Get(x => x.UserUsername == username.ToString());
 
             CountOfMessagesViewModel viewModel = new CountOfMessagesViewModel();
+            viewModel.ArchiveCount = messageService.GetCount(x => x.IsArchived == true);
             viewModel.DraftCount = messageService.GetCount(x => x.IsDraft == true);
-            viewModel.ReceivedMessageCount = messageService.GetCount(x=>x.ReceiverMail == user.UserEmail && x.IsOpened == false);
-            viewModel.SentMessageCount = messageService.GetCount(x=>x.SenderMail==user.UserEmail && x.IsOpened == false);
-            viewModel.ContactCount = contactService.GetCount(x => x.IsOpened == false);
+            viewModel.ReceivedMessageCount = messageService.GetCount(x => x.ReceiverMail == user.UserEmail && x.IsOpened == false);
+            viewModel.SentMessageCount = messageService.GetCount(x => x.SenderMail == user.UserEmail && x.IsOpened == false);
 
             return PartialView(viewModel);
         }

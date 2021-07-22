@@ -6,56 +6,63 @@ using System.Web.Mvc;
 
 using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
-
+using BusinessLayer.ValidationRules;
 using DataAccessLayer.EntityFramework;
 
 using EntityLayer.Concrete;
+using FluentValidation.Results;
 
 namespace MVCProjeKampi.Controllers.WriterController
 {
+    [Authorize(Roles = "Writer,User")]
     public class WriterProfilesController : Controller
     {
-        private IWriterService writerService = new WriterManager(new EfWriterDal(), new EfUserDal());
 
         private IUserService userService = new UserManager(new EfUserDal(), new EfSkillDal(),
             new RoleManager(new EfRoleDal(), new EfUserDal(), new EfUserRoleDal()));
 
+        private UserValidator validator = new UserValidator();
+
         [HttpGet]
-        [Authorize(Roles = "Writer,User")]
         public ActionResult EditProfile()
         {
             var username = Session["Username"].ToString();
 
-            var writer = writerService.Get(x => x.User.UserUsername == username);
+            var user = userService.Get(x => x.UserUsername == username.ToString());
 
-            foreach (var item in writerService.GetWriterDetails())
-            {
-                if (item.WriterId == writer.WriterId)
-                {
-                    writer = item;
-                }
-            }
-
-            return View(writer);
+            return View(user);
         }
 
         [HttpPost]
-        [Authorize(Roles = "Writer,User")]
-        public ActionResult EditProfile(Writer writer)
+        public ActionResult EditProfile(User user)
         {
             var username = Session["Username"].ToString();
 
-            var user = userService.Get(x => x.UserUsername == username);
-            writer.User.UserUsername = username;
-            writer.User.UserFirstName = user.UserFirstName;
-            writer.User.UserLastName = user.UserLastName;
-            writer.User.UserImage = user.UserImage;
-            writer.User.UserAbout = user.UserAbout;
-            writer.User.UserTitle = user.UserTitle;
+            ValidationResult results = validator.Validate(user);
 
-            userService.Update(writer.User);
 
-            return RedirectToAction("", "Homepage");
+            if (results.IsValid)
+            {
+                var foundUser = userService.Get(x => x.UserUsername == username);
+
+                user.UserFirstName = foundUser.UserFirstName;
+                user.UserLastName = foundUser.UserLastName;
+                user.UserImage = foundUser.UserImage;
+                user.UserAbout = foundUser.UserAbout;
+                user.UserTitle = foundUser.UserTitle;
+
+                Session["Fullname"] = user.UserFirstName + " " + user.UserLastName;
+
+                userService.Update(user);
+                return RedirectToAction("", "Homepage");
+            }
+
+            foreach (var item in results.Errors)
+            {
+                ModelState.AddModelError(item.PropertyName,item.ErrorMessage);
+            }
+
+            return View();
         }
     }
 }
