@@ -96,8 +96,7 @@ namespace MVCProjeKampi.Controllers.AdminController
             ValidationResult results = headingValidator.Validate(heading);
             if (results.IsValid)
             {
-                heading.WriterId = user.WriterId;
-                heading.HeadingDate = DateTime.Now;
+                heading.WriterId = user.WriterId;   
                 headingService.Add(heading);
                 return RedirectToAction("MyHeadings");
             }

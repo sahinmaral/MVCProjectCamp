@@ -16,8 +16,11 @@ namespace EntityLayer.Concrete
         [Key]
         public int HeadingId { get; set; }
 
-        [StringLength(50)]
+        [StringLength(100)]
         public string HeadingName { get; set; }
+
+        [StringLength(100)]
+        public string HeadingNameForFriendlyUrl { get; set; }
 
         public DateTime HeadingDate { get; set; }
 

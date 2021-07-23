@@ -13,6 +13,7 @@
         <div class="card-body">
             <div class="form-group">
                 @Html.HiddenFor(x => x.AboutId)
+                @Html.HiddenFor(x=>x.AboutStatus)
                 @Html.TextBoxFor(x => x.AboutHeader, new { placeholder = "Alıcı: ", @class = "form-control" })
                 @Html.ValidationMessageFor(x=>x.AboutHeader,"",new {@class="text-danger" , @style="font-weight: bold"})
             </div>

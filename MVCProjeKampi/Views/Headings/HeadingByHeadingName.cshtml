@@ -1,0 +1,105 @@
+﻿@using EntityLayer.Concrete
+@using MVCProjeKampi.Models.ViewModels
+@using PagedList
+@using PagedList.Mvc
+@model Content
+
+@{
+    Layout = "~/Views/Shared/_SiteLayout.cshtml";
+    ContentsByHeadingViewModel viewmodel = @ViewBag.ContentsByHeadingViewModel;
+    ViewBag.Title = viewmodel.Heading.HeadingName;
+}
+
+<h2 style="margin-top: 0em; margin-left:0.5em"><b>@viewmodel.Heading.HeadingName</b></h2>
+
+<div style="margin-left:1em">
+    @if (viewmodel.ContentList.Count >= 8)
+    {
+        @Html.PagedListPager((IPagedList)viewmodel.ContentList,
+            p => Url.Action("HeadingByHeadingName",
+                new { id = @viewmodel.Heading.HeadingId, p })
+            ,
+            new PagedListRenderOptions
+            {
+                LiElementClasses = new List<string>
+                {
+                    {"page-link"}
+                },
+                UlElementClasses = new List<string>
+                {
+                    {"pagination justify-content"}
+                }
+            }
+            )
+    }
+</div>
+
+
+<div style="margin-top: 2em; margin-left:1em">
+
+    @foreach (var item in viewmodel.ContentList)
+    {
+        <div class="card">
+            <div class="card-body">
+
+                <p class="card-text">
+                    @item.ContentText
+                </p>
+                <p class="card-text" style="text-align: right">
+                    @item.ContentDate.ToShortDateString() &nbsp; @item.ContentDate.ToShortTimeString() &nbsp; &nbsp; <a href="#">@item.Writer.User.UserUsername</a>
+                </p>
+
+            </div>
+        </div>
+    }
+
+    @if (Session["Username"] == null)
+    {
+
+    }
+    else
+    {
+
+        using (Html.BeginForm("WriteContentOnHeading", "Headings", FormMethod.Post))
+        {
+            <div class="mb-3">
+                @Html.HiddenFor(x => x.Heading.HeadingId, new { @Value = viewmodel.Heading.HeadingId })
+
+                @Html.TextAreaFor(x => x.ContentText,
+                    new { @class = "form-control", @style = "width: 50em; height: 7em", @placeholder = @viewmodel.Heading.HeadingName + " hakkında yazı yazın." })
+                @Html.ValidationMessageFor(x => x.ContentText, "", new { @class = "text-danger" })
+
+
+                <br />
+                <button type="submit" class="btn btn-success">Yolla</button>
+            </div>
+        }
+    }
+
+
+
+</div>
+
+
+<div style="margin-left:1em">
+    @Html.PagedListPager((IPagedList)viewmodel.ContentList,
+        p => Url.Action("HeadingByHeadingName",
+            new { id = @viewmodel.Heading.HeadingId, p })
+        ,
+        new PagedListRenderOptions
+        {
+            LiElementClasses = new List<string>
+            {
+                {"page-link"}
+            },
+            UlElementClasses = new List<string>
+            {
+                {"pagination justify-content"}
+            }
+        }
+        )
+</div>
+
+
+
+

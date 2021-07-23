@@ -44,5 +44,11 @@ namespace MVCProjeKampi.Controllers
             return View();
         }
 
+        [AllowAnonymous]
+        public ActionResult SignIn()
+        {
+            return View();
+        }
+
     }
 }

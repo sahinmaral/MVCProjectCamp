@@ -2368,6 +2368,8 @@
     <Content Include="Views\AdminContents\MyContentByHeading.cshtml" />
     <Content Include="Views\AdminMessages\Archive.cshtml" />
     <Content Include="Views\AdminProfiles\EditProfile.cshtml" />
+    <Content Include="Views\Headings\HeadingByHeadingName.cshtml" />
+    <Content Include="Views\Logins\SignIn.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
