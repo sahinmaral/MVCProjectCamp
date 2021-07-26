@@ -11,5 +11,6 @@ namespace BusinessLayer.Abstract
         bool LoginWriter(UserForLoginDto writer);
         List<Skill> GetUserSkills(int userId);
         void Logout();
+        void Register(UserForRegisterDto entity);
     }
 }

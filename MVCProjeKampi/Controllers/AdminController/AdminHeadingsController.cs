@@ -22,20 +22,20 @@ namespace MVCProjeKampi.Controllers.AdminController
     {
         private IHeadingService headingService = new HeadingManager(new EfHeadingDal());
         private ICategoryService categoryService = new CategoryManager(new EfCategoryDal());
-        private IWriterService writerService = new WriterManager(new EfWriterDal(), new EfUserDal());
         private HeadingValidator headingValidator = new HeadingValidator();
+        private IUserService userService = new UserManager(new EfUserDal(), new EfSkillDal(),
+            new RoleManager(new EfRoleDal(),
+                new EfUserDal(), new EfUserRoleDal()));
+
         public ActionResult Index(int p = 1)
         {
             var headingValues = headingService.GetList().OrderByDescending(x => x.HeadingDate).ToPagedList(p, 8);
 
-            foreach (var items in writerService.GetWriterDetails())
+            foreach (var items in userService.GetList())
             {
                 foreach (var headingValue in headingValues)
                 {
-                    if (headingValue.WriterId == items.WriterId)
-                    {
-                        headingValue.Writer.User = items.User;
-                    }
+                    headingValue.User = items;
                 }
             }
 
@@ -46,18 +46,15 @@ namespace MVCProjeKampi.Controllers.AdminController
         public ActionResult MyHeadings(int p = 1)
         {
             var username = Session["Username"];
-            var writer = writerService.Get(x => x.User.UserUsername == username.ToString());
+            var user = userService.Get(x => x.UserUsername == username.ToString());
 
-            var headingValues = headingService.GetList(x=>x.WriterId == writer.WriterId).OrderByDescending(x => x.HeadingDate).ToPagedList(p, 8);
+            var headingValues = headingService.GetList(x=>x.UserId == user.UserId).OrderByDescending(x => x.HeadingDate).ToPagedList(p, 8);
 
-            foreach (var items in writerService.GetWriterDetails())
+            foreach (var items in userService.GetList())
             {
                 foreach (var headingValue in headingValues)
                 {
-                    if (headingValue.WriterId == items.WriterId)
-                    {
-                        headingValue.Writer.User = items.User;
-                    }
+                    headingValue.User = items;
                 }
             }
 
@@ -89,13 +86,13 @@ namespace MVCProjeKampi.Controllers.AdminController
         public ActionResult AddHeading(Heading heading)
         {
             var username = Session["Username"];
-            var user = writerService.Get(x => x.User.UserUsername == username.ToString());
+            var user = userService.Get(x => x.UserUsername == username.ToString());
 
 
             ValidationResult results = headingValidator.Validate(heading);
             if (results.IsValid)
             {
-                heading.WriterId = user.WriterId;   
+                heading.UserId = user.UserId;   
                 headingService.Add(heading);
                 return RedirectToAction("MyHeadings");
             }
@@ -183,7 +180,7 @@ namespace MVCProjeKampi.Controllers.AdminController
             var headings = headingService.GetList();
 
             var categories = categoryService.GetList();
-            var writers = writerService.GetWriterDetails();
+            var users = userService.GetList();
 
             foreach (var heading in headings)
             {
@@ -195,12 +192,9 @@ namespace MVCProjeKampi.Controllers.AdminController
                     }
                 }
 
-                foreach (var writer in writers)
+                foreach (var user in users)
                 {
-                    if (heading.WriterId == writer.WriterId)
-                    {
-                        heading.Writer = writer;
-                    }
+                    heading.User = user;
                 }
             }
 
@@ -213,14 +207,11 @@ namespace MVCProjeKampi.Controllers.AdminController
             var headings = headingService.GetList(x => x.Category.CategoryName == categoryName).
                 OrderByDescending(x => x.HeadingDate).ToPagedList(p, 8);
 
-            foreach (var items in writerService.GetWriterDetails())
+            foreach (var items in userService.GetList())
             {
                 foreach (var headingValue in headings)
                 {
-                    if (headingValue.WriterId == items.WriterId)
-                    {
-                        headingValue.Writer.User = items.User;
-                    }
+                    headingValue.User = items;
                 }
             }
 

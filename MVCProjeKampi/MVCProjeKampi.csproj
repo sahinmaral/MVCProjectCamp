@@ -189,7 +189,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels\AboutHomepageViewModel.cs" />
-    <Compile Include="Models\ViewModels\ContentByWriterViewModel.cs" />
+    <Compile Include="Models\ViewModels\HeadingsByWriterViewModel.cs" />
     <Compile Include="Models\ViewModels\CategoryAndHeadingCountViewModel.cs" />
     <Compile Include="Models\ViewModels\HomepageViewModel.cs" />
     <Compile Include="Models\ViewModels\ProfileSkillViewModel.cs" />
@@ -1907,6 +1907,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\registration\style.css" />
     <Content Include="Content\searchBar.css" />
     <Content Include="Content\skillcard\css\style.css" />
     <Content Include="Content\skillcard\images\5.jpg" />

@@ -8,8 +8,8 @@ namespace BusinessLayer.ValidationRules
     {
         public UserValidator()
         {
-            RuleFor(x => x.UserFirstName).NotEmpty().WithMessage("Yazar adını boş geçemezsiniz");
-            RuleFor(x => x.UserLastName).NotEmpty().WithMessage("Yazar soyadını boş geçemezsiniz");
+            RuleFor(x => x.UserFirstName).NotEmpty().WithMessage("Adı boş geçemezsiniz");
+            RuleFor(x => x.UserLastName).NotEmpty().WithMessage("Soyadı boş geçemezsiniz");
             RuleFor(x => x.UserTitle).NotEmpty().WithMessage("Ünvan kısmını boş geçemezsiniz");
             RuleFor(x => x.UserAbout).NotEmpty().WithMessage("Hakkında kısmını boş geçemezsiniz");
 

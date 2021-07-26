@@ -19,16 +19,18 @@ namespace MVCProjeKampi.Controllers.AdminController
     public class AdminWritersController : Controller
     {
         private UserValidator writerValidator = new UserValidator();
-        private IWriterService writerManager = new WriterManager(new EfWriterDal(),new EfUserDal());
+
+
         private IUserService userService = new UserManager(new EfUserDal(), new EfSkillDal(),
-            new RoleManager(new EfRoleDal(), new EfUserDal(), new EfUserRoleDal()));
+            new RoleManager(new EfRoleDal(),
+                new EfUserDal(), new EfUserRoleDal()));
 
 
         public ActionResult Index(int p=1)
         {
-            var WriterValues = writerManager.GetWriterDetails().ToPagedList(p,8);
+            var writerValues = userService.GetList().ToPagedList(p,8);
             
-            return View(WriterValues);
+            return View(writerValues);
         }
 
         [HttpGet]
@@ -49,12 +51,15 @@ namespace MVCProjeKampi.Controllers.AdminController
                 foundUser.UserUsername = user.UserUsername;
                 foundUser.UserLastName = user.UserLastName;
                 foundUser.UserFirstName = user.UserFirstName;
-                foundUser.UserEmail = user.UserEmail;
                 foundUser.UserAbout = user.UserAbout;
                 foundUser.UserTitle = user.UserTitle;
                 foundUser.UserImage = user.UserImage;
 
                 userService.Update(foundUser);
+
+                Session["Username"] = user.UserUsername;
+                Session["UserImage"] = user.UserImage;
+                Session["Fullname"] = user.UserFirstName + " " + user.UserLastName;
 
                 return RedirectToAction("Index");
             }

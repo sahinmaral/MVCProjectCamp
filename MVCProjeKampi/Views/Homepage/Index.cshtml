@@ -42,11 +42,11 @@
 
                     @item.HeadingDate.ToShortDateString() @item.HeadingDate.ToShortTimeString() &nbsp;&nbsp;
 
-                    @foreach (var writer in Model.Writers)
+                    @foreach (var user in Model.Users)
                     {
-                        if (item.WriterId == writer.WriterId)
+                        if (item.UserId == user.UserId)
                         {
-                            <a href="#">@writer.User.UserUsername</a>
+                            <a href="#">@user.UserUsername</a>
                             break;
                         }
                     }

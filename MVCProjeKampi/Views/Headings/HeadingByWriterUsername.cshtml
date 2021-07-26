@@ -1,24 +1,24 @@
 ﻿@using MVCProjeKampi.Models.ViewModels
 @using PagedList
 @using PagedList.Mvc
-@model ContentByWriterViewModel
+@model HeadingsByWriterViewModel
 
 @{
-    ViewBag.Title = @Model.Writer.User.UserUsername + " kullanıcısının başlıkları";
+    ViewBag.Title = @Model.User.UserUsername + " kullanıcısının başlıkları";
     Layout = "~/Views/Shared/_SiteLayout.cshtml";
     int counter = 0;
 }
 
 <h3 style="margin-left:0.6em">
-    @Model.Writer.User.UserUsername kullanıcısının başlıkları
+    @Model.User.UserUsername kullanıcısının başlıkları
 </h3>
 
 <div style="margin-left:1em">
-    @if (Model.Contents.Count >= 8)
+    @if (Model.Headings.Count >= 8)
     {
-        @Html.PagedListPager((IPagedList)Model.Contents,
+        @Html.PagedListPager((IPagedList)Model.Headings,
             p => Url.Action("HeadingByWriterUsername",
-                new { id = Model.Writer.WriterId, p })
+                new { id = Model.User.UserId, p })
             ,
             new PagedListRenderOptions
             {
@@ -40,7 +40,7 @@
 <div style="margin-top:2em">
 
 
-    @foreach (var item in Model.Contents)
+    @foreach (var item in Model.Headings)
     {
         if (counter == 10)
         {
@@ -49,11 +49,11 @@
         <div class="card" style=" margin-left: 1em">
             <div class="card-body">
                 <h5 class="card-title">
-                    <a href="/baslik/@item.Heading.HeadingNameForFriendlyUrl">@item.Heading.HeadingName</a>
+                    <a href="/baslik/@item.HeadingNameForFriendlyUrl">@item.HeadingName</a>
                 </h5>
 
                 <p class="card-text" style="text-align: right">
-                    @item.ContentDate.ToShortDateString() &nbsp; @item.ContentDate.ToShortTimeString() &nbsp; &nbsp;
+                    @item.HeadingDate.ToShortDateString() &nbsp; @item.HeadingDate.ToShortTimeString() &nbsp; &nbsp;
                 </p>
 
             </div>
@@ -64,9 +64,9 @@
 </div>
 
 <div style="margin-left: 1em;">
-    @Html.PagedListPager((IPagedList)Model.Contents,
+    @Html.PagedListPager((IPagedList)Model.Headings,
         p => Url.Action("HeadingByWriterUsername",
-            new { id = Model.Writer.WriterId, p })
+            new { id = Model.User.UserId, p })
         ,
         new PagedListRenderOptions
         {

@@ -13,29 +13,25 @@
         @Html.Label("Yazar Adı")
         @Html.TextBoxFor(x => x.UserFirstName, new { @class = "form-control" })
         @Html.ValidationMessageFor(x => x.UserFirstName, "", new { @class = "text-danger", @style = "font-weight: bold" })
-        <br />
+        <br /><br />
         @Html.Label("Yazar Soyadı")
         @Html.TextBoxFor(x => x.UserLastName, new { @class = "form-control" })
         @Html.ValidationMessageFor(x => x.UserLastName, "", new { @class = "text-danger", @style = "font-weight: bold" })
-        <br />
-        @Html.Label("Yazar Mail")
-        @Html.TextBoxFor(x => x.UserEmail, new { @class = "form-control" })
-        @Html.ValidationMessageFor(x => x.UserEmail, "", new { @class = "text-danger", @style = "font-weight: bold" })
-        <br />
+        <br /><br />
         @Html.Label("Yazar Görsel Linki")
         @Html.TextBoxFor(x => x.UserImage, new { @class = "form-control" })
         @Html.ValidationMessageFor(x => x.UserImage, "", new { @class = "text-danger", @style = "font-weight: bold" })
-        <br />
+        <br /><br />
         @Html.Label("Yazar Ünvanı")
         @Html.TextBoxFor(x => x.UserTitle, new { @class = "form-control" })
         @Html.ValidationMessageFor(x => x.UserTitle, "", new { @class = "text-danger", @style = "font-weight: bold" })
-        <br />
+        <br /><br />
         @Html.Label("Yazar Hakkında")
-        @Html.TextBoxFor(x => x.UserAbout, new { @class = "form-control" })
+        @Html.TextAreaFor(x => x.UserAbout, new { @class = "form-control" })
         @Html.ValidationMessageFor(x => x.UserAbout, "", new { @class = "text-danger", @style = "font-weight: bold" })
-        <br />
+        <br /><br />
         <button class="btn btn-success">Değişiklikleri uygula</button>
-        <br />
+
     </div>
 }
 

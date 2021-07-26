@@ -65,7 +65,6 @@
   <ItemGroup>
     <Compile Include="Abstract\IEntity.cs" />
     <Compile Include="Concrete\About.cs" />
-    <Compile Include="Concrete\Admin.cs" />
     <Compile Include="Concrete\Category.cs" />
     <Compile Include="Concrete\Contact.cs" />
     <Compile Include="Concrete\Content.cs" />
@@ -76,7 +75,6 @@
     <Compile Include="Concrete\Skill.cs" />
     <Compile Include="Concrete\User.cs" />
     <Compile Include="Concrete\UserRole.cs" />
-    <Compile Include="Concrete\Writer.cs" />
     <Compile Include="DTOs\UserForRegisterDto.cs" />
     <Compile Include="DTOs\UserForLoginDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

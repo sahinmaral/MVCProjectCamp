@@ -23,5 +23,3 @@ C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAcc
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CopyComplete
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAccessLayer\obj\Debug\DataAccessLayer.dll
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
-C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAccessLayer\obj\Debug\DataAccessLayer.Migrations.m5.resources
-C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.GenerateResource.cache

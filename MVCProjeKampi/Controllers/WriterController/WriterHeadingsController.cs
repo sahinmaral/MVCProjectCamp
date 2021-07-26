@@ -20,7 +20,10 @@ namespace MVCProjeKampi.Controllers.WriterController
     [Authorize(Roles = "Writer")]
     public class WriterHeadingsController : Controller
     {
-        private IWriterService writerService = new WriterManager(new EfWriterDal(), new EfUserDal());
+        private IUserService userService = new UserManager(new EfUserDal(), new EfSkillDal(),
+            new RoleManager(new EfRoleDal(),
+                new EfUserDal(), new EfUserRoleDal()));
+
         private IHeadingService headingService = new HeadingManager(new EfHeadingDal());
         private ICategoryService categoryService = new CategoryManager(new EfCategoryDal());
         private HeadingValidator headingValidator = new HeadingValidator();
@@ -29,9 +32,9 @@ namespace MVCProjeKampi.Controllers.WriterController
         {
             var username = Session["Username"];
 
-            var writer = writerService.Get(x => x.User.UserUsername == username.ToString());
+            var user = userService.Get(x => x.UserUsername == username.ToString());
 
-            var list = headingService.GetList(x => x.WriterId == writer.WriterId).ToPagedList(p, 8);
+            var list = headingService.GetList(x => x.UserId == user.UserId).ToPagedList(p, 8);
 
             return View(list);
         }
@@ -59,13 +62,13 @@ namespace MVCProjeKampi.Controllers.WriterController
         public ActionResult AddHeading(Heading heading)
         {
             var username = Session["Username"];
-            var user = writerService.Get(x => x.User.UserUsername == username.ToString());
+            var user = userService.Get(x => x.UserUsername == username.ToString());
 
             ValidationResult results = headingValidator.Validate(heading);
 
             if (results.IsValid)
             {
-                heading.WriterId = user.WriterId;
+                heading.UserId = user.UserId;
                 heading.HeadingDate = DateTime.Parse(DateTime.Now.ToShortDateString());
                 heading.HeadingStatus = true;
                 headingService.Add(heading);

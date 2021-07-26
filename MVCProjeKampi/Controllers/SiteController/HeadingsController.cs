@@ -23,9 +23,10 @@ namespace MVCProjeKampi.Controllers.SiteController
     {
         private IHeadingService headingService = new HeadingManager(new EfHeadingDal());
         private IContentService contentService = new ContentManager(new EfContentDal());
-        private IWriterService writerService = new WriterManager(new EfWriterDal(), new EfUserDal());
+
         private IUserService userService = new UserManager(new EfUserDal(), new EfSkillDal(),
-            new RoleManager(new EfRoleDal(), new EfUserDal(), new EfUserRoleDal()));
+            new RoleManager(new EfRoleDal(),
+                new EfUserDal(), new EfUserRoleDal()));
 
 
         private ContentValidator validator = new ContentValidator();
@@ -36,20 +37,16 @@ namespace MVCProjeKampi.Controllers.SiteController
         {
             var user = userService.Get(x=>x.UserUsername == username);
 
-            var writer = writerService.Get(x => x.UserId == user.UserId);
+            var headings = headingService.GetList().
+                OrderByDescending(x => x.HeadingDate).Where(x => x.UserId == user.UserId).ToPagedList(pageNumber, 8);
 
-            writer.User = user;
-
-            var contents = contentService.GetList().
-                OrderByDescending(x => x.ContentDate).Where(x => x.WriterId == writer.WriterId).ToPagedList(pageNumber, 8);
-
-            ContentByWriterViewModel contentByWriterViewModel = new ContentByWriterViewModel()
+            HeadingsByWriterViewModel headingsByWriterViewModel = new HeadingsByWriterViewModel()
             {
-                Contents = contents,
-                Writer = writer
+                Headings = headings,
+                User = user
             };
 
-            return View(contentByWriterViewModel);
+            return View(headingsByWriterViewModel);
 
         }
 
@@ -68,7 +65,7 @@ namespace MVCProjeKampi.Controllers.SiteController
             var heading = headingService.Get(x => x.HeadingNameForFriendlyUrl == headingNameForFriendlyUrl);
 
             var contents = contentService.GetList(x => x.HeadingId == heading.HeadingId).ToPagedList(pageNumber, 8);
-            var writers = writerService.GetWriterDetails();
+            var writers = userService.GetList();
 
             ContentsByHeadingViewModel viewModel = new ContentsByHeadingViewModel();
             viewModel.ContentList = contents;
@@ -76,11 +73,11 @@ namespace MVCProjeKampi.Controllers.SiteController
 
             foreach (var content in contents)
             {
-                foreach (var writer in writers)
+                foreach (var user in writers)
                 {
-                    if (content.WriterId == writer.WriterId)
+                    if (content.UserId == user.UserId)
                     {
-                        content.Writer = writer;
+                        content.User = user;
                     }
                 }
             }
@@ -128,17 +125,17 @@ namespace MVCProjeKampi.Controllers.SiteController
 
             var user = userService.Get(x => x.UserUsername == username.ToString());
 
-            var writer = writerService.Get(x => x.UserId == user.UserId);
+            var writer = userService.Get(x => x.UserId == user.UserId);
 
             var heading = headingService.Get(x => x.HeadingId == content.Heading.HeadingId);
 
             content.Heading = heading;
-            content.WriterId = writer.WriterId;
+            content.UserId = writer.UserId;
             content.HeadingId = heading.HeadingId;
 
             Content newContent = new Content();
             newContent.ContentDate = DateTime.Now;
-            newContent.WriterId = content.WriterId;
+            newContent.UserId = content.UserId;
             newContent.HeadingId = content.HeadingId;
             newContent.ContentText = content.ContentText;
 
@@ -158,7 +155,7 @@ namespace MVCProjeKampi.Controllers.SiteController
 
                 var refreshedHeading = headingService.GetById(content.HeadingId);
                 var refreshedContents = contentService.GetList(x => x.HeadingId == content.HeadingId).ToPagedList(1, 8);
-                var refreshedWriters = writerService.GetWriterDetails();
+                var refreshedWriters = userService.GetList();
 
                 ContentsByHeadingViewModel viewModel = new ContentsByHeadingViewModel();
                 viewModel.ContentList = refreshedContents;
@@ -168,9 +165,9 @@ namespace MVCProjeKampi.Controllers.SiteController
                 {
                     foreach (var refreshedWriter in refreshedWriters)
                     {
-                        if (refreshedContent.WriterId == refreshedWriter.WriterId)
+                        if (refreshedContent.UserId == refreshedWriter.UserId)
                         {
-                            refreshedContent.Writer = refreshedWriter;
+                            refreshedContent.User = refreshedWriter;
                         }
                     }
                 }

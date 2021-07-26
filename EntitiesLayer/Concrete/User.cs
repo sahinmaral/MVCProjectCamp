@@ -7,6 +7,11 @@ namespace EntityLayer.Concrete
 {
     public class User : IEntity
     {
+        public User()
+        {
+            UserStatus = true;
+        }
+
         [Key]
         public int UserId { get; set; }
 
@@ -45,14 +50,12 @@ namespace EntityLayer.Concrete
         [StringLength(50)]
         public string UserTitle { get; set; }
 
-
-        [DefaultValue("true")]
         public bool UserStatus { get; set; }
 
         public ICollection<UserRole> UserRoles;
         public ICollection<Skill> Skills;
+        public ICollection<Content> Contents;
+        public ICollection<Heading> Headings;
 
-        public ICollection<Writer> Writers { get; set; }
-        public ICollection<Admin> Admins { get; set; }
     }
 }

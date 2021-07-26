@@ -20,7 +20,6 @@ namespace BusinessLayer.Concrete
         private IUserDal _userDal;
         private ISkillDal _skillDal;
         private IRoleService _roleService;
-
         public UserManager(IUserDal userDal,ISkillDal skillDal,IRoleService roleService)
         {
             _userDal = userDal;
@@ -90,6 +89,42 @@ namespace BusinessLayer.Concrete
             HttpContext.Current.Session.Abandon();
             FormsAuthentication.RedirectToLoginPage();
         }
+
+        public void Register(UserForRegisterDto entity)
+        {
+            byte[] passwordSalt, passwordHash;
+
+            HashingHelper.CreatePasswordHash(entity.UserPassword, out passwordHash, out passwordSalt);
+
+            User user = new User()
+            {
+                UserAbout = entity.UserAbout,
+                UserEmail = entity.UserEmail,
+                UserUsername = entity.UserUsername,
+                UserFirstName = entity.UserFirstName,
+                UserImage = entity.UserImage,
+                UserLastName = entity.UserLastName,
+                UserTitle = entity.UserTitle,
+                UserPasswordHash = passwordHash,
+                UserPasswordSalt = passwordSalt
+            };
+
+            Add(user);
+
+            _roleService.GiveRoleFromUser(new UserRole()
+            {
+                UserId = user.UserId,
+                RoleId = 5
+            });
+
+            _roleService.GiveRoleFromUser(new UserRole()
+            {
+                UserId = user.UserId,
+                RoleId = 6
+            });
+
+
+        }
         
 
         public List<Skill> GetUserSkills(int userId)
@@ -109,7 +144,7 @@ namespace BusinessLayer.Concrete
 
         public void Add(User entity)
         {
-            throw new NotImplementedException();
+            _userDal.Insert(entity);
         }
 
         public User GetById(int id)

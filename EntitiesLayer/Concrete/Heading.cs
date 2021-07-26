@@ -29,10 +29,9 @@ namespace EntityLayer.Concrete
 
         public ICollection<Content> Contents { get; set; }
 
-        public int WriterId { get; set; }
-        public virtual Writer Writer { get; set; }
+        public int UserId { get; set; }
+        public virtual User User { get; set; }
 
-        [DefaultValue(true)]
         public bool HeadingStatus { get; set; }
     }
 }

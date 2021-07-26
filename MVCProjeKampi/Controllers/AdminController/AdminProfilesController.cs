@@ -15,10 +15,10 @@ namespace MVCProjeKampi.Controllers.AdminController
     [Authorize(Roles = "Administrator")]
     public class AdminProfilesController : Controller
     {
-        private IWriterService writerService = new WriterManager(new EfWriterDal(), new EfUserDal());
 
         private IUserService userService = new UserManager(new EfUserDal(), new EfSkillDal(),
-            new RoleManager(new EfRoleDal(), new EfUserDal(), new EfUserRoleDal()));
+            new RoleManager(new EfRoleDal(),
+                new EfUserDal(), new EfUserRoleDal()));
 
         private UserValidator validator = new UserValidator();
         public ActionResult Skills()
@@ -63,15 +63,17 @@ namespace MVCProjeKampi.Controllers.AdminController
             {
                 var foundUser = userService.Get(x => x.UserUsername == username);
 
-                user.UserFirstName = foundUser.UserFirstName;
-                user.UserLastName = foundUser.UserLastName;
-                user.UserImage = foundUser.UserImage;
-                user.UserAbout = foundUser.UserAbout;
-                user.UserTitle = foundUser.UserTitle;
+                foundUser.UserFirstName = user.UserFirstName;
+                foundUser.UserLastName = user.UserLastName;
+                foundUser.UserImage = user.UserImage;
+                foundUser.UserAbout = user.UserAbout;
+                foundUser.UserTitle = user.UserTitle;
 
-                Session["Fullname"] = user.UserFirstName + " " + user.UserLastName;
+                Session["Username"] = foundUser.UserUsername;
+                Session["UserImage"] = foundUser.UserImage;
+                Session["Fullname"] = foundUser.UserFirstName + " " + foundUser.UserLastName;
 
-                userService.Update(user);
+                userService.Update(foundUser);
                 return RedirectToAction("", "Homepage");
             }
 

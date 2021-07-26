@@ -24,6 +24,12 @@ namespace MVCProjeKampi
             );
 
             routes.MapRoute(
+                name: "Logins_Registration",
+                url: "kayit-ol",
+                defaults: new { controller = "Logins", action = "Registration" }
+            );
+
+            routes.MapRoute(
                 name: "AdminProfiles_EditProfile",
                 url: "admin-profil/profilini-duzenle",
                 defaults: new { controller = "AdminProfiles", action = "EditProfile" }
@@ -170,8 +176,8 @@ namespace MVCProjeKampi
 
             routes.MapRoute(
                 name: "Headings_HeadingByWriterUsername",
-                url: "{username}/basliklar",
-                defaults: new { controller = "Headings", action = "HeadingByWriterUsername" }
+                url: "{username}/basliklar/{p}",
+                defaults: new { controller = "Headings", action = "HeadingByWriterUsername" ,p=UrlParameter.Optional }
             );
 
             routes.MapRoute(

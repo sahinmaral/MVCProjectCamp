@@ -13,16 +13,18 @@ namespace MVCProjeKampi.Controllers.WriterController
     public class WriterContentsController : Controller
     {
         private IContentService contentManager = new ContentManager(new EfContentDal());
-        private IUserService userService = new UserManager(new EfUserDal(), new EfSkillDal(), new RoleManager(new EfRoleDal(), new EfUserDal(), new EfUserRoleDal()));
 
-        //Başlığa göre arama yapılabilir
+        private IUserService userService = new UserManager(new EfUserDal(), new EfSkillDal(),
+            new RoleManager(new EfRoleDal(),
+                new EfUserDal(), new EfUserRoleDal()));
+
 
         public ActionResult ContentByHeading(int p=1)
         {
             var username = Session["Username"];
             var user = userService.Get(x => x.UserUsername == username.ToString());
 
-            var contentValues = contentManager.GetList(x=>x.Writer.UserId==user.UserId).ToPagedList(p,9);
+            var contentValues = contentManager.GetList(x=>x.UserId==user.UserId).ToPagedList(p,9);
 
             return View(contentValues);
         }

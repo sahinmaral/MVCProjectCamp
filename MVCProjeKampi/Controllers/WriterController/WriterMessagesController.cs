@@ -24,8 +24,8 @@ namespace MVCProjeKampi.Controllers.WriterController
         private MessageValidator validator = new MessageValidator();
 
         private IUserService userService = new UserManager(new EfUserDal(), new EfSkillDal(),
-            new RoleManager(new EfRoleDal(), new EfUserDal(), new EfUserRoleDal()));
-
+            new RoleManager(new EfRoleDal(),
+                new EfUserDal(), new EfUserRoleDal()));
         public ActionResult Inbox(int p=1)
         {
             //Mesaja girdikten sonra sayfayı geri alınca yenilenmiyor

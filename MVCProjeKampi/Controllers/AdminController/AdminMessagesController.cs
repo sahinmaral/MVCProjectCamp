@@ -22,7 +22,8 @@ namespace MVCProjeKampi.Controllers.AdminController
         private MessageValidator validator = new MessageValidator();
 
         private IUserService userService = new UserManager(new EfUserDal(), new EfSkillDal(),
-            new RoleManager(new EfRoleDal(), new EfUserDal(), new EfUserRoleDal()));
+            new RoleManager(new EfRoleDal(),
+                new EfUserDal(), new EfUserRoleDal()));
 
         public ActionResult Inbox(int p = 1)
         {

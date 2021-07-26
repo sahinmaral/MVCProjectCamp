@@ -1,141 +1,87 @@
-﻿@{
+﻿@using System.Activities.Expressions
+@model EntityLayer.DTOs.UserForRegisterDto
+
+@{
     ViewBag.Title = "MVC Proje Kampı Kullanıcı Kaydı";
     Layout = null;
 }
 
 
-
-
-
-
+<!DOCTYPE html>
 <html>
 <head>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-    <style>
-        body {
-            background-image: url('/wwwroot/site/blurHomepage.jpg');
-        }
-        form {
-            width: 30%;
-            margin: 60px auto;
-            background: #efefef;
-            padding: 60px 120px 80px 120px;
-            text-align: center;
-            -webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
-            box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
-        }
-        label {
-            display: block;
-            position: relative;
-            margin: 40px 0px;
-        }
-        .label-txt {
-            position: absolute;
-            top: -1.6em;
-            padding: 10px;
-            font-family: sans-serif;
-            font-size: .8em;
-            letter-spacing: 1px;
-            color: rgb(120, 120, 120);
-            transition: ease .3s;
-        }
-        .input {
-            width: 100%;
-            padding: 10px;
-            background: transparent;
-            border: none;
-            outline: none;
-        }
-
-        .line-box {
-            position: relative;
-            width: 100%;
-            height: 2px;
-            background: #BCBCBC;
-        }
-
-        .line {
-            position: absolute;
-            width: 0%;
-            height: 2px;
-            top: 0px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #8BC34A;
-            transition: ease .6s;
-        }
-
-        .input:focus + .line-box .line {
-            width: 100%;
-        }
-
-        .label-active {
-            top: -3em;
-        }
-
-        button {
-            display: inline-block;
-            padding: 12px 24px;
-            background: rgb(220, 220, 220);
-            font-weight: bold;
-            color: rgb(120, 120, 120);
-            border: none;
-            outline: none;
-            border-radius: 3px;
-            cursor: pointer;
-            transition: ease .3s;
-        }
-
-        button:hover {
-            background: #8BC34A;
-            color: #ffffff;
-        }
-
-    </style>
+    <!-- Custom Theme files -->
+    <link href="~/Content/registration/style.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- web font -->
+    <link href="//fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i" rel="stylesheet">
 </head>
 <body>
-<form>
-    <label>
-        <p class="label-txt">ENTER YOUR EMAIL</p>
-        <input type="text" class="input">
-        <div class="line-box">
-            <div class="line"></div>
+    <!-- main -->
+    <div class="main-w3layouts wrapper">
+        <h1>MVC Proje Kampı Kullanıcı Kaydı</h1>
+        <div class="main-agileinfo">
+            <div class="agileits-top">
+
+                @using (Html.BeginForm("Registration", "Logins", FormMethod.Post))
+                {
+                    @Html.TextBoxFor(x => x.UserUsername, new { @class = "form-control", placeholder = "Kullanıcı adı" })
+                    @Html.ValidationMessageFor(x => x.UserUsername, "", new { @style = "font-weight: bold; color: darkred;" })
+                    <br />
+                    <br />
+                    @Html.TextBoxFor(x => x.UserEmail, new { @class = "form-control", placeholder = "Email adresi" })
+                    @Html.ValidationMessageFor(x => x.UserEmail, "", new { @style = "font-weight: bold; color: darkred;" })
+                    <br />
+                    <br />
+                    @Html.PasswordFor(x => x.UserPassword, new { @class = "form-control", placeholder = "Şifre" })
+                    @Html.ValidationMessageFor(x => x.UserPassword, "", new { @style = "font-weight: bold; color: darkred;" })
+                    <br />
+                    <br />
+                    @Html.TextBoxFor(x => x.UserFirstName, new { @class = "form-control", placeholder = "Ad" })
+                    @Html.ValidationMessageFor(x => x.UserFirstName, "", new { @style = "font-weight: bold; color: darkred; " })
+                    <br />
+                    <br />
+                    @Html.TextBoxFor(x => x.UserLastName, new { @class = "form-control", placeholder = "Soyad" })
+                    @Html.ValidationMessageFor(x => x.UserLastName, "", new { @style = "font-weight: bold; color: darkred;" })
+                    <br />
+                    <br />
+                    @Html.TextBoxFor(x => x.UserImage, new { @class = "form-control", placeholder = "Resim" })
+                    @Html.ValidationMessageFor(x => x.UserImage, "", new { @style = "font-weight: bold; color: darkred;" })
+                    <br />
+                    <br />
+                    @Html.TextBoxFor(x => x.UserTitle, new { @class = "form-control", placeholder = "Ünvan" })
+                    @Html.ValidationMessageFor(x => x.UserTitle, "", new { @style = "font-weight: bold; color: darkred;" })
+                    <br />
+                    <br />
+                    @Html.TextAreaFor(x => x.UserAbout, new { @class = "form-control", placeholder = "Hakkında" })
+                    @Html.ValidationMessageFor(x => x.UserAbout, "", new { @style = "font-weight: bold; color: darkred;" })
+
+
+                    @*<input class="text" type="text" name="Username" placeholder="Username" required="">
+                        <input class="text email" type="email" name="email" placeholder="Email" required="">
+                        <input class="text" type="password" name="password" placeholder="Password" required="">
+                        <input class="text w3lpass" type="password" name="password" placeholder="Confirm Password" required="">*@
+                    @*<div class="wthree-text">
+                            <label class="anim">
+                                <input type="checkbox" class="checkbox" required="">
+                                <span>I Agree To The Terms & Conditions</span>
+                            </label>
+                            <div class="clear"> </div>
+                        </div>*@
+
+                    <br/>
+                    <a href="/">Siteye dön</a>
+
+                    <input type="submit" value="Kayıt ol">
+
+                    <a href="/giris-yap"><input type="button" value="Giriş yap"></a>
+                }
+
+
+
+            </div>
         </div>
-    </label>
-    <label>
-        <p class="label-txt">ENTER YOUR NAME</p>
-        <input type="text" class="input">
-        <div class="line-box">
-            <div class="line"></div>
-        </div>
-    </label>
-    <label>
-        <p class="label-txt">ENTER YOUR PASSWORD</p>
-        <input type="text" class="input">
-        <div class="line-box">
-            <div class="line"></div>
-        </div>
-    </label>
-    <button type="submit">submit</button>
-</form>
-    
 
-<script>
-    $(document).ready(function () {
-
-        $('.input').focus(function () {
-            $(this).parent().find(".label-txt").addClass('label-active');
-        });
-
-        $(".input").focusout(function () {
-            if ($(this).val() == '') {
-                $(this).parent().find(".label-txt").removeClass('label-active');
-            };
-        });
-
-    });
-</script>
-
+    </div>
+    <!-- //main -->
 </body>
 </html>

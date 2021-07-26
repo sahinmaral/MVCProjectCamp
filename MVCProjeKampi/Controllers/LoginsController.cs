@@ -1,9 +1,12 @@
 ﻿using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
+using BusinessLayer.ValidationRules;
 
 using DataAccessLayer.EntityFramework;
 
 using EntityLayer.DTOs;
+
+using FluentValidation.Results;
 
 using System.Web.Mvc;
 
@@ -11,7 +14,11 @@ namespace MVCProjeKampi.Controllers
 {
     public class LoginsController : Controller
     {
-        IUserService userService = new UserManager(new EfUserDal(),new EfSkillDal(),new RoleManager(new EfRoleDal(),new EfUserDal(),new EfUserRoleDal()));
+        private IUserService userService = new UserManager(new EfUserDal(), new EfSkillDal(),
+            new RoleManager(new EfRoleDal(),
+            new EfUserDal(), new EfUserRoleDal()));
+
+        private UserForRegisterDtoValidator validator = new UserForRegisterDtoValidator();
 
         [HttpGet]
         [AllowAnonymous]
@@ -27,20 +34,22 @@ namespace MVCProjeKampi.Controllers
             return RedirectToAction("Index", "Homepage");
         }
 
+        /// <summary>
+        /// Böyle bir hesap var mı , kullanıcı adı ve şifre uyuşuyor mu gibi mesajları
+        /// toastr üzerinden kullanıcıya yollayabiliriz 
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+
         [HttpPost]
         [AllowAnonymous]
         public ActionResult Login(UserForLoginDto user)
         {
             if (userService.LoginAdmin(user) || userService.LoginWriter(user))
             {
-                //İleriki zamanlarda bekleme süresi ekleyip yapılabilir
-                //ViewBag.Message = "Başarılı bir şekilde giriş yaptınız";
-
                 return RedirectToAction("Index", "Homepage");
             }
 
-
-            ViewBag.Message = "Kullanıcı adı veya şifreniz yanlış";
             return View();
         }
 
@@ -55,7 +64,21 @@ namespace MVCProjeKampi.Controllers
         [HttpPost]
         public ActionResult Registration(UserForRegisterDto entity)
         {
-            return null;
+            ValidationResult result = validator.Validate(entity);
+            if (result.IsValid)
+            {
+                userService.Register(entity);
+                return RedirectToAction("Login", "Logins");
+            }
+            else
+            {
+                foreach (var item in result.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+
+            return View(entity);
         }
 
 

@@ -19,8 +19,10 @@ namespace MVCProjeKampi.Controllers.AdminController
     {
         private IContactService contactService = new ContactManager(new EfContactDal());
         private IMessageService messageService = new MessageManager(new EfMessageDal());
+
         private IUserService userService = new UserManager(new EfUserDal(), new EfSkillDal(),
-            new RoleManager(new EfRoleDal(), new EfUserDal(), new EfUserRoleDal()));
+            new RoleManager(new EfRoleDal(),
+                new EfUserDal(), new EfUserRoleDal()));
 
         private ContactValidator contactValidator = new ContactValidator();
 

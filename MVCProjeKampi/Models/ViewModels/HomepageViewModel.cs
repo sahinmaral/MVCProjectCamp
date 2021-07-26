@@ -10,6 +10,6 @@ namespace MVCProjeKampi.Models.ViewModels
     {
         public List<Heading> Headings { get; set; }
         public List<Content> Contents { get; set; }
-        public List<Writer> Writers { get; set; }
+        public List<User> Users { get; set; }
     }
 }

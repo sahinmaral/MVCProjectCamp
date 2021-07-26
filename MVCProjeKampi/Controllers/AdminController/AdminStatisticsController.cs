@@ -18,48 +18,48 @@ namespace MVCProjeKampi.Controllers.AdminController
     public class AdminStatisticsController : Controller
     {
         #region Business Katmanı Instance lar
-        private IBaseService<Category> categoryManager = new CategoryManager(new EfCategoryDal());
-        private IBaseService<Writer> writerManager = new WriterManager(new EfWriterDal(),new EfUserDal());
-        private IBaseService<Heading> headingManager = new HeadingManager(new EfHeadingDal());
+        private IBaseService<Category> _categoryService = new CategoryManager(new EfCategoryDal());
+        private IBaseService<Heading> _headingService = new HeadingManager(new EfHeadingDal());
+        private IBaseService<User> _userService = new UserManager(new EfUserDal(), new EfSkillDal(), new RoleManager(new EfRoleDal(), new EfUserDal(), new EfUserRoleDal()));
         #endregion
 
         public ActionResult Index()
         {
             #region Toplam kategori sayısı getirme
-            ViewBag.CategorySum = categoryManager.GetCount();
+            ViewBag.CategorySum = _categoryService.GetCount();
             #endregion
 
             #region Kategori tablosunda durumu true olan kategoriler ile false olan kategoriler arasındaki sayısal farkı getirme
-            int categoryValuesTrue = categoryManager.GetCount(x => x.CategoryStatus == true);
-            int categoryValuesFalse = categoryManager.GetCount(x => x.CategoryStatus == false);
+            int categoryValuesTrue = _categoryService.GetCount(x => x.CategoryStatus == true);
+            int categoryValuesFalse = _categoryService.GetCount(x => x.CategoryStatus == false);
             ViewBag.DifferenceCategoryValues = Math.Abs(categoryValuesFalse - categoryValuesTrue);
 
             #endregion
 
             #region Yazar adında 'a' harfi geçen yazar sayısı getirme
 
-            ViewBag.WriterSum = writerManager.GetCount(x => x.User.UserFirstName.Contains("a"));
+            ViewBag.WriterSum = _userService.GetCount(x => x.UserFirstName.Contains("a"));
 
             #endregion
 
             #region Başlık tablosunda "yazılım" kategorisine ait başlık sayısını getirme
 
-            int CategoryId = categoryManager.Get(x => x.CategoryName == "Yazılım").CategoryId;
+            int CategoryId = _categoryService.Get(x => x.CategoryName == "Yazılım").CategoryId;
 
-            ViewBag.HeadingSum = categoryManager.GetCount(x => x.CategoryId == CategoryId);
+            ViewBag.HeadingSum = _categoryService.GetCount(x => x.CategoryId == CategoryId);
 
             #endregion
 
             #region En fazla başlığa sahip kategori adı getirme
 
-            var headerList = headingManager.GetList();
+            var headerList = _headingService.GetList();
 
             var result = headerList.GroupBy(x => x.CategoryId)
                 .OrderByDescending(g => g.Count())
                 .Select(y => y.FirstOrDefault().Category)
                 .First();
 
-            ViewBag.AmountMostCategoryName = categoryManager.Get(x => x.CategoryId == result.CategoryId).CategoryName;
+            ViewBag.AmountMostCategoryName = _categoryService.Get(x => x.CategoryId == result.CategoryId).CategoryName;
 
             #endregion
 
@@ -71,9 +71,9 @@ namespace MVCProjeKampi.Controllers.AdminController
         {
             List<CategoryAndHeadingCountViewModel> viewmodel = new List<CategoryAndHeadingCountViewModel>();
 
-            var categories = categoryManager.GetList();
+            var categories = _categoryService.GetList();
 
-            var headings = headingManager.GetList();
+            var headings = _headingService.GetList();
 
             foreach (var category in categories)
             {

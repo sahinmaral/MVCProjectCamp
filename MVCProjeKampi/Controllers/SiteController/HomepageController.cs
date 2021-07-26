@@ -15,7 +15,11 @@ namespace MVCProjeKampi.Controllers.SiteController
     {
         private IHeadingService headingService = new HeadingManager(new EfHeadingDal());
         private IContentService contentService = new ContentManager(new EfContentDal());
-        private IWriterService writerService = new WriterManager(new EfWriterDal(), new EfUserDal());
+
+        private IUserService userService = new UserManager(new EfUserDal(), new EfSkillDal(),
+            new RoleManager(new EfRoleDal(),
+                new EfUserDal(), new EfUserRoleDal()));
+
         private IRoleService roleService = new RoleManager(new EfRoleDal(), new EfUserDal(), new EfUserRoleDal());
 
 
@@ -24,7 +28,7 @@ namespace MVCProjeKampi.Controllers.SiteController
         {
             var headings = headingService.GetList(x=>x.HeadingStatus==true).OrderByDescending(x => x.HeadingDate).ToList();
             var contents = contentService.GetList().OrderByDescending(x => x.ContentDate).ToList();
-            var writers = writerService.GetWriterDetails().FindAll(x => x.User.UserStatus == true);
+            var users = userService.GetList().FindAll(x => x.UserStatus == true);
 
             foreach (var content in contents)
             {
@@ -38,7 +42,7 @@ namespace MVCProjeKampi.Controllers.SiteController
             HomepageViewModel viewmodel = new HomepageViewModel();
             viewmodel.Headings = headings;
             viewmodel.Contents = contents;
-            viewmodel.Writers = writers;
+            viewmodel.Users = users;
 
             return View(viewmodel);
         }

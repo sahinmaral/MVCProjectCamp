@@ -19,7 +19,8 @@ namespace MVCProjeKampi.Controllers.AdminController
     public class AdminAuthorizationController : Controller
     {
         private IUserService userService = new UserManager(new EfUserDal(), new EfSkillDal(),
-            new RoleManager(new EfRoleDal(), new EfUserDal(), new EfUserRoleDal()));
+            new RoleManager(new EfRoleDal(),
+                new EfUserDal(), new EfUserRoleDal()));
 
         private IRoleService roleService = new RoleManager(new EfRoleDal(),
             new EfUserDal(), new EfUserRoleDal());

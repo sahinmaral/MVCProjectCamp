@@ -1,7 +1,7 @@
 ﻿@using EntityLayer.Concrete
 @using PagedList
 @using PagedList.Mvc
-@model IPagedList<Writer>
+@model IPagedList<User>
 
 @{
     ViewBag.Title = "Yazar Anasayfa";
@@ -38,21 +38,21 @@
                     {
 
                         <div class="card" style="width: 18rem; margin-left:1em">
-                            <img src="@item.User.UserImage" class="card-img-top" alt="..." style="height: 15em; width: 13em; margin-left: 2.7em; margin-top:1em">
+                            <img src="@item.UserImage" class="card-img-top" alt="..." style="height: 15em; width: 13em; margin-left: 2.7em; margin-top:1em">
                             <div class="card-body">
-                                <h5 class="card-title" style="padding-left:4.5em">@item.User.UserUsername</h5>
+                                <h5 class="card-title" style="padding-left:4.5em">@item.UserUsername</h5>
                                 @*<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>*@
                             </div>
                             <ul class="list-group list-group-flush border-top">
-                                <li class="list-group-item">Hakkında : @item.User.UserAbout</li>
-                                <li class="list-group-item">Email : @item.User.UserEmail</li>
-                                <li class="list-group-item">Adı Soyadı : @item.User.UserFirstName @item.User.UserLastName</li>
+                                <li class="list-group-item">Hakkında : @item.UserAbout</li>
+                                <li class="list-group-item">Email : @item.UserEmail</li>
+                                <li class="list-group-item">Adı Soyadı : @item.UserFirstName @item.UserLastName</li>
                             </ul>
                             <div class="card-body">
-                                <a href="/@item.User.UserUsername/basliklar" class="btn btn-sm bg-teal" style="margin-left: -0.5em">
+                                <a href="/@item.UserUsername/basliklar" class="btn btn-sm bg-teal" style="margin-left: -0.5em">
                                     <i class="fas fa-comments"></i>Yazarın Başlıkları
                                 </a>
-                                <a href="/admin-profil/yazar-profili-duzenle/@item.User.UserUsername" class="btn btn-sm btn-primary" style="margin-top: -4.2em; margin-left:9.3em">
+                                <a href="/admin-profil/yazar-profili-duzenle/@item.UserUsername" class="btn btn-sm btn-primary" style="margin-top: -4.2em; margin-left:9.3em">
                                     <i class="fas fa-user"></i> Profili Düzenle
                                 </a>
                             </div>
