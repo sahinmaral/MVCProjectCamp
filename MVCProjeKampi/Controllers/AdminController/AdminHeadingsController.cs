@@ -10,7 +10,6 @@ using FluentValidation.Results;
 
 using PagedList;
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -123,9 +122,9 @@ namespace MVCProjeKampi.Controllers.AdminController
 
 
         [HttpGet]
-        public ActionResult EditHeading(int id)
+        public ActionResult EditHeading(string headingNameForFriendlyUrl)
         {
-            var heading = headingService.GetById(id);
+            var heading = headingService.Get(x=>x.HeadingNameForFriendlyUrl==headingNameForFriendlyUrl);
 
             return View(heading);
         }
@@ -159,9 +158,9 @@ namespace MVCProjeKampi.Controllers.AdminController
         }
 
 
-        public ActionResult EnableHeading(int id)
+        public ActionResult EnableHeading(string headingNameForFriendlyUrl)
         {
-            var heading = headingService.GetById(id);
+            var heading = headingService.Get(x=>x.HeadingNameForFriendlyUrl==headingNameForFriendlyUrl);
             heading.HeadingStatus = true;
             headingService.Update(heading);
             return RedirectToAction("Index");
@@ -170,9 +169,9 @@ namespace MVCProjeKampi.Controllers.AdminController
 
 
 
-        public ActionResult DeleteHeading(int id)
+        public ActionResult DeleteHeading(string headingNameForFriendlyUrl)
         {
-            var headingValue = headingService.GetById(id);
+            var headingValue = headingService.Get(x=>x.HeadingNameForFriendlyUrl==headingNameForFriendlyUrl);
             headingValue.HeadingStatus = false;
             headingService.Delete(headingValue);
             return RedirectToAction("Index");
@@ -209,9 +208,9 @@ namespace MVCProjeKampi.Controllers.AdminController
         }
 
 
-        public ActionResult HeadingsByCategory(int id, int p = 1)
+        public ActionResult HeadingsByCategory(string categoryName, int p = 1)
         {
-            var headings = headingService.GetList(x => x.CategoryId == id).
+            var headings = headingService.GetList(x => x.Category.CategoryName == categoryName).
                 OrderByDescending(x => x.HeadingDate).ToPagedList(p, 8);
 
             foreach (var items in writerService.GetWriterDetails())

@@ -106,13 +106,13 @@
                                     }
                                 </td>
                                 <td class="project-actions text-right">
-                                    <a class="btn btn-primary btn-sm" href="/Headings/HeadingByHeadingId/@item.HeadingId">
+                                    <a class="btn btn-primary btn-sm" href="/baslik/@item.HeadingNameForFriendlyUrl">
                                         <i class="fas fa-folder">
                                         </i>
                                         Yazılar
                                     </a>
 
-                                    <a class="btn btn-info btn-sm" href="/AdminHeadings/EditHeading/@item.HeadingId">
+                                    <a class="btn btn-info btn-sm" href="/admin-profil/basligi-duzenle/@item.HeadingNameForFriendlyUrl">
                                         <i class="fas fa-pencil-alt">
                                         </i>
                                         Düzenle
@@ -128,21 +128,20 @@
                                     }
                                     else
                                     {
-                                        <a class="btn btn-success btn-sm" href="/AdminHeadings/EnableHeading/@item.HeadingId">
+                                        <a class="btn btn-success btn-sm" href="/admin-profil/basligi-onayla/@item.HeadingNameForFriendlyUrl">
                                             <i class="fas fa-check-circle">
                                             </i>
                                             Onayla
                                         </a>
                                     }
 
-                                    <a class="@deleteButtonClass" href="/AdminHeadings/DeleteHeading/@item.HeadingId">
+                                    <a class="@deleteButtonClass" href="/admin-profil/basligi-sil/@item.HeadingNameForFriendlyUrl">
                                         <i class="fas fa-trash">
                                         </i>
                                         Sil
                                     </a>
                                 </td>
                             </tr>
-
 
                         }
 
@@ -177,9 +176,6 @@
 
 
 <script>
-
-    //Boolean kısmı , javascript in tip güvenliği olmadığı için
-    //yanlış çalışıyor. False işlemi çalışmıyor
 
     function checkIfEnabled() {
         swal({

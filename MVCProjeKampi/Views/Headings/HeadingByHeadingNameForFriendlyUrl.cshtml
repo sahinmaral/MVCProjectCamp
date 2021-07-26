@@ -16,7 +16,7 @@
     @if (viewmodel.ContentList.Count >= 8)
     {
         @Html.PagedListPager((IPagedList)viewmodel.ContentList,
-            p => Url.Action("HeadingByHeadingName",
+            p => Url.Action("HeadingByHeadingNameForFriendlyUrl",
                 new { id = @viewmodel.Heading.HeadingId, p })
             ,
             new PagedListRenderOptions
@@ -83,7 +83,7 @@
 
 <div style="margin-left:1em">
     @Html.PagedListPager((IPagedList)viewmodel.ContentList,
-        p => Url.Action("HeadingByHeadingName",
+        p => Url.Action("HeadingByHeadingNameForFriendlyUrl",
             new { id = @viewmodel.Heading.HeadingId, p })
         ,
         new PagedListRenderOptions

@@ -4,16 +4,20 @@
 @model ContentByWriterViewModel
 
 @{
-    ViewBag.Title = @Model.Writer.User.UserUsername+" kullanıcısının yazıları";
+    ViewBag.Title = @Model.Writer.User.UserUsername + " kullanıcısının başlıkları";
     Layout = "~/Views/Shared/_SiteLayout.cshtml";
     int counter = 0;
 }
+
+<h3 style="margin-left:0.6em">
+    @Model.Writer.User.UserUsername kullanıcısının başlıkları
+</h3>
 
 <div style="margin-left:1em">
     @if (Model.Contents.Count >= 8)
     {
         @Html.PagedListPager((IPagedList)Model.Contents,
-            p => Url.Action("HeadingByWriterId",
+            p => Url.Action("HeadingByWriterUsername",
                 new { id = Model.Writer.WriterId, p })
             ,
             new PagedListRenderOptions
@@ -31,7 +35,10 @@
     }
 </div>
 
+
+
 <div style="margin-top:2em">
+
 
     @foreach (var item in Model.Contents)
     {
@@ -42,13 +49,11 @@
         <div class="card" style=" margin-left: 1em">
             <div class="card-body">
                 <h5 class="card-title">
-                    <a href="/Headings/HeadingByHeadingId/@item.HeadingId">@item.Heading.HeadingName</a>
+                    <a href="/baslik/@item.Heading.HeadingNameForFriendlyUrl">@item.Heading.HeadingName</a>
                 </h5>
-                <p class="card-text">
-                    @item.ContentText
-                </p>
+
                 <p class="card-text" style="text-align: right">
-                    @item.ContentDate.ToShortDateString() &nbsp; @item.ContentDate.ToShortTimeString() &nbsp; &nbsp; <a href="#">@Model.Writer.User.UserUsername</a>
+                    @item.ContentDate.ToShortDateString() &nbsp; @item.ContentDate.ToShortTimeString() &nbsp; &nbsp;
                 </p>
 
             </div>
@@ -60,7 +65,7 @@
 
 <div style="margin-left: 1em;">
     @Html.PagedListPager((IPagedList)Model.Contents,
-        p => Url.Action("HeadingByWriterId",
+        p => Url.Action("HeadingByWriterUsername",
             new { id = Model.Writer.WriterId, p })
         ,
         new PagedListRenderOptions

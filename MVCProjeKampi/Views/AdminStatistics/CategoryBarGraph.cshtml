@@ -1,13 +1,13 @@
 ﻿
 @{
-    ViewBag.Title = "Başlıkların Kategoriye Dağılımı Grafiği";
+    ViewBag.Title = "CategoryColumnGraph";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
+
     <title>Result Visualization</title>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -37,8 +37,8 @@
 
         function drawChart(result) {
             var data = new google.visualization.DataTable();
-            data.addColumn('string', 'CategoryName');
-            data.addColumn('number', 'HeadingCount');
+            data.addColumn('string', 'Kategori Adı');
+            data.addColumn('number', 'Başlık Sayısı');
             var dataArray = [];
 
             $.each(result,
@@ -51,11 +51,11 @@
                 title: "Başlıkların Kategoriye Dağılımı Grafiği",
                 width: 1000,
                 height: 800,
-                bar: { groupWidth: "20%" },
+                bar: { groupWidth: "50%" },
                 backgroundColor: '#f4f6f9'
             };
 
-            var columnChart = new google.visualization.PieChart(document
+            var columnChart = new google.visualization.BarChart(document
                 .getElementById('Piechart_div'));
 
             columnChart.draw(data, columnChartOptions);
@@ -66,6 +66,3 @@
     <div id="Piechart_div"></div>
 </body>
 </html>
-
-
-

@@ -93,9 +93,9 @@ namespace MVCProjeKampi.Controllers.WriterController
 
 
         [HttpGet]
-        public ActionResult EditHeading(int id)
+        public ActionResult EditHeading(string headingNameForFriendlyUrl)
         {
-            var headingValue = headingService.GetById(id);
+            var headingValue = headingService.Get(x=>x.HeadingNameForFriendlyUrl == headingNameForFriendlyUrl);
             return View(headingValue);
         }
 
@@ -125,9 +125,9 @@ namespace MVCProjeKampi.Controllers.WriterController
         }
 
 
-        public ActionResult DeleteHeading(int id)
+        public ActionResult DeleteHeading(string headingNameForFriendlyUrl)
         {
-            var headingValue = headingService.GetById(id);
+            var headingValue = headingService.Get(x=>x.HeadingNameForFriendlyUrl==headingNameForFriendlyUrl);
             headingValue.HeadingStatus = false;
             headingService.Delete(headingValue);
             return RedirectToAction("Index");

@@ -42,9 +42,9 @@ namespace MVCProjeKampi.Controllers.AdminController
 
 
         [HttpGet]
-        public ActionResult GiveAuthorization(int userId)
+        public ActionResult EditAuthorization(string username)
         {
-            var user = userService.GetById(userId);
+            var user = userService.Get(x=>x.UserUsername == username);
 
             var userRoles = roleService.GetRolesForUser(user.UserUsername);
             var allRoles = roleService.GetList();
@@ -78,7 +78,7 @@ namespace MVCProjeKampi.Controllers.AdminController
         }
 
         [HttpPost]
-        public ActionResult GiveAuthorization(UserAndRolesViewModel viewModel, FormCollection frm)
+        public ActionResult EditAuthorization(UserAndRolesViewModel viewModel, FormCollection frm)
         {
             var user = userService.GetById(viewModel.User.UserId);
 
@@ -107,6 +107,24 @@ namespace MVCProjeKampi.Controllers.AdminController
             });
 
 
+            return RedirectToAction("Index", "AdminAuthorization");
+        }
+
+        public ActionResult BanUser(string username)
+        {
+            var user = userService.Get(x=>x.UserUsername == username);
+
+            user.UserStatus = false;
+            userService.Update(user);
+            return RedirectToAction("Index", "AdminAuthorization");
+        }
+
+        public ActionResult UnbanUser(string username)
+        {
+            var user = userService.Get(x => x.UserUsername == username);
+
+            user.UserStatus = true;
+            userService.Update(user);
             return RedirectToAction("Index", "AdminAuthorization");
         }
     }

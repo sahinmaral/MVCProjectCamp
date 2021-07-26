@@ -87,7 +87,7 @@
                                     </a>
                                     <br />
                                     <small>
-                                        @item.HeadingDate.ToShortDateString()
+                                        @item.HeadingDate.ToShortDateString() @item.HeadingDate.ToShortTimeString()
                                     </small>
                                 </td>
                                 <td class="project-state">
@@ -99,18 +99,18 @@
                                     }
                                 </td>
                                 <td class="project-actions text-right">
-                                    <a class="btn btn-primary btn-sm" href="/Headings/HeadingByHeadingId/@item.HeadingId">
+                                    <a class="btn btn-primary btn-sm" href="/baslik/@item.HeadingNameForFriendlyUrl">
                                         <i class="fas fa-folder">
                                         </i>
                                         Yazılar
                                     </a>
 
-                                    <a class="btn btn-info btn-sm" href="/AdminHeadings/EditHeading/@item.HeadingId">
+                                    <a class="btn btn-info btn-sm" href="/admin-profil/basligi-duzenle/@item.HeadingNameForFriendlyUrl">
                                         <i class="fas fa-pencil-alt">
                                         </i>
                                         Düzenle
                                     </a>
-                                    <a class="@deleteButtonClass" href="/AdminHeadings/DeleteHeading/@item.HeadingId">
+                                    <a class="@deleteButtonClass" href="/admin-profil/basligi-sil/@item.HeadingNameForFriendlyUrl">
                                         <i class="fas fa-trash">
                                         </i>
                                         Sil
@@ -129,7 +129,7 @@
     </section>
 </body>
 </html>
-<a href="/AdminHeadings/AddHeading/" class="btn btn-primary">Yeni Başlık Girişi</a>
+<a href="/admin-profil/baslik-ekle" class="btn btn-primary">Yeni Başlık Girişi</a>
 
 <br />
 <br />

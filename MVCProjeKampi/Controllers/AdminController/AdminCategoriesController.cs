@@ -54,18 +54,18 @@ namespace MVCProjeKampi.Controllers.AdminController
         }
 
 
-        public ActionResult DeleteCategory(int id)
+        public ActionResult DeleteCategory(string categoryName)
         {
-            var categoryValues = categoryManager.GetById(id);
+            var categoryValues = categoryManager.Get(x=>x.CategoryName == categoryName );
             categoryValues.CategoryStatus = false;
             categoryManager.Update(categoryValues);
             return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public ActionResult UpdateCategory(int id)
+        public ActionResult UpdateCategory(string categoryName)
         {
-            var CategoryValues = categoryManager.GetById(id);
+            var CategoryValues = categoryManager.Get(x=>x.CategoryName==categoryName);
             return View(CategoryValues);
         }
 

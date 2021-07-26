@@ -26,6 +26,7 @@ namespace BusinessLayer.ValidationRules
             RuleFor(x => x.UserAbout).MaximumLength(200).WithMessage("Lütfen en fazla 200 karakterden fazla değer girişi yapmayın");
             RuleFor(x => x.UserTitle).MaximumLength(50).WithMessage("Lütfen en fazla 50 karakterden fazla değer girişi yapmayın");
 
+
             //Görev olarak verilen validation
             //RuleFor(x => x.UserAbout).Must(x=>x.Contains('a')).WithMessage("Yazar hakkında a harfi geçmesi gerekir");
         }

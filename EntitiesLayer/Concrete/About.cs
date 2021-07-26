@@ -15,6 +15,8 @@ namespace EntityLayer.Concrete
         [StringLength(30)]
         public string AboutHeader { get; set; }
 
+        [StringLength(30)]
+        public string AboutHeaderForFriendlyUrl { get; set; }
 
         [StringLength(1000)]
         [AllowHtml]

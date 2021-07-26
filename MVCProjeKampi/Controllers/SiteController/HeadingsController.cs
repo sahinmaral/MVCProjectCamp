@@ -30,12 +30,44 @@ namespace MVCProjeKampi.Controllers.SiteController
 
         private ContentValidator validator = new ContentValidator();
 
-        [AllowAnonymous]
 
-        public ActionResult HeadingByHeadingId(int id, int p = 1)
+        [AllowAnonymous]
+        public ActionResult HeadingByWriterUsername(string username, int pageNumber = 1)
         {
-            var heading = headingService.GetById(id);
-            var contents = contentService.GetList(x => x.HeadingId == id).ToPagedList(p, 8);
+            var user = userService.Get(x=>x.UserUsername == username);
+
+            var writer = writerService.Get(x => x.UserId == user.UserId);
+
+            writer.User = user;
+
+            var contents = contentService.GetList().
+                OrderByDescending(x => x.ContentDate).Where(x => x.WriterId == writer.WriterId).ToPagedList(pageNumber, 8);
+
+            ContentByWriterViewModel contentByWriterViewModel = new ContentByWriterViewModel()
+            {
+                Contents = contents,
+                Writer = writer
+            };
+
+            return View(contentByWriterViewModel);
+
+        }
+
+        /// <summary>
+        ///
+        /// Hata1 : 
+        /// Jeff Bezos'un astronot olması -> Jeff Bezos
+        /// </summary>
+        /// <param name="headingNameForFriendlyUrl"></param>
+        /// <returns></returns>
+
+        [AllowAnonymous]
+        public ActionResult HeadingByHeadingNameForFriendlyUrl(string headingNameForFriendlyUrl,int pageNumber = 1)
+        {
+
+            var heading = headingService.Get(x => x.HeadingNameForFriendlyUrl == headingNameForFriendlyUrl);
+
+            var contents = contentService.GetList(x => x.HeadingId == heading.HeadingId).ToPagedList(pageNumber, 8);
             var writers = writerService.GetWriterDetails();
 
             ContentsByHeadingViewModel viewModel = new ContentsByHeadingViewModel();
@@ -59,61 +91,11 @@ namespace MVCProjeKampi.Controllers.SiteController
         }
 
         [AllowAnonymous]
-        public ActionResult HeadingByWriterId(int id, int p = 1)
+        public ActionResult HeadingByHeadingName(string headingName)
         {
-            var writer = writerService.GetById(id);
-
-            var contents = contentService.GetList().
-                OrderByDescending(x => x.ContentDate).Where(x => x.WriterId == id).ToPagedList(p, 8);
-
-            ContentByWriterViewModel viewModel = new ContentByWriterViewModel();
-            viewModel.Contents = contents;
-            viewModel.Writer = writer;
-
-            return View(viewModel);
-
+            var name = UrlSlugHelper.ToUrlSlug(headingName);
+            return RedirectToAction("HeadingByHeadingNameForFriendlyUrl", "Headings" , new {headingNameForFriendlyUrl = name});
         }
-
-        [AllowAnonymous]
-        public ActionResult HeadingByHeadingNameForFriendlyUrl(string headingNameForFriendlyUrl)
-        {
-            //Jeff Bezos'un astronot olması -> Jeff Bezos
-
-            var heading = headingService.Get(x => x.HeadingNameForFriendlyUrl == headingNameForFriendlyUrl);
-
-            return RedirectToAction("HeadingByHeadingId", "Headings", new { id = heading.HeadingId });
-        }
-
-        //[AllowAnonymous]
-        //public ActionResult HeadingByHeadingName(string headingName,int p=1)
-        //{
-
-        //    İleride headingName için düzenleme yapılacak
-        //    Mesela Doctor Who --> doctor-who
-
-        //    var heading = headingService.Get(x=>x.HeadingName.StartsWith(headingName));
-        //    var contents = contentService.GetList(x => x.HeadingId == heading.HeadingId).ToPagedList(p, 8);
-        //    var writers = writerService.GetWriterDetails();
-
-        //    ContentsByHeadingViewModel viewModel = new ContentsByHeadingViewModel();
-        //    viewModel.ContentList = contents;
-        //    viewModel.Heading = heading;
-
-        //    foreach (var content in contents)
-        //    {
-        //        foreach (var writer in writers)
-        //        {
-        //            if (content.WriterId == writer.WriterId)
-        //            {
-        //                content.Writer = writer;
-        //            }
-        //        }
-        //    }
-
-        //    ViewBag.ContentsByHeadingViewModel = viewModel;
-
-        //    return View();
-        //}
 
         [AllowAnonymous]
         public ActionResult SearchHeadings(string searched)
@@ -165,7 +147,7 @@ namespace MVCProjeKampi.Controllers.SiteController
             if (results.IsValid)
             {
                 contentService.Add(newContent);
-                return RedirectToAction("HeadingByHeadingId", "Headings", new { id = content.Heading.HeadingId });
+                return RedirectToAction("HeadingByHeadingNameForFriendlyUrl", "Headings", new { headingByHeadingNameForFriendlyUrl = content.Heading.HeadingNameForFriendlyUrl });
             }
             else
             {
@@ -197,7 +179,7 @@ namespace MVCProjeKampi.Controllers.SiteController
 
             }
 
-            return View("HeadingByHeadingId");
+            return View("HeadingByHeadingNameForFriendlyUrl");
 
         }
 

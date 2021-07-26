@@ -33,11 +33,13 @@ namespace MVCProjeKampi.Controllers.AdminController
                 UserAbout = user.UserAbout,
                 UserFirstName = user.UserFirstName,
                 UserLastName = user.UserLastName,
-                UserSkills = skills
+                UserSkills = skills,
+                UserImage = user.UserImage
             };
 
             return View(viewmodel);
         }
+
 
         [HttpGet]
         public ActionResult EditProfile()

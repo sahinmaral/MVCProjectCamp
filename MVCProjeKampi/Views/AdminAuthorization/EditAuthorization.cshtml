@@ -53,8 +53,16 @@
                 </button>
             </td>
             <td>
-                <a href="../AdminWriters/BanUser?userId=@Model.User.UserId&&status=false" class="btn btn-danger">Banla</a>
-                <a href="../AdminWriters/BanUser?userId=@Model.User.UserId&&status=true" class="btn btn-warning">Banı kaldır</a>
+                @if (Model.User.UserStatus)
+                {
+                    <a class="btn btn-danger" href="/admin-profil/yetkilendirmeler/kullaniciyi-banla/@Model.User.UserUsername">Kullanıcıyı banla</a>
+                }
+
+                @if (!Model.User.UserStatus)
+                {
+                    <a class="btn btn-success" href="/admin-profil/yetkilendirmeler/kullanicinin-banini-kaldir/@Model.User.UserUsername">Kullanıcının banını kaldır</a>
+                }
+
             </td>
         </tr>
 
@@ -72,7 +80,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            @using (Html.BeginForm("GiveAuthorization", "AdminAuthorization", FormMethod.Post))
+            @using (Html.BeginForm("EditAuthorization", "AdminAuthorization", FormMethod.Post))
             {
 
                 @Html.HiddenFor(x => x.User.UserId)

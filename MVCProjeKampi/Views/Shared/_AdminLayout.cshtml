@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- iCheck -->
     <link rel="stylesheet" href="~/Content/AdminLTE-3.0.4/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-
     <!-- Theme style -->
     <link rel="stylesheet" href="~/Content/AdminLTE-3.0.4/dist/css/adminlte.min.css">
     <!-- overlayScrollbars -->
@@ -48,7 +47,7 @@
                         <img src="@Session["UserImage"]" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="/AdminHomepage" class="d-block">@Session["Fullname"] <br /> @Session["Username"]</a>
+                        <a href="/admin-profil" class="d-block">@Session["Fullname"] <br /> @Session["Username"]</a>
                     </div>
                 </div>
 
@@ -58,7 +57,7 @@
                         <!-- Add icons to the links using the .nav-icon class
                         with font-awesome or any other icon font library -->
                         <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
+                            <a href="" class="nav-link">
                                 <i class="nav-icon fas fa-users-cog"></i>
                                 <p>
                                     Admin İşlemleri
@@ -67,7 +66,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="/AdminProfiles/Skills" class="nav-link ">
+                                    <a href="/admin-profil/becerilerim" class="nav-link ">
                                         <i class="nav-icon fas fa-user-alt"></i>
                                         <p>
                                             Becerilerim
@@ -75,7 +74,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/AdminCategories/Index" class="nav-link ">
+                                    <a href="/admin-profil/kategoriler" class="nav-link ">
                                         <i class="nav-icon fas fa-list"></i>
                                         <p>
                                             Kategoriler
@@ -83,7 +82,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/AdminHeadings/Index" class="nav-link">
+                                    <a href="/admin-profil/basliklar" class="nav-link">
                                         <i class="nav-icon fas fa-th"></i>
                                         <p>
                                             Başlıklar
@@ -91,7 +90,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/AdminWriters/Index" class="nav-link">
+                                    <a href="/admin-profil/yazarlar" class="nav-link">
                                         <i class="nav-icon fas fa-user-edit"></i>
                                         <p>
                                             Yazarlar
@@ -100,7 +99,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item has-treeview">
-                                    <a href="#" class="nav-link">
+                                    <a href="" class="nav-link">
                                         <i class="nav-icon fas fa-chart-pie"></i>
                                         <p>
                                             İstatistikler
@@ -109,25 +108,25 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="/AdminStatistics/CategoryDonutGraph" class="nav-link">
+                                            <a href="/admin-profil/istatistik/kategori-donut-grafigi" class="nav-link">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Turta Grafik</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="pages/charts/flot.html" class="nav-link">
+                                            <a href="/admin-profil/istatistik/kategori-bar-grafigi" class="nav-link">
                                                 <i class="far fa-circle nav-icon"></i>
-                                                <p>Çizgi Grafik</p>
+                                                <p>Bar Grafik</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="/AdminStatistics" class="nav-link">
+                                            <a href="/admin-profil/istatistik/bazi-istatistikler" class="nav-link">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Bazı İstatistik Veriler</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="/AdminHeadings/HeadingReport" class="nav-link">
+                                            <a href="/admin-profil/istatistik/baslik-raporu" class="nav-link">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Başlık Raporlama</p>
                                             </a>
@@ -135,7 +134,7 @@
                                     </ul>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/AdminAbouts/Index" class="nav-link">
+                                    <a href="/admin-profil/site-hakkinda" class="nav-link">
                                         <i class="nav-icon fas fa-file-alt"></i>
                                         <p>
                                             Hakkımızda
@@ -143,7 +142,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/AdminAuthorization/Index" class="nav-link">
+                                    <a href="/admin-profil/yetkilendirmeler" class="nav-link">
                                         <i class="nav-icon fas fa-user-tag"></i>
                                         <p>
                                             Yetkilendirme
@@ -155,7 +154,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="/AdminProfiles/EditProfile" class="nav-link ">
+                            <a href="/admin-profil/profilini-duzenle" class="nav-link ">
                                 <i class="nav-icon fas fa-user-alt"></i>
                                 <p>
                                     Profilim
@@ -163,7 +162,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/AdminHeadings/MyHeadings" class="nav-link">
+                            <a href="/admin-profil/basliklarim" class="nav-link">
                                 <i class="nav-icon 	fas fa-heading"></i>
                                 <p>
                                     Başlıklarım
@@ -171,7 +170,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/AdminContents/MyContentByHeading" class="nav-link">
+                            <a href="/admin-profil/yazilarim" class="nav-link">
                                 <i class="nav-icon 	fas fa-pencil-alt"></i>
                                 <p>
                                     Yazılarım
@@ -180,7 +179,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="/AdminContacts/Index" class="nav-link">
+                            <a href="/admin-profil/iletisim-ve-mesajlar" class="nav-link">
                                 <i class="nav-icon fas fa-edit"></i>
                                 <p>
                                     İletişim & Mesajlar
@@ -189,7 +188,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="/AdminGalleries/Index" class="nav-link">
+                            <a href="/admin-profil/site-galerisi" class="nav-link">
                                 <i class="nav-icon far fa-image"></i>
                                 <p>
                                     Galeri
@@ -206,7 +205,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/Logins/Logout" class="nav-link">
+                            <a href="cikis-yap" class="nav-link">
                                 <i class="nav-icon fas fa-sign-out-alt"></i>
                                 <p>
                                     Çıkış Yap
@@ -277,6 +276,27 @@
     });
 
 
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-bottom-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
+
+    var Toast = function () {
+        toastr.error("Testing");
+    }
 
 </script>
 

@@ -1,0 +1,26 @@
+﻿@using EntityLayer.Concrete
+@model About
+
+@{
+    ViewBag.Title = "Site hakkında ekleme";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+@using (Html.BeginForm("AddAbout", "AdminAbouts", FormMethod.Post))
+{
+<div class="form-group">
+    @Html.Label("Hakkımızda başlığı")
+    @Html.TextBoxFor(x => x.AboutHeader, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.AboutHeader, "", new { @class = "text-danger", @style = "font-weight: bold" })
+    <br />
+    <br />
+    @Html.Label("Hakkımızda yazısı")
+    @Html.TextBoxFor(x => x.AboutText, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.AboutText, "", new { @class = "text-danger", @style = "font-weight: bold" })
+    <br />
+    <br />
+    <button class="btn btn-info">Ekle</button>
+    <br />
+</div>
+}

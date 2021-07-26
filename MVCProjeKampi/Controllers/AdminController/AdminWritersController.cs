@@ -32,35 +32,9 @@ namespace MVCProjeKampi.Controllers.AdminController
         }
 
         [HttpGet]
-        public ActionResult AddWriter()
+        public ActionResult EditWriter(string username)
         {
-            return View();
-        }
-        
-        [HttpPost]
-        public ActionResult AddWriter(Writer writer)
-        {
-            
-            ValidationResult results = writerValidator.Validate(writer.User);
-            if (results.IsValid)
-            {
-                writerManager.Add(writer);
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                foreach (var item in results.Errors)
-                {
-                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-                }
-            }
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult EditWriter(int id)
-        {
-            var user = userService.GetById(id);
+            var user = userService.Get(x=>x.UserUsername == username);
             return View(user);
         }
 
@@ -93,16 +67,6 @@ namespace MVCProjeKampi.Controllers.AdminController
             }
 
             return View(user);
-        }
-
-
-        public ActionResult BanUser(int userId,bool status)
-        {
-            var user = userService.GetById(userId);
-
-            user.UserStatus = status;
-            userService.Update(user);
-            return RedirectToAction("Index","AdminAuthorization");
         }
 
     }

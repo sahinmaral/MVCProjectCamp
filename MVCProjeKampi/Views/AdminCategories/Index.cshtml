@@ -37,15 +37,15 @@
             <td>@item.CategoryName</td>
             <td>@CheckCategoryStatus(item.CategoryStatus)</td>
             <td>
-                <a href="/AdminCategories/DeleteCategory/@item.CategoryId" class="btn btn-danger">Sil</a>
-                <a href="/AdminCategories/UpdateCategory/@item.CategoryId" class="btn btn-warning">Güncelle</a>
-                <a href="../AdminHeadings/HeadingsByCategory/@item.CategoryId" class="btn btn-primary">Başlıklar</a>
+                <a href="/admin-profil/kategori-sil/@item.CategoryName" class="btn btn-danger">Sil</a>
+                <a href="/admin-profil/kategori-duzenle/@item.CategoryName" class="btn btn-warning">Güncelle</a>
+                <a href="/admin-profil/baslik/@item.CategoryName" class="btn btn-primary">Başlıklar</a>
             </td>
         </tr>
     }
 </table>
 
-<a href="../AdminCategories/AddCategory" class="btn btn-primary">Yeni Kategori Ekle</a>
+<a href="/admin-profil/kategori-ekle" class="btn btn-primary">Yeni Kategori Ekle</a>
 
 
     @Html.PagedListPager((IPagedList)Model,

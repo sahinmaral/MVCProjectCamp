@@ -45,10 +45,19 @@ namespace MVCProjeKampi.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult SignIn()
+        [HttpGet]
+        public ActionResult Registration()
         {
             return View();
         }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult Registration(UserForRegisterDto entity)
+        {
+            return null;
+        }
+
 
     }
 }

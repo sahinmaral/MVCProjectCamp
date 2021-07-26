@@ -32,11 +32,6 @@ namespace MVCProjeKampi.Controllers.AdminController
         }
 
 
-        public PartialViewResult AboutPartial()
-        {
-            return PartialView();
-        }
-
 
         [HttpGet]
         public ActionResult AddAbout()
@@ -63,20 +58,12 @@ namespace MVCProjeKampi.Controllers.AdminController
 
             }
 
-            return View();
+            return View(about);
         }
 
 
-        public ActionResult DisableAbout(int id)
-        {
-            var about = aboutManager.GetById(id);
-            about.AboutStatus = false;
-            aboutManager.Update(about);
-            return RedirectToAction("Index");
-        }
 
-
-        public ActionResult EnableAbout(int id)
+        public ActionResult EnableAbout(string aboutHeaderForFriendlyUrl)
         {
             foreach (var abouts in aboutManager.GetList())
             {
@@ -84,7 +71,7 @@ namespace MVCProjeKampi.Controllers.AdminController
                 aboutManager.Update(abouts);
             }
 
-            var about = aboutManager.GetById(id);
+            var about = aboutManager.Get(x=>x.AboutHeaderForFriendlyUrl== aboutHeaderForFriendlyUrl);
             about.AboutStatus = true;
             aboutManager.Update(about);
             return RedirectToAction("Index");
@@ -92,9 +79,9 @@ namespace MVCProjeKampi.Controllers.AdminController
 
 
         [HttpGet]
-        public ActionResult EditAbout(int id)
+        public ActionResult EditAbout(string aboutHeaderForFriendlyUrl)
         {
-            var about = aboutManager.GetById(id);
+            var about = aboutManager.Get(x=>x.AboutHeaderForFriendlyUrl== aboutHeaderForFriendlyUrl);
             return View(about);
         }
 

@@ -67,7 +67,7 @@ namespace MVCProjeKampi.Controllers.AdminController
         }
 
 
-        public ActionResult GetCategoryDonutGraph()
+        public ActionResult GetCategoryGraphInformations()
         {
             List<CategoryAndHeadingCountViewModel> viewmodel = new List<CategoryAndHeadingCountViewModel>();
 
@@ -101,6 +101,11 @@ namespace MVCProjeKampi.Controllers.AdminController
 
 
         public ActionResult CategoryDonutGraph()
+        {
+            return View();
+        }
+
+        public ActionResult CategoryBarGraph()
         {
             return View();
         }

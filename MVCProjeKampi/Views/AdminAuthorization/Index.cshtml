@@ -7,6 +7,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     string status = "";
+    string statusClass = "";
 }
 
 <table class="table table-bordered">
@@ -25,18 +26,20 @@
             <td>@item.UserUsername</td>
             <td>@item.UserEmail</td>
             <td>
-                <a href="/AdminAuthorization/GiveAuthorization?userId=@item.UserId" class="btn btn-warning">Kullanıcı İşlemleri</a>
+                <a href="/admin-profil/yetkilendirmeler/yetki-duzenle/@item.UserUsername" class="btn btn-warning">Kullanıcı İşlemleri</a>
             </td>
             <td>
                 @if (item.UserStatus)
                 {
                     status = "Normal";
+                    statusClass = "badge badge-success";
                 }
                 else
                 {
                     status = "Banlı";
+                    statusClass = "badge badge-danger";
                 }
-                @status
+                <h3><span class="@statusClass">@status</span></h3>
             </td>
         </tr>
 

@@ -73,6 +73,7 @@
     <Compile Include="Concrete\HeadingManager.cs" />
     <Compile Include="Abstract\IUserService.cs" />
     <Compile Include="Concrete\RoleManager.cs" />
+    <Compile Include="Concrete\UrlSlugHelper.cs" />
     <Compile Include="Concrete\UserManager.cs" />
     <Compile Include="Concrete\MessageManager.cs" />
     <Compile Include="Concrete\ImageFileManager.cs" />
