@@ -75,16 +75,6 @@ namespace MVCProjeKampi.Controllers.WriterController
             return View(messageValues);
         }
 
-        //public ActionResult Draft()
-        //{
-
-        //    var username = Session["Username"].ToString();
-        //    var user = userService.Get(x => x.UserUsername == username);
-
-        //    var messageValues = messageService.GetList(x => x.IsDraft == true);
-        //    return View(messageValues);
-        //}
-
         public ActionResult SaveMessageToTheArchive(int id)
         {
             Message message = messageService.GetById(id);

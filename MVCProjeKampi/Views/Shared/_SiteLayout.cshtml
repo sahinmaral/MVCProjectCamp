@@ -94,13 +94,13 @@ to get the desired effect
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper" style="margin-top:-0.1em">
+        <div class="content-wrapper" style="margin-top: -0.1em;">
             <!-- Content Header (Page header) -->
-            <div class="content-header">
+            <div class="content-header" >
                 <div class="container-fluid">
                     <div class="row mb-2">
-                        <div class="mb-3">
-                            <div class="container d-flex flex-wrap justify-content-center">
+                        <div class="mb-3" >
+                            <div class="container d-flex flex-wrap justify-content-center" >
 
                                 @*<form autocomplete="off" action="/Headings/HeadingByHeadingName">
 
@@ -129,10 +129,9 @@ to get the desired effect
 
             <!-- /.content-header -->
             <!-- Main content -->
-            <div class="content">
+            <div class="content" >
                 @RenderBody()
                 <!-- /.container-fluid -->
-                @*Footer gerekli*@
             </div>
 
             <!-- /.content -->
@@ -151,7 +150,8 @@ to get the desired effect
     <!-- ./wrapper -->
     <!-- REQUIRED SCRIPTS -->
     <!-- Jquery -->
-    <script src="~/Scripts/jquery.validate.min.js"></script>
+    @*<script src="~/Scripts/jquery.validate.min.js"></script>*@
+
     <script src="~/Scripts/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap -->
     <script src="~/Content/AdminLTE-3.0.4/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -207,7 +207,7 @@ to get the desired effect
                     allList[i].setAttribute("onclick", "select(this)");
                 }
 
-              
+
             } else {
                 suggBox.innerHTML = '';
                 searchWrapper.classList.remove("active"); //hide autocomplete box
@@ -218,7 +218,7 @@ to get the desired effect
             var selectData = element.textContent;
             inputBox.value = selectData;
             icon.onclick = () => {
-                window.location.href = `/Headings/HeadingByHeadingName?headingName=${selectData}` ;
+                window.location.href = `/Headings/HeadingByHeadingName?headingName=${selectData}`;
                 linkTag.click();
             }
             searchWrapper.classList.remove("active");
