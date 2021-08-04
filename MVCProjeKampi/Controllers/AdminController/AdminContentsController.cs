@@ -8,7 +8,9 @@ using MVCProjeKampi.Models.ViewModels;
 using System;
 using System.Linq;
 using System.Web.Mvc;
+using BusinessLayer.ValidationRules;
 using EntityLayer.Concrete;
+using FluentValidation.Results;
 using PagedList;
 
 namespace MVCProjeKampi.Controllers.AdminController
@@ -24,41 +26,80 @@ namespace MVCProjeKampi.Controllers.AdminController
             new RoleManager(new EfRoleDal(),
                 new EfUserDal(), new EfUserRoleDal()));
 
-
-        public ActionResult ContentByHeading(int id)
-        {
-
-            var contents = contentService.GetList(x => x.HeadingId == id);
-
-            foreach (var content in contents)
-            {
-                var writer = userService.GetById(content.UserId);
-                content.User = userService.GetById(writer.UserId);
-            }
-
-            var heading = headingService.Get(x => x.HeadingId == id);
+        private ContentValidator validator = new ContentValidator();
 
 
-            ContentsByHeadingViewModel viewModel = new ContentsByHeadingViewModel()
-            {
-                ContentList = contents.ToPagedList(1,10),
-                Heading = heading
-            };
-
-            return View(viewModel);
-        }
-
-
-        public ActionResult MyContentByHeading(int p = 1)
+        public ActionResult MyContentsByHeading(int p = 1)
         {
             var username = Session["Username"];
             var user = userService.Get(x => x.UserUsername == username.ToString());
 
-            var contentValues = contentService.GetList(x => x.UserId == user.UserId).ToPagedList(p, 9);
+            var contentValues = contentService.GetList(x => x.UserId == user.UserId && x.Heading.HeadingStatus == true).ToPagedList(p, 9);
 
             return View(contentValues);
         }
 
+        [HttpGet]
+        public ActionResult EditContent(int id)
+        {
+            var headingValue = contentService.GetById(id);
+            return View(headingValue);
+        }
+
+
+        [HttpPost]
+        public ActionResult EditContent(Content content)
+        {
+            ValidationResult results = validator.Validate(content);
+
+            if (results.IsValid)
+            {
+                var heading = headingService.GetById(content.HeadingId);
+
+                contentService.Update(content);
+                return RedirectToAction("HeadingByHeadingNameForFriendlyUrl","Headings" , new { headingNameForFriendlyUrl = content.Heading.HeadingNameForFriendlyUrl});
+            }
+            else
+            {
+                foreach (var item in results.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+
+            return View(content);
+        }
+
+        [HttpGet]
+        public ActionResult EditMyContent(int id)
+        {
+            var headingValue = contentService.GetById(id);
+            return View(headingValue);
+        }
+
+
+        [HttpPost]
+        public ActionResult EditMyContent(Content content)
+        {
+            ValidationResult results = validator.Validate(content);
+
+            if (results.IsValid)
+            {
+                var heading = headingService.GetById(content.HeadingId);
+
+                contentService.Update(content);
+                return RedirectToAction("HeadingByHeadingNameForFriendlyUrl", "Headings", new { headingNameForFriendlyUrl = heading.HeadingNameForFriendlyUrl });
+            }
+            else
+            {
+                foreach (var item in results.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+
+            return View(content);
+        }
 
     }
 }

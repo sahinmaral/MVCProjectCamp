@@ -1,14 +1,20 @@
 ﻿using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
+using BusinessLayer.ValidationRules;
 
 using DataAccessLayer.EntityFramework;
 
+using EntityLayer.Concrete;
+
+using FluentValidation.Results;
+
+using Microsoft.Ajax.Utilities;
+
 using MVCProjeKampi.Models.ViewModels;
 
+using System;
+using System.IO;
 using System.Web.Mvc;
-using BusinessLayer.ValidationRules;
-using EntityLayer.Concrete;
-using FluentValidation.Results;
 
 namespace MVCProjeKampi.Controllers.AdminController
 {
@@ -58,31 +64,122 @@ namespace MVCProjeKampi.Controllers.AdminController
 
             ValidationResult results = validator.Validate(user);
 
+            string extension, path;
+
 
             if (results.IsValid)
             {
+
                 var foundUser = userService.Get(x => x.UserUsername == username);
 
                 foundUser.UserFirstName = user.UserFirstName;
                 foundUser.UserLastName = user.UserLastName;
-                foundUser.UserImage = user.UserImage;
                 foundUser.UserAbout = user.UserAbout;
                 foundUser.UserTitle = user.UserTitle;
-
-                Session["Username"] = foundUser.UserUsername;
-                Session["UserImage"] = foundUser.UserImage;
                 Session["Fullname"] = foundUser.UserFirstName + " " + foundUser.UserLastName;
 
-                userService.Update(foundUser);
-                return RedirectToAction("", "Homepage");
-            }
+                
 
-            foreach (var item in results.Errors)
+                if (!user.UserImage.IsNullOrWhiteSpace())
+                {
+                    extension = Path.GetExtension(Request.Files[0].FileName);
+
+                    if (extension.Contains(".jpg") || extension.Contains(".jpeg") || extension.Contains(".png"))
+                    {
+                        System.IO.File.Delete(Server.MapPath("~") + foundUser.UserImage.Replace("~", ""));
+
+                        path = "~/wwwroot/profileImages/" + Guid.NewGuid() + extension;
+
+                        Request.Files[0].SaveAs(Server.MapPath(path));
+
+                        foundUser.UserImage = path.Replace("~", "");
+
+                        Session["UserImage"] = foundUser.UserImage;
+
+                        userService.Update(foundUser);
+                        return RedirectToAction("Index", "AdminHomepage");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("UserImage","Resminiz .jpg , .jpeg veya .png türünde olmalıdır");
+                        return View(user);
+                    }
+
+                }
+                else
+                {
+                    userService.Update(foundUser);
+                    return RedirectToAction("Index", "AdminHomepage");
+                }
+
+
+            }
+            else
             {
-                ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                extension = Path.GetExtension(Request.Files[0].FileName);
+
+                if (extension.Contains(".jpg") || extension.Contains(".jpeg") || extension.Contains(".png"))
+                {
+
+                }
+
+                else
+                {
+                    ModelState.AddModelError("UserImage", "Resminiz .jpg , .jpeg veya .png türünde olmalıdır");
+                }
+
+                foreach (var item in results.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+
+
             }
 
             return View(user);
+
+        }
+
+        [HttpGet]
+        public ActionResult ChangePassword()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ChangePassword(string password)
+        {
+            PasswordValidator registerValidator = new PasswordValidator();
+            ValidationResult result = registerValidator.Validate(password);
+
+            if (result.IsValid)
+            {
+                byte[] userPasswordHash, userPasswordSalt;
+
+                var username = Session["Username"].ToString();
+                var user = userService.Get(x => x.UserUsername == username);
+
+                HashingHelper.CreatePasswordHash(password, out userPasswordHash, out userPasswordSalt);
+
+                user.UserPasswordHash = userPasswordHash;
+                user.UserPasswordSalt = userPasswordSalt;
+
+                userService.Update(user);
+
+                return RedirectToAction("Index", "AdminHomepage");
+
+            }
+
+            else
+            {
+                foreach (var item in result.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+
+            return View();
         }
 
 

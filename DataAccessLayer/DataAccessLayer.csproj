@@ -56,6 +56,7 @@
     <Compile Include="Abstract\IContactDal.cs" />
     <Compile Include="Abstract\IContentDal.cs" />
     <Compile Include="Abstract\IHeadingDal.cs" />
+    <Compile Include="Abstract\IMessageStatusDal.cs" />
     <Compile Include="Abstract\IRepository.cs" />
     <Compile Include="Abstract\IMessageDal.cs" />
     <Compile Include="Abstract\IImageFileDal.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Concrete\Repositories\GenericRepository.cs" />
     <Compile Include="EntityFramework\EfAboutDal.cs" />
     <Compile Include="EntityFramework\EfCategoryDal.cs" />
+    <Compile Include="EntityFramework\EfMessageStatusDal.cs" />
     <Compile Include="EntityFramework\EfRoleDal.cs" />
     <Compile Include="EntityFramework\EfSkillDal.cs" />
     <Compile Include="EntityFramework\EfUserRoleDal.cs" />
@@ -76,6 +78,26 @@
     <Compile Include="EntityFramework\EfHeadingDal.cs" />
     <Compile Include="EntityFramework\EfMessageDal.cs" />
     <Compile Include="EntityFramework\EfImageFileDal.cs" />
+    <Compile Include="Migrations\202107290942290_deleting_username_from_contact.cs" />
+    <Compile Include="Migrations\202107290942290_deleting_username_from_contact.designer.cs">
+      <DependentUpon>202107290942290_deleting_username_from_contact.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107291323273_adding_headingNameForFriendlyUrl_from_imagefile.cs" />
+    <Compile Include="Migrations\202107291323273_adding_headingNameForFriendlyUrl_from_imagefile.designer.cs">
+      <DependentUpon>202107291323273_adding_headingNameForFriendlyUrl_from_imagefile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107301302567_added_categorynameforfriendlyurl_for_category_entity.cs" />
+    <Compile Include="Migrations\202107301302567_added_categorynameforfriendlyurl_for_category_entity.designer.cs">
+      <DependentUpon>202107301302567_added_categorynameforfriendlyurl_for_category_entity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107311530418_m13.cs" />
+    <Compile Include="Migrations\202107311530418_m13.designer.cs">
+      <DependentUpon>202107311530418_m13.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108031515565_adding_plainmessagecontent_property_from_message_class.cs" />
+    <Compile Include="Migrations\202108031515565_adding_plainmessagecontent_property_from_message_class.designer.cs">
+      <DependentUpon>202108031515565_adding_plainmessagecontent_property_from_message_class.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -88,6 +110,23 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202107290942290_deleting_username_from_contact.resx">
+      <DependentUpon>202107290942290_deleting_username_from_contact.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107291323273_adding_headingNameForFriendlyUrl_from_imagefile.resx">
+      <DependentUpon>202107291323273_adding_headingNameForFriendlyUrl_from_imagefile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107301302567_added_categorynameforfriendlyurl_for_category_entity.resx">
+      <DependentUpon>202107301302567_added_categorynameforfriendlyurl_for_category_entity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107311530418_m13.resx">
+      <DependentUpon>202107311530418_m13.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108031515565_adding_plainmessagecontent_property_from_message_class.resx">
+      <DependentUpon>202108031515565_adding_plainmessagecontent_property_from_message_class.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

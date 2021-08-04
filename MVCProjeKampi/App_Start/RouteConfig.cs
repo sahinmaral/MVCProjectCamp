@@ -1,5 +1,4 @@
-﻿using System.Security.Policy;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace MVCProjeKampi
@@ -10,12 +9,24 @@ namespace MVCProjeKampi
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-
             routes.MapRoute(
                 name: "About_Index",
                 url: "site-hakkinda",
                 defaults: new { controller = "About", action = "Index" }
             );
+
+            routes.MapRoute(
+                name: "Contact_SendContact",
+                url: "iletisim",
+                defaults: new { controller = "Contact", action = "SendContact" }
+            );
+
+            routes.MapRoute(
+                    name: "AdminHeadings_HeadingCalendar",
+                    url: "admin-profil/takvim",
+                    defaults: new { controller = "AdminHeadings", action = "HeadingCalendar" }
+                );
+                
 
             routes.MapRoute(
                 name: "Logins_Login",
@@ -29,10 +40,17 @@ namespace MVCProjeKampi
                 defaults: new { controller = "Logins", action = "Registration" }
             );
 
+
             routes.MapRoute(
                 name: "AdminProfiles_EditProfile",
                 url: "admin-profil/profilini-duzenle",
                 defaults: new { controller = "AdminProfiles", action = "EditProfile" }
+            );
+
+            routes.MapRoute(
+                name: "AdminProfiles_ChangePassword",
+                url: "admin-profil/sifreni-degistir",
+                defaults: new { controller = "AdminProfiles", action = "ChangePassword" }
             );
 
             routes.MapRoute(
@@ -72,8 +90,8 @@ namespace MVCProjeKampi
             );
 
             routes.MapRoute(
-                name: "AdminHeadings_Index/{p}",
-                url: "admin-profil/basliklar",
+                name: "AdminHeadings_Index",
+                url: "admin-profil/basliklar/{p}",
                 defaults: new { controller = "AdminHeadings", action = "Index" , p=UrlParameter.Optional }
             );
 
@@ -83,6 +101,47 @@ namespace MVCProjeKampi
                 defaults: new { controller = "AdminHeadings", action = "EditHeading" }
             );
 
+            routes.MapRoute(
+                name: "AdminMessages_Inbox",
+                url: "admin-profil/mesajlar/gelen-kutusu/{p}",
+                defaults: new { controller = "AdminMessages", action = "Inbox" , p =UrlParameter.Optional}
+            );
+
+            routes.MapRoute(
+                name: "AdminMessages_Sendbox",
+                url: "admin-profil/mesajlar/gonderilen-kutusu/{p}",
+                defaults: new { controller = "AdminMessages", action = "Sendbox" ,p = UrlParameter.Optional}
+            );
+
+            routes.MapRoute(
+                name: "AdminMessages_GetMessageDetails",
+                url: "admin-profil/mesajlar/mesaj-detayi/{id}",
+                defaults: new { controller = "AdminMessages", action = "GetMessageDetails" }
+            );
+
+            routes.MapRoute(
+                name: "WriterMessages_SaveMessageToTheArchive",
+                url: "yazar-profil/mesajlar/arsive-kaydet/{id}",
+                defaults: new { controller = "WriterMessages", action = "SaveMessageToTheArchive" }
+            );
+
+            routes.MapRoute(
+                name: "AdminMessages_NewMessage",
+                url: "admin-profil/mesajlar/yeni-mesaj",
+                defaults: new { controller = "AdminMessages", action = "NewMessage" }
+            );
+
+            routes.MapRoute(
+                name: "AdminMessages_Archive",
+                url: "admin-profil/mesajlar/arsiv/{p}",
+                defaults: new { controller = "AdminMessages", action = "Archive", p = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "AdminContacts_GetContactDetails",
+                url: "admin-profil/iletisim/iletisim-detayi/{id}",
+                defaults: new { controller = "AdminContacts", action = "GetContactDetails" }
+            );
 
             routes.MapRoute(
                 name: "AdminAbouts_EditAbout",
@@ -109,21 +168,27 @@ namespace MVCProjeKampi
             );
 
             routes.MapRoute(
-                name: "AdminHeadings_HeadingRaport",
+                name: "AdminHeadings_HeadingReport",
                 url: "admin-profil/istatistik/baslik-raporu",
-                defaults: new { controller = "AdminHeadings", action = "HeadingRaport" }
+                defaults: new { controller = "AdminHeadings", action = "HeadingReport" }
             );
 
             routes.MapRoute(
                 name: "AdminContacts_Index",
-                url: "admin-profil/iletisim-ve-mesajlar",
-                defaults: new { controller = "AdminContacts", action = "Index" }
+                url: "admin-profil/iletisim/{p}",
+                defaults: new { controller = "AdminContacts", action = "Index" , p=UrlParameter.Optional }
             );
 
             routes.MapRoute(
-                name: "AdminContacts_GetContactDetails",
-                url: "admin-profil/iletisim-ve-mesajlar",
-                defaults: new { controller = "AdminContacts", action = "Index" }
+                name: "AdminContents_EditMyContent",
+                url: "admin-profil/yazini-duzenle/{id}",
+                defaults: new { controller = "AdminContents", action = "EditMyContent" }
+            );
+
+            routes.MapRoute(
+                name: "AdminContents_EditContent",
+                url: "admin-profil/yazi-duzenle/{id}",
+                defaults: new { controller = "AdminContents", action = "EditContent" }
             );
 
             routes.MapRoute(
@@ -139,20 +204,20 @@ namespace MVCProjeKampi
             );
 
             routes.MapRoute(
-                name: "AdminCategories_HeadingsByCategory",
-                url: "admin-profil/baslik/{categoryName}",
+                name: "AdminHeadings_HeadingsByCategory",
+                url: "admin-profil/baslik/{categoryNameForFriendlyUrl}",
                 defaults: new { controller = "AdminHeadings", action = "HeadingsByCategory" }
             );
 
             routes.MapRoute(
                 name: "AdminCategories_DeleteCategory",
-                url: "admin-profil/kategori-sil/{categoryName}",
+                url: "admin-profil/kategori-sil/{categoryNameForFriendlyUrl}",
                 defaults: new { controller = "AdminCategories", action = "DeleteCategory" }
             );
 
             routes.MapRoute(
                 name: "AdminCategories_UpdateCategory",
-                url: "admin-profil/kategori-duzenle/{categoryName}",
+                url: "admin-profil/kategori-duzenle/{categoryNameForFriendlyUrl}",
                 defaults: new { controller = "AdminCategories", action = "UpdateCategory" }
             );
 
@@ -178,6 +243,18 @@ namespace MVCProjeKampi
                 name: "Headings_HeadingByWriterUsername",
                 url: "{username}/basliklar/{p}",
                 defaults: new { controller = "Headings", action = "HeadingByWriterUsername" ,p=UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "Headings_NoHeading",
+                url: "boyle-bir-baslik-yok/{searchedHeadingNameForFriendlyUrl}",
+                defaults: new { controller = "Headings", action = "NoHeading" }
+            );
+
+            routes.MapRoute(
+                name: "Headings_DeletedHeading",
+                url: "baslik-silinmis/{searchedHeadingNameForFriendlyUrl}",
+                defaults: new { controller = "Headings", action = "DeletedHeading" }
             );
 
             routes.MapRoute(
@@ -218,15 +295,33 @@ namespace MVCProjeKampi
             );
 
             routes.MapRoute(
+                name: "AdminGalleries_AddImage",
+                url: "admin-profil/site-galerisi/resim-ekle",
+                defaults: new { controller = "AdminGalleries", action = "AddImage" }
+            );
+
+            routes.MapRoute(
+                name: "AdminGalleries_EditImage",
+                url: "admin-profil/site-galerisi/resmi-duzenle/{imageNameForFriendlyUrl}",
+                defaults: new { controller = "AdminGalleries", action = "EditImage" }
+            );
+
+            routes.MapRoute(
+                name: "AdminGalleries_DeleteImage",
+                url: "admin-profil/site-galerisi/resmi-sil/{imageNameForFriendlyUrl}",
+                defaults: new { controller = "AdminGalleries", action = "DeleteImage" }
+            );
+
+            routes.MapRoute(
                 name: "AdminCategories_Index/{p}",
                 url: "admin-profil/kategoriler",
                 defaults: new { controller = "AdminCategories", action = "Index" , p=UrlParameter.Optional}
             );
 
             routes.MapRoute(
-                name: "AdminContents_MyContentByHeading",
-                url: "admin-profil/yazilarim",
-                defaults: new { controller = "AdminContents", action = "MyContentByHeading" }
+                name: "AdminContents_MyContentsByHeading",
+                url: "admin-profil/yazilarim/{p}",
+                defaults: new { controller = "AdminContents", action = "MyContentsByHeading" , p =UrlParameter.Optional }
             );
 
             routes.MapRoute(
@@ -241,11 +336,53 @@ namespace MVCProjeKampi
                 defaults: new { controller = "Headings", action = "HeadingByHeadingNameForFriendlyUrl", p = UrlParameter.Optional}
             );
 
+            routes.MapRoute(
+                name: "WriterMessages_Inbox",
+                url: "yazar-profil/mesajlar/gelen-kutusu/{p}",
+                defaults: new { controller = "WriterMessages", action = "Inbox" , p = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "AdminMessages_SaveMessageToTheArchive",
+                url: "admin-profil/mesajlar/arsive-kaydet/{id}",
+                defaults: new { controller = "AdminMessages", action = "SaveMessageToTheArchive" }
+            );
+
+            routes.MapRoute(
+                name: "WriterMessages_Sendbox",
+                url: "yazar-profil/mesajlar/gonderilen-kutusu/{p}",
+                defaults: new { controller = "WriterMessages", action = "Sendbox", p = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "WriterMessages_GetMessageDetails",
+                url: "yazar-profil/mesajlar/mesaj-detayi/{id}",
+                defaults: new { controller = "WriterMessages", action = "GetMessageDetails" }
+            );
+
+            routes.MapRoute(
+                name: "WriterMessages_NewMessage",
+                url: "yazar-profil/mesajlar/yeni-mesaj",
+                defaults: new { controller = "WriterMessages", action = "NewMessage" }
+            );
+
+
+            routes.MapRoute(
+                name: "WriterMessages_Archive",
+                url: "yazar-profil/mesajlar/arsiv/{p}",
+                defaults: new { controller = "WriterMessages", action = "Archive", p = UrlParameter.Optional }
+            );
 
             routes.MapRoute(
                 name: "WriterProfiles_EditProfile",
                 url: "yazar-profil/profilini-duzenle",
                 defaults: new { controller = "WriterProfiles", action = "EditProfile" }
+            );
+
+            routes.MapRoute(
+                name: "WriterProfiles_ChangePassword",
+                url: "yazar-profil/sifreni-degistir",
+                defaults: new { controller = "WriterProfiles", action = "ChangePassword" }
             );
 
             routes.MapRoute(
@@ -262,9 +399,15 @@ namespace MVCProjeKampi
             );
 
             routes.MapRoute(
-                name: "WriterContents_ContentByHeading",
+                name: "WriterContents_MyContentsByHeading",
                 url: "yazar-profil/yazilarim/{p}",
-                defaults: new { controller = "WriterContents", action = "ContentByHeading" , p=UrlParameter.Optional }
+                defaults: new { controller = "WriterContents", action = "MyContentsByHeading", p=UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "WriterContents_EditContent",
+                url: "yazar-profil/yazini-duzenle/{id}",
+                defaults: new { controller = "WriterContents", action = "EditContent" }
             );
 
             routes.MapRoute(

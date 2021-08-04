@@ -19,15 +19,19 @@ namespace BusinessLayer.ValidationRules
         public HeadingValidator()
         {
             RuleFor(x => x.HeadingName).NotEmpty().WithMessage("Başlık adını boş geçemezsiniz");
+
+
             RuleFor(x => x.HeadingName).MaximumLength(100).WithMessage("Başlık adı en çok 100 karakter olmalıdır");
             RuleFor(x => x.HeadingName).MinimumLength(5).WithMessage("Başlık adı en az 5 karakter olmalıdır");
+
+
             RuleFor(x => x.HeadingName).Must(CheckIfHeadingNameExisted).WithMessage("Aynı başlık adı olamaz");
         }
 
         private bool CheckIfHeadingNameExisted(string headingName)
         {
             var heading = headingService.Get(x => x.HeadingName == headingName);
-            if (heading.Equals(null))
+            if (heading == null)
             {
                 return true;
             }

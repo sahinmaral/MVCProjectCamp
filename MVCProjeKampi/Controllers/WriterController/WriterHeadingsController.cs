@@ -110,6 +110,7 @@ namespace MVCProjeKampi.Controllers.WriterController
             ValidationResult results = headingValidator.Validate(heading);
             if (results.IsValid)
             {
+                heading.HeadingNameForFriendlyUrl = UrlSlugHelper.ToUrlSlug(heading.HeadingName);
                 headingService.Update(heading);
                 return RedirectToAction("Index");
             }

@@ -1,0 +1,66 @@
+﻿
+@using EntityLayer.Concrete
+@model Contact
+
+@{
+    ViewBag.Title = "İletişim Formu - MVC Proje Kampı";
+    Layout = "~/Views/Shared/_SiteLayout.cshtml";
+}
+
+<title>@ViewBag.Title</title>
+
+<section class="ftco-section" style="margin-left:-19em">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-md-12">
+                <div class="wrapper">
+                    <div class="row no-gutters">
+                        <div class="col-md-7 d-flex align-items-stretch">
+                            <div class="contact-wrap w-100">
+                                <h3 class="mb-4">İletişim Formu</h3>
+                                @using (Html.BeginForm("SendContact", "Contact", FormMethod.Post))
+                                {
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                @Html.TextBoxFor(x => x.UserEmail, new { placeholder = "Email adresiniz", @class = "form-control" })
+                                                @Html.ValidationMessageFor(x => x.UserEmail, "", new { @class = "text-danger", @style = "font-weight: bold" })
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                @Html.TextBoxFor(x => x.Subject, new { placeholder = "Konu", @class = "form-control" })
+                                                @Html.ValidationMessageFor(x => x.Subject, "", new { @class = "text-danger", @style = "font-weight: bold" })
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                @Html.TextAreaFor(x => x.Message, new { @class = "form-control", placeholder = "Mesajınız", rows = "7" })
+                                                @Html.ValidationMessageFor(x => x.Message, "", new { @class = "text-danger", @style = "font-weight: bold" })
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <input type="submit" value="Gönder" class="btn btn-primary">
+                                                <div class="submitting"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+

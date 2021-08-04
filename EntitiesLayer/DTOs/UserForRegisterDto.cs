@@ -1,13 +1,11 @@
-﻿using EntityLayer.Concrete;
-
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace EntityLayer.DTOs
 {
     public class UserForRegisterDto
     {
+
+        public int UserId { get; set; }
 
         [StringLength(50)]
         public string UserUsername { get; set; }

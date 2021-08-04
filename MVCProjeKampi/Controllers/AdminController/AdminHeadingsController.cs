@@ -13,6 +13,7 @@ using PagedList;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using MVCProjeKampi.Models.ViewModels;
 
 namespace MVCProjeKampi.Controllers.AdminController
 {
@@ -35,7 +36,7 @@ namespace MVCProjeKampi.Controllers.AdminController
             {
                 foreach (var headingValue in headingValues)
                 {
-                    headingValue.User = items;
+                    headingValue.User.UserId = items.UserId;
                 }
             }
 
@@ -135,6 +136,7 @@ namespace MVCProjeKampi.Controllers.AdminController
             ValidationResult results = headingValidator.Validate(heading);
             if (results.IsValid)
             {
+                heading.HeadingNameForFriendlyUrl = UrlSlugHelper.ToUrlSlug(heading.HeadingName);
                 headingService.Update(heading);
                 return RedirectToAction("Index");
             }
@@ -194,7 +196,10 @@ namespace MVCProjeKampi.Controllers.AdminController
 
                 foreach (var user in users)
                 {
-                    heading.User = user;
+                    if (heading.UserId == user.UserId)
+                    {
+                        heading.User = user;
+                    }
                 }
             }
 
@@ -202,22 +207,48 @@ namespace MVCProjeKampi.Controllers.AdminController
         }
 
 
-        public ActionResult HeadingsByCategory(string categoryName, int p = 1)
+        public ActionResult HeadingsByCategory(string categoryNameForFriendlyUrl, int p = 1)
         {
-            var headings = headingService.GetList(x => x.Category.CategoryName == categoryName).
+            var headings = headingService.GetList(x => x.Category.CategoryNameForFriendlyUrl == categoryNameForFriendlyUrl).
                 OrderByDescending(x => x.HeadingDate).ToPagedList(p, 8);
 
             foreach (var items in userService.GetList())
             {
                 foreach (var headingValue in headings)
                 {
-                    headingValue.User = items;
+                    headingValue.User.UserId = items.UserId;
                 }
             }
 
             return View(headings);
         }
 
+        public ActionResult HeadingCalendar()
+        {
+            return View();
+        }
+
+        public ActionResult GetHeadingCalendarDatas()
+        {
+            List<HeadingCalendarViewModel> viewmodel = new List<HeadingCalendarViewModel>();
+
+            var headings = headingService.GetList();
+
+            foreach (var heading in headings)
+            {
+                HeadingCalendarViewModel item = new HeadingCalendarViewModel()
+                {
+                    backgroundColor = "gray",
+                    start = heading.HeadingDate,
+                    end = heading.HeadingDate,
+                    title = heading.HeadingName,
+                    url = "/baslik/" + heading.HeadingNameForFriendlyUrl
+                };
+                viewmodel.Add(item);
+            }
+
+            return Json(viewmodel.ToArray(), JsonRequestBehavior.AllowGet);
+        }
 
     }
 }

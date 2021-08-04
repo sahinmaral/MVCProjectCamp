@@ -178,6 +178,7 @@
     <Compile Include="Controllers\AdminController\AdminStatisticsController.cs" />
     <Compile Include="Controllers\AdminController\AdminWritersController.cs" />
     <Compile Include="Controllers\SiteController\AboutController.cs" />
+    <Compile Include="Controllers\SiteController\ContactController.cs" />
     <Compile Include="Controllers\SiteController\HeadingsController.cs" />
     <Compile Include="Controllers\SiteController\HomepageController.cs" />
     <Compile Include="Controllers\WriterController\WriterMessagesController.cs" />
@@ -189,6 +190,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels\AboutHomepageViewModel.cs" />
+    <Compile Include="Models\ViewModels\HeadingCalendarViewModel.cs" />
     <Compile Include="Models\ViewModels\HeadingsByWriterViewModel.cs" />
     <Compile Include="Models\ViewModels\CategoryAndHeadingCountViewModel.cs" />
     <Compile Include="Models\ViewModels\HomepageViewModel.cs" />
@@ -1906,6 +1908,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\contact-form\style.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\registration\style.css" />
     <Content Include="Content\searchBar.css" />
@@ -2122,10 +2125,10 @@
     <Content Include="Content\AdminLTE-3.0.4\plugins\summernote\summernote.min.js.map" />
     <Content Include="Content\AdminLTE-3.0.4\plugins\sweetalert2-theme-bootstrap-4\bootstrap-4.scss" />
     <Content Include="Content\AdminLTE-3.0.4\plugins\toastr\toastr.js.map" />
-    <Content Include="wwwroot\images\eiffeltower.jpg" />
-    <Content Include="wwwroot\images\lion.jpg" />
-    <Content Include="wwwroot\images\programming.png" />
-    <Content Include="wwwroot\images\sunsetpoland.jpg" />
+    <Content Include="wwwroot\galleries\eiffeltower.jpg" />
+    <Content Include="wwwroot\galleries\lion.jpg" />
+    <Content Include="wwwroot\galleries\programming.png" />
+    <Content Include="wwwroot\galleries\sunsetpoland.jpg" />
     <Content Include="Content\login-form-19\css\.DS_Store" />
     <Content Include="Content\login-form-19\css\bootstrap\.DS_Store" />
     <Content Include="Content\login-form-19\css\bootstrap\mixins\.DS_Store" />
@@ -2224,6 +2227,7 @@
     <Content Include="Content\login-form-19\scss\bootstrap\_utilities.scss" />
     <Content Include="Content\login-form-19\scss\bootstrap\_variables.scss" />
     <Content Include="Content\login-form-19\scss\style.scss" />
+    <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
@@ -2329,7 +2333,6 @@
     <Content Include="Views\AdminStatistics\Index.cshtml" />
     <Content Include="Views\AdminHeadings\Index.cshtml" />
     <Content Include="Views\AdminHeadings\AddHeading.cshtml" />
-    <Content Include="Views\AdminContents\ContentByHeading.cshtml" />
     <Content Include="Views\AdminHeadings\EditHeading.cshtml" />
     <Content Include="Views\AdminAbouts\Index.cshtml" />
     <Content Include="Views\AdminContacts\Index.cshtml" />
@@ -2363,13 +2366,22 @@
     <Content Include="Views\AdminAuthorization\EditAuthorization.cshtml" />
     <Content Include="Views\AdminHeadings\HeadingsByCategory.cshtml" />
     <Content Include="Views\AdminHeadings\MyHeadings.cshtml" />
-    <Content Include="Views\AdminContents\MyContentByHeading.cshtml" />
+    <Content Include="Views\AdminContents\MyContentsByHeading.cshtml" />
     <Content Include="Views\AdminMessages\Archive.cshtml" />
     <Content Include="Views\AdminProfiles\EditProfile.cshtml" />
     <Content Include="Views\Headings\HeadingByHeadingNameForFriendlyUrl.cshtml" />
     <Content Include="Views\Logins\Registration.cshtml" />
     <Content Include="Views\AdminStatistics\CategoryBarGraph.cshtml" />
     <Content Include="Views\AdminAbouts\AddAbout.cshtml" />
+    <Content Include="Views\Contact\SendContact.cshtml" />
+    <Content Include="Views\AdminGalleries\AddImage.cshtml" />
+    <Content Include="Views\AdminGalleries\EditImage.cshtml" />
+    <Content Include="Views\AdminProfiles\ChangePassword.cshtml" />
+    <Content Include="Views\AdminHeadings\HeadingCalendar.cshtml" />
+    <Content Include="Views\AdminContents\EditContent.cshtml" />
+    <Content Include="Views\AdminContents\EditMyContent.cshtml" />
+    <Content Include="Views\Headings\NoHeading.cshtml" />
+    <Content Include="Views\Headings\DeletedHeading.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2386,9 +2398,11 @@
     <Content Include="Views\WriterMessages\GetMessageDetails.cshtml" />
     <Content Include="Views\WriterMessages\NewMessage.cshtml" />
     <Content Include="Views\WriterMessages\GetContactSideMenu.cshtml" />
-    <Content Include="Views\WriterContents\ContentByHeading.cshtml" />
+    <Content Include="Views\WriterContents\MyContentsByHeading.cshtml" />
     <Content Include="Views\WriterProfiles\EditProfile.cshtml" />
     <Content Include="Views\WriterMessages\Archive.cshtml" />
+    <Content Include="Views\WriterProfiles\ChangePassword.cshtml" />
+    <Content Include="Views\WriterContents\EditContent.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2398,6 +2412,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="wwwroot\profileImages\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

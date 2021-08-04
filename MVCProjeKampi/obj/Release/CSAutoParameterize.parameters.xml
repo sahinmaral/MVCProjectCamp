@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="Context-Web.config Connection String" description="Context Connection String used in web.config by the application to access the database." defaultValue="Data Source=SQL5105.site4now.net;Initial Catalog=db_a77e40_mvccampdb;User Id=db_a77e40_mvccampdb_admin;Password=ann3mnerde" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\sahin\\OneDrive\\Desktop\\TotalFiles\\GithubProjects\\MVCProjectCamp\\MVCProjeKampi\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='Context']/@connectionString" />
+  </parameter>
+</parameters>

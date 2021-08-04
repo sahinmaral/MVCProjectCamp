@@ -1,0 +1,30 @@
+﻿@using EntityLayer.Concrete
+@model ImageFile
+
+@{
+    ViewBag.Title = "Resim Ekleme - MVC Proje Kampı";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<title>@ViewBag.Title</title>
+
+@using (Html.BeginForm("AddImage", "AdminGalleries", FormMethod.Post , new {enctype="multipart/form-data"}))
+{
+    <div class="form-group">
+        @Html.Label("Resim Adı : ")
+        @Html.TextBoxFor(x => x.ImageName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.ImageName, "", new { @class = "text-danger", @style = "font-weight: bold" })
+        <br />
+        <br />
+        
+
+        @Html.Label("Yazar Görsel Linki", new { @class = "form-label" })
+        <input type="file" class="form-control" name="ImagePath"  />
+        @Html.ValidationMessageFor(x => x.ImagePath, "", new { @class = "text-danger", @style = "font-weight: bold" })
+        <br /><br />
+        
+
+        <button class="btn btn-info">Resmi Yükle</button>
+    </div>
+}
+

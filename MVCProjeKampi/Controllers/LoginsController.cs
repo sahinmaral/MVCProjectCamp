@@ -8,29 +8,34 @@ using EntityLayer.DTOs;
 
 using FluentValidation.Results;
 
+using Microsoft.Ajax.Utilities;
+
+using System;
+using System.IO;
 using System.Web.Mvc;
 
 namespace MVCProjeKampi.Controllers
 {
     public class LoginsController : Controller
     {
-        private IUserService userService = new UserManager(new EfUserDal(), new EfSkillDal(),
+        private IUserService _userService = new UserManager(new EfUserDal(), new EfSkillDal(),
             new RoleManager(new EfRoleDal(),
             new EfUserDal(), new EfUserRoleDal()));
 
-        private UserForRegisterDtoValidator validator = new UserForRegisterDtoValidator();
+        private UserForRegisterDtoValidator registerValidator = new UserForRegisterDtoValidator();
+        private UserForLoginDtoValidator loginValidator = new UserForLoginDtoValidator();
 
         [HttpGet]
         [AllowAnonymous]
         public ActionResult Login()
         {
-            return View();
+            return View(new UserForLoginDto());
         }
 
         [HttpGet]
         public ActionResult Logout()
         {
-            userService.Logout();
+            _userService.Logout();
             return RedirectToAction("Index", "Homepage");
         }
 
@@ -45,12 +50,42 @@ namespace MVCProjeKampi.Controllers
         [AllowAnonymous]
         public ActionResult Login(UserForLoginDto user)
         {
-            if (userService.LoginAdmin(user) || userService.LoginWriter(user))
+            var foundUser = _userService.Get(x => x.UserUsername == user.Username);
+
+            ValidationResult result = loginValidator.Validate(user);
+
+            if (result.IsValid)
             {
-                return RedirectToAction("Index", "Homepage");
+                if (_userService.LoginAdmin(user) || _userService.LoginWriter(user))
+                {
+                    if (foundUser.UserStatus)
+                    {
+                        return RedirectToAction("Index", "Homepage");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("Username","Hesabınız banlanmıştır , banın açılmasını bekleyebilir veya iletişim kısmından bilgi alabilirsiniz");
+                        return View(user);
+                    }
+                    
+                }
+                else
+                {
+                    ModelState.AddModelError("Password", "Şifreniz veya kullanıcı adınız yanlış");
+                }
+
             }
 
-            return View();
+            else
+            {
+                foreach (var item in result.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+
+
+            return View(user);
         }
 
         [AllowAnonymous]
@@ -64,14 +99,56 @@ namespace MVCProjeKampi.Controllers
         [HttpPost]
         public ActionResult Registration(UserForRegisterDto entity)
         {
-            ValidationResult result = validator.Validate(entity);
+            ValidationResult result = registerValidator.Validate(entity);
+
+            string extension, path;
+
             if (result.IsValid)
             {
-                userService.Register(entity);
-                return RedirectToAction("Login", "Logins");
+                if (!entity.UserImage.IsNullOrWhiteSpace())
+                {
+                    extension = Path.GetExtension(Request.Files[0].FileName);
+
+                    if (extension.Contains(".jpg") || extension.Contains(".png") || extension.Contains(".jpeg"))
+                    {
+                        System.IO.File.Delete(Server.MapPath("~") + entity.UserImage.Replace("~", ""));
+
+                        extension = Path.GetExtension(Request.Files[0].FileName);
+
+                        path = "~/wwwroot/profileImages/" + Guid.NewGuid() + extension;
+
+                        Request.Files[0].SaveAs(Server.MapPath(path));
+
+                        entity.UserImage = path.Replace("~", "");
+
+                        _userService.Register(entity);
+                        return RedirectToAction("Login", "Logins");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("UserImage",
+                            "Kullanıcının resmi .jpg , .jpeg veya .png türünde olmalıdır");
+                        
+                    }
+
+                    
+                }
+
             }
             else
             {
+                extension = Path.GetExtension(Request.Files[0].FileName);
+
+                if (extension.Contains(".jpg") || extension.Contains(".jpeg") || extension.Contains(".png"))
+                {
+
+                }
+                else
+                {
+                    ModelState.AddModelError("UserImage",
+                        "Kullanıcının resmi .jpg , .jpeg veya .png türünde olmalıdır");
+                }
+
                 foreach (var item in result.Errors)
                 {
                     ModelState.AddModelError(item.PropertyName, item.ErrorMessage);

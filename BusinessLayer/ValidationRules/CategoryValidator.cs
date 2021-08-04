@@ -25,7 +25,7 @@ namespace BusinessLayer.ValidationRules
             RuleFor(x => x.CategoryName).MaximumLength(50).WithMessage("Lütfen en fazla 50 karakter girişi yapın");
             RuleFor(x => x.CategoryDescription).MinimumLength(3).WithMessage("Lütfen en az 3 karakter girişi yapın");
             RuleFor(x => x.CategoryDescription).MaximumLength(200).WithMessage("Lütfen en fazla 200 karakter girişi yapın");
-            RuleFor(x => x.CategoryName).Must(CheckIfCategoryNameExisted).WithMessage("Aynı kategori adı olamaz");
+            RuleFor(x => x.CategoryName).Must(CheckIfCategoryNameExisted).WithMessage("Zaten böyle bir kategori vardır");
         }
 
         private bool CheckIfCategoryNameExisted(string categoryName)
@@ -33,11 +33,11 @@ namespace BusinessLayer.ValidationRules
             var category = categoryService.Get(x => x.CategoryName == categoryName);
             if (category.Equals(null))
             {
-                return true;
+                return false;
             }
             else
             {
-                return false;
+                return true;
             }
         }
     }

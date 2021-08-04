@@ -6,56 +6,67 @@ using DataAccessLayer.EntityFramework;
 using PagedList;
 
 using System.Web.Mvc;
+using BusinessLayer.ValidationRules;
+using EntityLayer.Concrete;
+using FluentValidation.Results;
 
 namespace MVCProjeKampi.Controllers.WriterController
 {
     [Authorize(Roles = "Writer")]
     public class WriterContentsController : Controller
     {
-        private IContentService contentManager = new ContentManager(new EfContentDal());
+        private IContentService _contentService = new ContentManager(new EfContentDal());
+
+        private IHeadingService _headingService = new HeadingManager(new EfHeadingDal());
 
         private IUserService userService = new UserManager(new EfUserDal(), new EfSkillDal(),
             new RoleManager(new EfRoleDal(),
                 new EfUserDal(), new EfUserRoleDal()));
 
+        private ContentValidator validator = new ContentValidator();
 
-        public ActionResult ContentByHeading(int p=1)
+
+        public ActionResult MyContentsByHeading(int p=1)
         {
             var username = Session["Username"];
             var user = userService.Get(x => x.UserUsername == username.ToString());
 
-            var contentValues = contentManager.GetList(x=>x.UserId==user.UserId).ToPagedList(p,9);
+            var contentValues = _contentService.GetList(x=>x.UserId==user.UserId && x.Heading.HeadingStatus == true).ToPagedList(p,9);
 
             return View(contentValues);
         }
 
-        //[HttpGet]
-        //public ActionResult EditContent(int id)
-        //{
-        //    var headingValue = headingService.GetById(id);
-        //    return View(headingValue);
-        //}
+        [HttpGet]
+        public ActionResult EditContent(int id)
+        {
+            //Eğer yazar başkasının başlığına erişirse ?
+
+            var headingValue = _contentService.GetById(id);
+            return View(headingValue);
+        }
 
 
-        //[HttpPost]
-        //public ActionResult EditContent(Heading heading)
-        //{
+        [HttpPost]
+        public ActionResult EditContent(Content content)
+        {
+            ValidationResult results = validator.Validate(content);
 
-        //    ValidationResult results = headingValidator.Validate(heading);
-        //    if (results.IsValid)
-        //    {
-        //        headingService.Update(heading);
-        //        return RedirectToAction("Index");
-        //    }
-        //    else
-        //    {
-        //        foreach (var item in results.Errors)
-        //        {
-        //            ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-        //        }
-        //    }
+            if (results.IsValid)
+            {
+                var heading = _headingService.GetById(content.HeadingId);
 
-        //    return View(heading);
-        //}
+                _contentService.Update(content);
+                return RedirectToAction("HeadingByHeadingNameForFriendlyUrl", "Headings", new { headingNameForFriendlyUrl = heading.HeadingNameForFriendlyUrl });
+            }
+            else
+            {
+                foreach (var item in results.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+
+            return View(content);
+        }
     }
 }

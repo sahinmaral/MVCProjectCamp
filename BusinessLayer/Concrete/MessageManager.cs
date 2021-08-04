@@ -7,7 +7,6 @@ using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Web;
 
 namespace BusinessLayer.Concrete
 {
@@ -32,8 +31,11 @@ namespace BusinessLayer.Concrete
 
         public void Add(Message entity)
         {
-            entity.MessageContent = entity.MessageContent.Replace("<p>", "");
-            entity.MessageContent = entity.MessageContent.Replace("</p>", "");
+            //entity.MessageContent = entity.MessageContent.Replace("<p>", "");
+            //entity.MessageContent = entity.MessageContent.Replace("</p>", "");
+
+            entity.PlainMessageContent = HtmlStringHelper.RemoveHtmlTags(entity.MessageContent);
+
             _messageDal.Insert(entity);
         }
 

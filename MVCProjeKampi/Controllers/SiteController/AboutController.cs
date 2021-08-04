@@ -14,7 +14,7 @@ namespace MVCProjeKampi.Controllers.SiteController
         private IAboutService aboutService = new AboutManager(new EfAboutDal());
         public ActionResult Index()
         {
-            var about = aboutService.GetList(x=>x.AboutStatus==true).First();
+            var about = aboutService.Get(x => x.AboutStatus == true);
             return View(about);
         }
     }

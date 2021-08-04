@@ -1,4 +1,5 @@
-﻿using BusinessLayer.Abstract;
+﻿using System.Data.Entity.Infrastructure;
+using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
 
@@ -16,11 +17,14 @@ namespace MVCProjeKampi.Controllers.AdminController
     [Authorize(Roles = "Administrator")]
     public class AdminCategoriesController : Controller
     {
-        private IBaseService<Category> categoryManager = new CategoryManager(new EfCategoryDal());
+        private ICategoryService _categoryManager = new CategoryManager(new EfCategoryDal());
+
+        private IHeadingService _headingService = new HeadingManager(new EfHeadingDal());
+
         private CategoryValidator categoryValidator = new CategoryValidator();
         public ActionResult Index(int p=1)
         {
-            var CategoryValues = categoryManager.GetList().ToPagedList(p,8);
+            var CategoryValues = _categoryManager.GetList().ToPagedList(p,8);
             return View(CategoryValues);
         }
 
@@ -40,32 +44,36 @@ namespace MVCProjeKampi.Controllers.AdminController
 
             if(results.IsValid)
             {
-                categoryManager.Add(p);
+                p.CategoryNameForFriendlyUrl = UrlSlugHelper.ToUrlSlug(p.CategoryName);
+                _categoryManager.Add(p);
                 return RedirectToAction("Index");
             }
             else
             {
+
                 foreach (var item in results.Errors)
                 {
                     ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
                 }
+
             }
             return View();
         }
 
 
-        public ActionResult DeleteCategory(string categoryName)
+        public ActionResult DeleteCategory(string categoryNameForFriendlyUrl)
         {
-            var categoryValues = categoryManager.Get(x=>x.CategoryName == categoryName );
-            categoryValues.CategoryStatus = false;
-            categoryManager.Update(categoryValues);
+            var category = _categoryManager.Get(x=>x.CategoryNameForFriendlyUrl == categoryNameForFriendlyUrl);
+            category.CategoryStatus = false;
+
+            _categoryManager.Update(category);
             return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public ActionResult UpdateCategory(string categoryName)
+        public ActionResult UpdateCategory(string categoryNameForFriendlyUrl)
         {
-            var CategoryValues = categoryManager.Get(x=>x.CategoryName==categoryName);
+            var CategoryValues = _categoryManager.Get(x=>x.CategoryNameForFriendlyUrl== categoryNameForFriendlyUrl);
             return View(CategoryValues);
         }
 
@@ -76,7 +84,9 @@ namespace MVCProjeKampi.Controllers.AdminController
 
             if(results.IsValid)
             {
-                categoryManager.Update(category);
+                category.CategoryNameForFriendlyUrl = UrlSlugHelper.ToUrlSlug(category.CategoryName);
+
+                _categoryManager.Update(category);
                 return RedirectToAction("Index");
             }
             else

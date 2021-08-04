@@ -1,0 +1,29 @@
+﻿@using EntityLayer.Concrete
+@model string[]
+@{
+    string hrefLocation = "";
+}
+
+<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+    <div class="image">
+        <img src="@Session["UserImage"]" class="img-circle elevation-2" alt="User Image">
+    </div>
+    <div class="info">
+        @{
+            foreach (var role in Model)
+            {
+                if (role.Equals("Administrator"))
+                {
+                    hrefLocation = "/admin-profil";
+                }
+                else
+                {
+                    hrefLocation = "/yazar-profil";
+                }
+            }
+        }
+        <a href=@hrefLocation class="d-block">@Session["Fullname"] <br/> @Session["Username"]</a>
+    </div>
+</div>
+
+

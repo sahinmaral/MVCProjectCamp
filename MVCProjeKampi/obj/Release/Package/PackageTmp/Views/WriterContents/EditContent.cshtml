@@ -1,0 +1,39 @@
+﻿@using EntityLayer.Concrete
+@model Content
+
+
+
+@{
+    ViewBag.Title = "Yorumunu Düzenle - MVC Proje Kampı";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+}
+
+
+<title>@ViewBag.Title</title>
+
+<a class="btn btn-primary" href="/yazar-profil/yazilarim"><< Geri Dön</a>
+<br />
+<br />
+
+@using (Html.BeginForm("EditContent", "WriterContents", FormMethod.Post))
+{
+    <div class="form-group">
+
+        @Html.HiddenFor(x => x.UserId)
+        @Html.HiddenFor(x => x.HeadingId)
+        @Html.HiddenFor(x => x.ContentId)
+        @Html.HiddenFor(x => x.ContentDate)
+
+        @Html.Label("Yorum")
+        @Html.TextBoxFor(x => x.ContentText, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.ContentText, "", new { @class = "text-danger", @style = "font-weight: bold" })
+        <br /><br />
+        @Html.Label("Oluşturulma Tarihi")
+        @Html.TextBoxFor(x => x.ContentDate, new { @class = "form-control", disabled = "disabled", @Value = Model.ContentDate.ToString("dd.MM.yyyy") })
+        <br /><br />
+        <input type="submit" value="Güncelle" class="btn btn-success" />
+    </div>
+}
+
+
+

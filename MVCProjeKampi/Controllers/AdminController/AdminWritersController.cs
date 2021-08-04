@@ -1,4 +1,6 @@
-﻿using BusinessLayer.Abstract;
+﻿using System;
+using System.IO;
+using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
 
@@ -11,6 +13,7 @@ using FluentValidation.Results;
 using PagedList;
 
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 
 namespace MVCProjeKampi.Controllers.AdminController
 {
@@ -26,17 +29,25 @@ namespace MVCProjeKampi.Controllers.AdminController
                 new EfUserDal(), new EfUserRoleDal()));
 
 
-        public ActionResult Index(int p=1)
+        public ActionResult Index(int p = 1)
         {
-            var writerValues = userService.GetList().ToPagedList(p,8);
-            
-            return View(writerValues);
+            var username = Session["Username"].ToString();
+
+            var foundUser = userService.Get(x => x.UserUsername == username);
+
+            var writerValues = userService.GetList();
+
+            writerValues.Remove(foundUser);
+
+            var pagedWriterList = writerValues.ToPagedList(p, 8);
+
+            return View(pagedWriterList);
         }
 
         [HttpGet]
         public ActionResult EditWriter(string username)
         {
-            var user = userService.Get(x=>x.UserUsername == username);
+            var user = userService.Get(x => x.UserUsername == username);
             return View(user);
         }
 
@@ -45,29 +56,68 @@ namespace MVCProjeKampi.Controllers.AdminController
         {
             var foundUser = userService.GetById(user.UserId);
 
+            string path, extension;
+
             ValidationResult result = writerValidator.Validate(user);
+
             if (result.IsValid)
             {
-                foundUser.UserUsername = user.UserUsername;
                 foundUser.UserLastName = user.UserLastName;
                 foundUser.UserFirstName = user.UserFirstName;
                 foundUser.UserAbout = user.UserAbout;
                 foundUser.UserTitle = user.UserTitle;
-                foundUser.UserImage = user.UserImage;
 
-                userService.Update(foundUser);
+                if (!user.UserImage.IsNullOrWhiteSpace())
+                {
+                    extension = Path.GetExtension(Request.Files[0].FileName);
 
-                Session["Username"] = user.UserUsername;
-                Session["UserImage"] = user.UserImage;
-                Session["Fullname"] = user.UserFirstName + " " + user.UserLastName;
+                    if (extension.Contains(".jpg") || extension.Contains(".jpeg") || extension.Contains(".png"))
+                    {
+                        System.IO.File.Delete(Server.MapPath("~") + foundUser.UserImage.Replace("~", ""));
 
-                return RedirectToAction("Index");
+                        extension = Path.GetExtension(Request.Files[0].FileName);
+
+                        path = "~/wwwroot/profileImages/" + Guid.NewGuid() + extension;
+
+                        Request.Files[0].SaveAs(Server.MapPath(path));
+
+                        foundUser.UserImage = path.Replace("~", "");
+
+                        userService.Update(foundUser);
+                        return RedirectToAction("Index", "AdminWriters");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("UserImage", "Resminiz .jpg , .jpeg veya .png türünde olmalıdır");
+
+                        return View(user);
+                    }
+
+                }
+                else
+                {
+                    userService.Update(foundUser);
+                    return RedirectToAction("Index", "AdminWriters");
+                }
+
             }
             else
             {
+                extension = Path.GetExtension(Request.Files[0].FileName);
+
+                if (extension.Contains(".jpg") || extension.Contains(".jpeg") || extension.Contains(".png"))
+                {
+
+                }
+
+                else
+                {
+                    ModelState.AddModelError("UserImage", "Resminiz .jpg , .jpeg veya .png türünde olmalıdır");
+                }
+
                 foreach (var item in result.Errors)
                 {
-                    ModelState.AddModelError(item.PropertyName,item.ErrorMessage);
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
                 }
             }
 

@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Web;
+using System.Web.ModelBinding;
 using System.Web.Security;
 
 
@@ -169,7 +170,7 @@ namespace BusinessLayer.Concrete
 
         public int GetCount(Expression<Func<User, bool>> filter)
         {
-            throw new NotImplementedException();
+            return _userDal.List(filter).Count;
         }
 
         public List<User> GetList(Expression<Func<User, bool>> filter)

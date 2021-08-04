@@ -23,3 +23,9 @@ C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAcc
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CopyComplete
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAccessLayer\obj\Debug\DataAccessLayer.dll
 C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
+C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAccessLayer\obj\Debug\DataAccessLayer.Migrations.deleting_username_from_contact.resources
+C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.GenerateResource.cache
+C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAccessLayer\obj\Debug\DataAccessLayer.Migrations.adding_headingNameForFriendlyUrl_from_imagefile.resources
+C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAccessLayer\obj\Debug\DataAccessLayer.Migrations.added_categorynameforfriendlyurl_for_category_entity.resources
+C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAccessLayer\obj\Debug\DataAccessLayer.Migrations.m13.resources
+C:\Users\sahin\OneDrive\Desktop\TotalFiles\GithubProjects\MVCProjectCamp\DataAccessLayer\obj\Debug\DataAccessLayer.Migrations.adding_plainmessagecontent_property_from_message_class.resources

@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 
 namespace BusinessLayer.Concrete
 {
@@ -15,7 +16,7 @@ namespace BusinessLayer.Concrete
 
             return text;
         }
-
+        
         public static string ToUrlSlug(string value)
         {
             // Make the string lower case.  

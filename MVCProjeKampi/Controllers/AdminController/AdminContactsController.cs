@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
 
@@ -6,10 +6,9 @@ using DataAccessLayer.EntityFramework;
 
 using MVCProjeKampi.Models.ViewModels;
 
-using System.Web.Mvc;
-using System.Web.UI;
-using BusinessLayer.Abstract;
 using PagedList;
+
+using System.Web.Mvc;
 
 namespace MVCProjeKampi.Controllers.AdminController
 {
@@ -17,27 +16,27 @@ namespace MVCProjeKampi.Controllers.AdminController
     [Authorize(Roles = "Administrator")]
     public class AdminContactsController : Controller
     {
-        private IContactService contactService = new ContactManager(new EfContactDal());
-        private IMessageService messageService = new MessageManager(new EfMessageDal());
+        private IContactService _contactService = new ContactManager(new EfContactDal());
+        private IMessageService _messageService = new MessageManager(new EfMessageDal());
 
-        private IUserService userService = new UserManager(new EfUserDal(), new EfSkillDal(),
+        private IMessageStatusService _messageStatusService = new MessageStatusManager(new EfMessageStatusDal());
+
+        private IUserService _userService = new UserManager(new EfUserDal(), new EfSkillDal(),
             new RoleManager(new EfRoleDal(),
                 new EfUserDal(), new EfUserRoleDal()));
 
-        private ContactValidator contactValidator = new ContactValidator();
-
         public ActionResult Index(int p=1)
         {
-            var contactValues = contactService.GetList().ToPagedList(p,10);
+            var contactValues = _contactService.GetList().ToPagedList(p,10);
             return View(contactValues);
         }
 
 
         public ActionResult GetContactDetails(int id)
         {
-            var contactValues = contactService.GetById(id);
+            var contactValues = _contactService.GetById(id);
             contactValues.IsOpened = true;
-            contactService.Update(contactValues);
+            _contactService.Update(contactValues);
             return View(contactValues);
         }
 
@@ -45,14 +44,49 @@ namespace MVCProjeKampi.Controllers.AdminController
         public PartialViewResult GetContactSideMenu()
         {
             var username = Session["Username"];
-            var user = userService.Get(x => x.UserUsername == username.ToString());
+            var user = _userService.Get(x => x.UserUsername == username.ToString());
 
             CountOfMessagesViewModel viewModel = new CountOfMessagesViewModel();
-            viewModel.ArchiveCount = messageService.GetCount(x => x.IsArchived == true);
-            viewModel.DraftCount = messageService.GetCount(x => x.IsDraft == true);
-            viewModel.ReceivedMessageCount = messageService.GetCount(x => x.ReceiverMail == user.UserEmail && x.IsOpened == false);
-            viewModel.SentMessageCount = messageService.GetCount(x => x.SenderMail == user.UserEmail && x.IsOpened == false);
 
+            viewModel.ArchiveCount = _messageStatusService.GetList(x => x.UserId == user.UserId && x.IsArchived == true).Count;
+
+
+            var receivedMessages = _messageService.GetList(x => x.ReceiverUsername == user.UserUsername);
+
+            var senderMessages = _messageService.GetList(x => x.SenderUsername == user.UserUsername);
+
+
+
+
+            var messageStatus = _messageStatusService.GetList(x => x.UserId == user.UserId && x.IsOpened == false);
+
+            viewModel.ReceivedMessageCount = 0;
+
+            foreach (var receivedMessage in receivedMessages)
+            {
+                foreach (var messageStatu in messageStatus)
+                {
+                    if (messageStatu.MessageId == receivedMessage.MessageId)
+                    {
+                        viewModel.ReceivedMessageCount++;
+                    }
+                }
+            }
+
+
+            viewModel.SentMessageCount = 0;
+
+            foreach (var senderMessage in senderMessages)
+            {
+                foreach (var messageStatu in messageStatus)
+                {
+                    if (senderMessage.MessageId == messageStatu.MessageId)
+                    {
+                        viewModel.SentMessageCount++;
+                    }
+                }
+            }
+            
             return PartialView(viewModel);
         }
 

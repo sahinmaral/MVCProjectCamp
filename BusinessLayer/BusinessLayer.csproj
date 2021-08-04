@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IMessageStatusService.cs" />
     <Compile Include="Abstract\IRoleService.cs" />
     <Compile Include="Abstract\IMessageService.cs" />
     <Compile Include="Abstract\IContactService.cs" />
@@ -71,17 +72,22 @@
     <Compile Include="Concrete\HashingHelper.cs" />
     <Compile Include="Concrete\HeadingManager.cs" />
     <Compile Include="Abstract\IUserService.cs" />
+    <Compile Include="Concrete\HtmlStringHelper.cs" />
+    <Compile Include="Concrete\MessageStatusManager.cs" />
     <Compile Include="Concrete\RoleManager.cs" />
     <Compile Include="Concrete\UrlSlugHelper.cs" />
     <Compile Include="Concrete\UserManager.cs" />
     <Compile Include="Concrete\MessageManager.cs" />
     <Compile Include="Concrete\ImageFileManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ValidationRules\ImageFileValidator.cs" />
     <Compile Include="ValidationRules\AboutValidator.cs" />
     <Compile Include="ValidationRules\ContentValidator.cs" />
     <Compile Include="ValidationRules\MessageValidator.cs" />
     <Compile Include="ValidationRules\ContactValidator.cs" />
     <Compile Include="ValidationRules\HeadingValidator.cs" />
+    <Compile Include="ValidationRules\PasswordValidator.cs" />
+    <Compile Include="ValidationRules\UserForLoginDtoValidator.cs" />
     <Compile Include="ValidationRules\UserForRegisterDtoValidator.cs" />
     <Compile Include="ValidationRules\UserValidator.cs" />
     <Compile Include="ValidationRules\CategoryValidator.cs" />
